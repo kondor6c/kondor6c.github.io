@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>bash tips 1</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Public Blog </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/devops.html">devops</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/bash_tips1.html" rel="bookmark"
+           title="Permalink to bash tips 1">bash tips 1</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-03-29T22:16:56-04:00">
+                Published: Tue 29 March 2016
+        </abbr>
+		<br />
+        <abbr class="modified" title="2016-03-29T22:16:56-04:00">
+                Updated: Tue 29 March 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/kevin-faulkner.html">Kevin Faulkner</a>
+        </address>
+<p>In <a href="/category/devops.html">devops</a>.</p>
+<p>tags: <a href="/tag/linux.html">Linux</a> </p>
+</footer><!-- /.post-info -->      <h1>BASH tips</h1>
+<p>So I read a comment on Hacker News about ctrl+o and and the comment (and subsequent comments) made it sound as though it was this ultra helpful trick. Well I had a bit of difficulty finding what and how to use, perhaps its because I'm a bit stupid. So here is how it works, you type a command (I found it works best when you use ctrl+r then press ctrl+o) press ctrl+o instead of enter. It will run that command, then autocomplete the next command from the last previously typed entry that you ran when you pressed ctrl+o. Might be a little confusing. Take a look at this fake, yet focused on the concept session below</p>
+<div class="highlight"><pre><span></span>[kondor6c@workhorse ~]# &lt;CTRL+R&gt; service tomcat sto&lt;CTRL+O&gt;
+Redirecting to /bin/systemctl stop  tomcat.service
+[kondor6c@workhorse ~]# rsync -va current-version.war server:/app/tomcat/webapps/ #this will automatically appear! Just press to get the next line to automatically appear&lt;CTRL+O&gt;
+kondor6c@server.mooo.com&#39;s password:                                                                
+sending incremental file list
+current-version.war                                                                          
+sent 43,611,957 bytes  received 824 bytes  3,426.29 bytes/sec 
+total size is 43,611,838  speedup is 0.99 
+
+[kondor6c@workhorse ~]# service tomcat start &lt;enter&gt;
+Redirecting to /bin/systemctl start  tomcat.service
+</pre></div>
+
+
+<p>As you can see ctrl+o would require explicit knowledge of what was ran last, otherwise you wasted time. Additionally I would want to group any commands that I would type after one another into a one liner or make it a script-able action. In short I'm glad I learned about it, I probably won't instruct others about it, as I think it will be harder to grasp, and I don't see the use case being that strong.</p>
+<p>I have explored many "Bash tips" I think I know the vast majority of them. If you know of one I encourage you to share it. Here are just a couple that I have very recently discussed with coworkers/intern:</p>
+<ul>
+<li>"ctrl + \" : sends a SIGQUIT as in a signal 3, which tries to dump the core, if not then it will generally quit with a higher priority than SIGINT, not really a BASH specific tip, but certainly useful.</li>
+<li>"~." : When ssh'ing and you have a hung session, press "~." on the SSH session, this should interrupt it and bring you out. I have found that when my sessions are hung they are not always at a newline </li>
+</ul>
+<div class="highlight"><pre><span></span>kondor6c@computer:~$ ~?
+Supported escape sequences:
+ ~.   - terminate connection (and any multiplexed sessions)
+ ~B   - send a BREAK to the remote system
+ ~C   - open a command line
+ ~R   - request rekey
+ ~V/v - decrease/increase verbosity (LogLevel)
+ ~^Z  - suspend ssh
+ ~#   - list forwarded connections
+ ~&amp;   - background ssh (when waiting for connections to terminate)
+ ~?   - this message
+ ~~   - send the escape character by typing it twice
+(Note that escapes are only recognized immediately after newline.)
+kondor6c@computer:~$ #&lt;enter&gt;
+kondor6c@computer:~$ #&lt;enter&gt; then press ~.
+kondor6c@computer:~$ Connection to computer closed.
+</pre></div>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

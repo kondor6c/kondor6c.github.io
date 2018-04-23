@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>options-vs-arguments-vs-parameters</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Public Blog </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/devops.html">devops</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/options-vs-arguments-vs-parameters.html" rel="bookmark"
+           title="Permalink to options-vs-arguments-vs-parameters">options-vs-arguments-vs-parameters</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-09-26T21:58:04-04:00">
+                Published: Mon 26 September 2016
+        </abbr>
+		<br />
+        <abbr class="modified" title="2016-09-26T21:58:04-04:00">
+                Updated: Mon 26 September 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/kevin-faulkner.html">Kevin Faulkner</a>
+        </address>
+<p>In <a href="/category/devops.html">devops</a>.</p>
+<p>tags: <a href="/tag/linux.html">Linux</a> </p>
+</footer><!-- /.post-info -->      <p>====== options, arguments, or parameters ======</p>
+<p>Where I am currently employed there has been, in my opinion, an over application of the term "parameter". Or at least from where I have been in the past. I have always thought that for example:
+<code>
+example -x test.txt
+</code>
+-x would be a switch, and the option after -x, test.txt, would be argument. But it seems here or recently we apply the term parameter to everything. Which I guess I'm not opposed to, I'm just observing. Is this trivial, yes, very trivial. But I'm not really trying to advocate change or anything like that. Let's look at the man page for sort:</p>
+<div class="highlight"><pre><span></span>SORT(1)                                                               User Commands                                                               SORT(1)
+
+NAME
+       sort - sort lines of text files
+
+SYNOPSIS
+       sort [OPTION]... [FILE]...
+       sort [OPTION]... --files0-from=F
+
+DESCRIPTION
+       Write sorted concatenation of all FILE(s) to standard output.
+
+       With no FILE, or when FILE is -, read standard input.
+
+       Mandatory arguments to long options are mandatory for short options too.  Ordering options:
+
+       -b, --ignore-leading-blanks
+              ignore leading blanks
+
+       -d, --dictionary-order
+              consider only blanks and alphanumeric characters
+
+       -f, --ignore-case
+              fold lower case to upper case characters
+
+       -g, --general-numeric-sort
+              compare according to general numerical value
+
+       -i, --ignore-nonprinting
+              consider only printable characters
+
+       -M, --month-sort
+              compare (unknown) &lt; &#39;JAN&#39; &lt; ... &lt; &#39;DEC&#39;
+
+       -h, --human-numeric-sort
+              compare human readable numbers (e.g., 2K 1G)
+
+       -n, --numeric-sort
+              compare according to string numerical value
+</pre></div>
+
+
+<p>The man page says sort, but we can't seem to find anything about "switch" or "parameter".
+If we look at, for example, grep (perhaps one the most commonly used tools in my toolkit), swtich appears, look at the [[http://git.savannah.gnu.org/cgit/grep.git/tree/doc/grep.in.1#n294|source]].
+I could find parameter but it was only in regards to awk, it was not in grep, sed, ping, awk, time, top. I did find it in [[https://github.com/curl/curl/blame/master/docs/curl.1#L773|curl]]!
+Here is a good a good page, describing that there is a difference in computer science in the terms: http://stackoverflow.com/questions/156767/whats-the-difference-between-an-argument-and-a-parameter
+If we look at [[https://en.wikipedia.org/wiki/Command-line_interface#Arguments|wikipedia]], it seems to use all of the terms. Perhaps this really just highlights the triviality of all this :-) Why did I search for this? Curious I suppose. Have a good day!</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>powershell_linux_debut</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Public Blog </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/devops.html">devops</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/powershell_linux_debut.html" rel="bookmark"
+           title="Permalink to powershell_linux_debut">powershell_linux_debut</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-08-19T08:36:07-04:00">
+                Published: Fri 19 August 2016
+        </abbr>
+		<br />
+        <abbr class="modified" title="2016-08-19T08:36:07-04:00">
+                Updated: Fri 19 August 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/kevin-faulkner.html">Kevin Faulkner</a>
+        </address>
+<p>In <a href="/category/devops.html">devops</a>.</p>
+<p>tags: <a href="/tag/linux.html">Linux</a> </p>
+</footer><!-- /.post-info -->      <h1>Powershell Linux debut</h1>
+<p>I began to experiment with Powershell. I feel that Microsoft has to follow through on showing the community that it meant what it said, that Microsoft Loves Linux. Perhaps I can lump myself into that group too, because I remember the October Document, and the utter frustration in trying to get Linux to work in a mostly Windows environment. I think Microsoft senses that the game is changing, and is changing with it. Linus Torvalds had said that "If Microsoft ever does applications for Linux it means I've won." and now that they are changing their business practices to bring software to Linux, is totally incredible. Its good as a company they are becoming a software company that makes software for products in demand.</p>
+<p>While I am writing this I am trying to use Powershell to some degree, my family members and friends/co-workers have told me to look into Powershell (I think mostly to assist with scripts ;-) but still). My initial observations is that everything is well laid out, with thought, Get-<em>, Invoke-</em>, Set-* (you get the idea). However as a shell, something you interact with frequently just to get a look at things it makes features such as tab completion very hard since they're all the same structure. I see both sides, it being good for a consistent theme, but it gets extreme. Really what it feels like is more of an object oriented language shell. Yeah, kinda awkward. I would like to revisit this awkward-ness and either support it with more evidence or </p>
+<div class="highlight"><pre><span></span>PS /root&gt; type ./.ssh/
+type : Access to the path &#39;/root/.ssh/&#39; is denied.
+At line:1 char:1
++ type ./.ssh/
++ ~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo          : PermissionDenied: (/root/.ssh/:String) [Get-Content], UnauthorizedAccessException
+PS /root&gt; cat .ssh 
+/bin/cat: .ssh: Is a directory
+PS /root&gt; 
+</pre></div>
+
+
+<p>hmmm seems like type should handle a directory? ls -l and find show me its a directory, but type is link a symlink to Get-Content. I could see this causing problems, especially since type is a builtin of BASH. I don't know off the top of my head why Get-Content would be effectively symlinked.</p>
+<div class="highlight"><pre><span></span>PS /root&gt; Get-Process -Name rtorrent
+Get-Process : Cannot find a process with the name &quot;rtorrent&quot;. Verify the process name and call the cmdlet again.                                                        At line:1 char:1                                                                                                                                                        
++ Get-Process -Name rtorrent
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (rtorrent:String) [Get-Process], ProcessCommandException
+    + FullyQualifiedErrorId : NoProcessFoundForGivenName,Microsoft.PowerShell.Commands.GetProcessCommand
+
+PS /root&gt; ps aux |grep rtorrent
+ec2-user 26164  0.0  1.0 658724 10488 pts/1    Sl+  Aug03  21:36 rtorrent
+PS /root&gt; 
+</pre></div>
+
+
+<p>It worked on systemd. </p>
+<p>Granted this is an alpha version, I found it hard to get "help" on this item using --help, -help, /help did not... help! Later learned that there is a facility entirely to this Get-Help (aka man!). Also consider that powershell will act as coreutils + more, as in it won't have bc, wget/curl, vi, tar, or others. So powershell needs to include many these functions with itself; Invoke-RestMethod, this will come in handy later! We can set alias' but I thought some of the alias' I would be overwriting Linux utilities and then I would be in a world of pain (Yes I could specify the full path, but still not fun).</p>
+<p>In conclusion this is a good thing, I don't want my negativity to make it sound like anything bad. But I could never imagine using this as any kind of a default shell any time soon or ever. I haven't actually got to learn that much about it, I've done more typing than learning.</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

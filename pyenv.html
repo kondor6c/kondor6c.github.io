@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>pyenv</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Public Blog </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/devops.html">devops</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/pyenv.html" rel="bookmark"
+           title="Permalink to pyenv">pyenv</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-03-27T16:09:23-04:00">
+                Published: Sun 27 March 2016
+        </abbr>
+		<br />
+        <abbr class="modified" title="2016-03-27T16:09:23-04:00">
+                Updated: Sun 27 March 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/kevin-faulkner.html">Kevin Faulkner</a>
+        </address>
+<p>In <a href="/category/devops.html">devops</a>.</p>
+<p>tags: <a href="/tag/linux.html">Linux</a> </p>
+</footer><!-- /.post-info -->      <p>====== Version Managers ======</p>
+<p>I have been enjoying the idea of version managers for interpreted languages like Ruby, Python and even NodeJS. Python likes to advocate using virtualenv, which works very well when interacting and writing the code. However when interacting with automation like Ansible or Chef this becomes difficult since you have to source the shell scripts to install a given version.</p>
+<p>Some might argue that there isn't a need to have one of these version managers, and as you might guess I disagree with that, and advocate for them. If you lock in the version that you are testing/developing with this allows for more stability (no surprises is a good thing in production). You can then bring in a new version by putting it through a testing suite. This way you are not constrained to what version that the operating system is doing, it would be nice if the code worked correctly despite a new version, but frequently these are factors out of our control. When your building your project, setup a version manager might require a little bit of work but what if you get a little distracted (personal project focused) or get pulled my from a given project (corporate focused), having the version locked removes a lot of potential pain. Additionally this would allow moving to docker since all you need to do is setup that version manager and you could be on Arch Linux in a docker container. </p>
+<p>We don't know what the future holds, if we make our projects explicit on the versions it needs (even dependencies), then we are increasing the stability.</p>
+<p>I frequently try to argue the other side, and two arguments I can see is that it's easier to just do "yum install ruby-devel" or that it increases the likelihood that package requirements/dependencies become stale. The ease of use of many version managers are increasingly more simple, all you need to do is switch to the development user and pipe the install script from curl to bash. Now the former I might have to agree with you on, and generally you could specify in the requirements that a "greater than" version is acceptable and lock it when you feel it is a concern.
+To add credibility to my statements I have used [[https://rvm.io/|RVM]] in production in these examples gitlab, a custom application, and with Canvas LMS. I have code in place for [[https://github.com/creationix/nvm|NVM]] (NodeJS) and I am investigating [[https://github.com/yyuu/pyenv-installer|pyenv]] for Python.</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

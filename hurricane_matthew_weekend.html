@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Hurricane Matthew Weekend</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Public Blog </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/devops.html">devops</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/hurricane_matthew_weekend.html" rel="bookmark"
+           title="Permalink to Hurricane Matthew Weekend">Hurricane Matthew Weekend</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-10-12T14:28:00-04:00">
+                Published: Wed 12 October 2016
+        </abbr>
+		<br />
+        <abbr class="modified" title="2016-10-12T14:28:00-04:00">
+                Updated: Wed 12 October 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/kevin-faulkner.html">Kevin Faulkner</a>
+        </address>
+<p>In <a href="/category/devops.html">devops</a>.</p>
+<p>tags: <a href="/tag/linux.html">Linux</a> </p>
+</footer><!-- /.post-info -->      <p>As rain falls from Hurricane Matthew, I can't split wood or  I have started to work on some items, and have recorded various thoughts.</p>
+<p>I started to look at the failure of the btrfs volume, this truly appears that the failure was not hardware related; instead it is just corrupt checksums. I ran two SMART tests on all of my hard drives, none of them (I paid particular attention to the drives mentioned that were corrupt) had failed any tests. While SMART is far from perfect, it is the best kind of test that we really have at our disposal and I appreciate having it and smartmontools available. I do not believe I can, in good conscience recommend btrfs, even though I have <strong>love</strong> for open source technology. </p>
+<p>Quassel IRC is a nice due to the fact that I can detach graphical clients and preview links, I wish there was a something similar for BitTorrent. I have liked Qbittorrent, I can easily download magnet links and jump the the completed file to listen to it immediately. But with rtorrent you can keep it centralized. I think I am leaning in that direction since there appear to be organization methods with rtorrent so you can have for example "bitlove podcasts", "audiobooks", "fan fiction", "latest version" and maybe "archive" for images such as Damn Vulnerable Linux, which is hard to obtain any more. I'm having a difficult time having files just scattered.</p>
+<p>Fedora seemed to have had a failure with their mirrors, strangely I tried to do a dnf|yum update, and it failed due to a 503; I had never seen that before. On IRC user "misc" reported at 13:16:08, that it was a failed firewall upgrade. Additionally user smooge said that 90% of Fedora's network is the same provider. I thought about it, I don't think more than one provider would have prevented this unless it was a failure by the provider itself. If this was a failed upgrade done by fedora staff/volunteers then it still might have failed if a provider was being used.</p>
+<p>Writing some of the scripts I plan on using, I was using KDE's Kate editor. I can't say I like the new look and feel compared to KDE version 4. I use the vi mode, when you do a search and replace it puts you in to the vi mode, which genuinely I am moderately used to using. I know I need to get better at it, but sed works so well.
+I will need to start tagging blog entries, this is the longest I have blogged and information management like this is posing some new challenges. All in all, I like writing, since I have moved I don't have many //friends// that share an interest in open source technology or what not, so I think this is an outlet to release that, so to speak.</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
