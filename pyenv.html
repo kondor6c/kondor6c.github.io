@@ -58,6 +58,9 @@ lazytree            </a>
                         <li class="active">
                             <a href="/category/devops.html">Devops</a>
                         </li>
+                        <li >
+                            <a href="/category/personal.html">Personal</a>
+                        </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
             </ul>
@@ -102,7 +105,7 @@ lazytree            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>====== Version Managers ======</p>
+                <h1>Version Managers</h1>
 <p>I have been enjoying the idea of version managers for interpreted languages like Ruby, Python and even NodeJS. Python likes to advocate using virtualenv, which works very well when interacting and writing the code. However when interacting with automation like Ansible or Chef this becomes difficult since you have to source the shell scripts to install a given version.</p>
 <p>Some might argue that there isn't a need to have one of these version managers, and as you might guess I disagree with that, and advocate for them. If you lock in the version that you are testing/developing with this allows for more stability (no surprises is a good thing in production). You can then bring in a new version by putting it through a testing suite. This way you are not constrained to what version that the operating system is doing, it would be nice if the code worked correctly despite a new version, but frequently these are factors out of our control. When your building your project, setup a version manager might require a little bit of work but what if you get a little distracted (personal project focused) or get pulled my from a given project (corporate focused), having the version locked removes a lot of potential pain. Additionally this would allow moving to docker since all you need to do is setup that version manager and you could be on Arch Linux in a docker container. </p>
 <p>We don't know what the future holds, if we make our projects explicit on the versions it needs (even dependencies), then we are increasing the stability.</p>
@@ -160,7 +163,7 @@ To add credibility to my statements I have used [[https://rvm.io/|RVM]] in produ
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2016 Kevin Faulkner
+         <div class="col-xs-10">&copy; 2018 Kevin Faulkner
             &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
