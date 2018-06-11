@@ -5,29 +5,36 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/</loc>
-<lastmod>2018-06-04T00:43:48-00:00</lastmod>
+<lastmod>2018-06-10T23:42:25-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/archives.html</loc>
-<lastmod>2018-06-04T00:43:48-00:00</lastmod>
+<lastmod>2018-06-10T23:42:25-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/tags.html</loc>
-<lastmod>2018-06-04T00:43:48-00:00</lastmod>
+<lastmod>2018-06-10T23:42:25-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/categories.html</loc>
-<lastmod>2018-06-04T00:43:48-00:00</lastmod>
+<lastmod>2018-06-10T23:42:25-00:00</lastmod>
 <changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>/SELF-2018.html</loc>
+<lastmod>2018-06-10T11:27:12-04:00</lastmod>
+<changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
@@ -144,6 +151,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>/category/community-content-ideas-conferences.html</loc>
+<lastmod>2018-06-10T11:27:12-04:56</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>/category/devops.html</loc>
 <lastmod>2018-05-12T04:16:56-04:56</lastmod>
 <changefreq>daily</changefreq>
@@ -153,6 +167,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>/category/personal.html</loc>
 <lastmod>2018-06-04T00:41:00-04:56</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>/tag/linux.html</loc>
+<lastmod>2018-06-10T11:27:12-04:56</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -174,13 +195,6 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>/tag/non-tech.html</loc>
 <lastmod>2018-06-04T00:41:00-04:56</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
-<loc>/tag/linux.html</loc>
-<lastmod>2018-05-12T04:16:56-04:56</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -229,7 +243,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/author/kevin-faulkner.html</loc>
-<lastmod>2018-06-04T00:41:00-04:56</lastmod>
+<lastmod>2018-06-10T11:27:12-04:56</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
