@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>lazytree</title><link href="https://kondor6c.github.io/" rel="alternate"></link><link href="https://kondor6c.github.io/feeds/all.atom.xml" rel="self"></link><id>https://kondor6c.github.io/</id><updated>2018-08-02T11:23:19-04:00</updated><entry><title>An End of Disk Issues?</title><link href="https://kondor6c.github.io/end_of_disk_issues.html" rel="alternate"></link><published>2018-08-02T11:23:19-04:00</published><updated>2018-08-02T11:23:19-04:00</updated><author><name>Kevin Faulkner</name></author><id>tag:kondor6c.github.io,2018-08-02:/end_of_disk_issues.html</id><summary type="html">&lt;p&gt;A hopeful end to disk issues on my workstation and ending with a brief mention of topics to come&lt;/p&gt;</summary><content type="html">&lt;p&gt;I have a workstation that I have built, it contains a multi-disk Large Form Factor ZFS array. There have been multiple posts in the past about some of my disk related problems that I've handled, you should be able to find them with a 'zfs' or 'disk' tag. Well I had several issues, that I hope should be calming down; going back to January, where I decided to move from 4x3TB RAID-Z (software RAID 5) to 4x4TB 7200RPM RAID 10 setup. The transition was prompted by this event and I really have written this up to share my experience with others. I spoke casually about this with Jim Salter, Michael Hrivnak, Wes Widner, and several others, but I brought it up mostly because of Jim's project &lt;a href="https://github.com/jimsalterjrs/sanoid"&gt;Sanoid&lt;/a&gt; and he's presented on ZFS before. I had one disk start clicking when I got back from running, I could see in &lt;code&gt;dmesg&lt;/code&gt; that this disk was not responding and was trying to be reset; important thing to point out, ZFS had brought the disk OFFLINE. I had a spare 4TB 'eco' drive that really doesn't deliver the performance that is needed and would hinder the array, but I wanted to get the disk replaced so that I could get another one ordered. Well I hooked the disk up, and started the zfs replace process. I woke up and found that another disk, in this RAID-Z, had reported as failing (FAULTED), all during the replace process. I knew this was very bad, two disks failing, and you can't stop a resilver, but you can stop a scrub, by using &lt;code&gt;zpool scrub -s ${pool}&lt;/code&gt;, what I should have done is brought the disk "online" but what I did, could have been worse... I rebooted my workstation! During the resilver/replace process, not my finest hour.
+This array doesn't hold too much, but it does hold "warm" backups (staged to go on to different disk stored elsewhere), KVM disk images (virtual machines), and other various data, usually high write IO that I don't want to wear on my SSD/NVMe drive, I could stand to lose this array, but I don't want to because it would be painful. When the machine came back, the pool was imported and the resilver restarted, this time with the clicking disk "ONLINE" however the other faulted disk, was now "UNAVAILABLE", so I have a replace going of an online disk that is in a poor state, but ZFS had recovered from this, and the replace completed successfully. I then transferred the data elsewhere, rebuilt the pool as a RAID-10.
+The pool is now with all 7200 RPM disks in a RAID-10 setup. ZFS looks at this as one mirror (RAID 1) with a striped disk set (RAID 0), this might be confusing, I will perhaps try to do a video to cover this more. Here is some output of my now healthy disk status:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;        NAME                        STATE     READ WRITE CKSUM
+        extra                       ONLINE       0     0     0
+          mirror-0                  ONLINE       0     0     0
+            wwn-0x5000cca23dcdcfc7  ONLINE       0     0     0
+            wwn-0x5000c500675738ba  ONLINE       0     0     0
+          mirror-1                  ONLINE       0     0     0
+            wwn-0x5000cca22bc39ed8  ONLINE       0     0     0
+            wwn-0x50000397fc580978  ONLINE       0     0     0
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The issue that I think I had encountered for a while, was that I plugged three 4TB 7200RPM disks using the same SATA power plug coming from the power supply. I had thought I was up against a bad controller/port/cable and I plugged a red SATA cable in to signify that "red is dead", but the issue continued when I plugged it into another SATA port. I realized that when I put the hard drive in a top unit or in a USB3 SATA drive, that the disk was fine it didn't even spin cycle. I believe that this new disk array was consuming more power enough that the disk would power on, but upon doing load wouldn't service the ATA commands quick enough, and linux would then reset it. Similar to this&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[Wed Jun  6 12:51:54 2018] ata1: link is slow to respond, please be patient (ready=0)
+[Wed Jun  6 12:52:23 2018] ata1: COMRESET failed (errno=-16)
+[Wed Jun  6 12:52:23 2018] ata1: hard resetting link
+[Wed Jun  6 12:52:28 2018] ata1: COMRESET failed (errno=-16)
+[Wed Jun  6 12:52:28 2018] ata1: reset failed, giving up
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Giving this "bad disk" a dedicated power plug resolved these issues. I had a similar issue when adding five 1U HP DL160's to a Cabinet, Friday night I hooked them all up, and we started the HDFS rebalance, but upon getting load on those machines, we got a phone call from Sungard saying that we're exceeding the power limit. Load can influence things, in many ways, I knew this; I guess this one just took me longer to realize.&lt;/p&gt;
+&lt;p&gt;In other news, I have created a video on my camera showing the process of using a Yubikey and &lt;code&gt;pass&lt;/code&gt; to get versioned passwords, but I realized that it was very ad-hoc and I deleted the video. I spent a fair amount of time editing in KDEnlive and audacity, but I just was not pleased with the end product so I will be redoing it and uploading it shortly. I also plan on writing up my home router creation and performance testing of MySQL as I hinted at last blog post. I did some performance testing of docker storage drivers and needless to say we will be avoiding btrfs, I didn't test with &lt;code&gt;nodatacow&lt;/code&gt; as a mount option, but really XFS and overlay2 didn't have that option and performed very well. This test wasn't exhaustive, but enough to give an idea and fulfill proper investigation/baselining to change the storage drivers that my employer is using, without getting into too many details, a contractor configured us to use one that should not be used in production.&lt;/p&gt;</content><category term="Linux"></category><category term="zfs"></category><category term="disk"></category></entry><entry><title>SELF 2018</title><link href="https://kondor6c.github.io/SELF-2018.html" rel="alternate"></link><published>2018-06-10T11:27:12-04:00</published><updated>2018-06-10T11:27:12-04:00</updated><author><name>Kevin Faulkner</name></author><id>tag:kondor6c.github.io,2018-06-10:/SELF-2018.html</id><summary type="html">&lt;p&gt;Reflection of the SouthEast LinuxFest 2018&lt;/p&gt;</summary><content type="html">&lt;p&gt;I really enjoyed SouthEast LinuxFest this year, probably more this year than I did last year. Mostly because I made a point of being more outgoing and interacting with more people. Last year I attended I had tried talking to a few people but didn't really have a good feel for things, and volunteered for the FSF booth and tried to take the Ham radio exam. This year I attended many presentations, had an opportunity to go to a Birds Of a Feather meeting on containers put on by Michael at RedHat. Additionally I met and at least briefly talked to Eric Raymond, Noah from the Ask Noah show, and some of the gang from the Linux Link Tech Show. If I met and hung out with you, thank you I really did have a great time and I hope we can continue to stay in contact. It really is hard to stay in contact especially when people are very far away. However it can be very rewarding to meet back with the people at a conference or festival or getting something to eat or drink. Additionally when you even talk about technology both parties often walk with something. I certainly enjoy sharing even giving advise, a secret config setting, or a new feature.&lt;/p&gt;
+&lt;p&gt;On my journey to SELF; on Friday I had to pick up my daughter from day care so I knew I wouldn't be able to make it. On my way down Saturday morning I got a speeding ticket, some guy in a black BMW was tailgating me and I had tried to speed up and get out of the way, then he merged behind me and continued to do so, then I tried to speed up and get around a van and he still followed behind me. I explained this to the state trooper, I suspect they had extra enforcement because of this a &lt;a href="http://www.fox46charlotte.com/news/local-news/speeding-wrecks-on-i-85-make-some-question-lack-of-troopers"&gt;wreck and complaints that there is rampant speeding&lt;/a&gt; (I agree there typically is a lot of speeding). I don't speed much any more, consider I was driving in an older prius after I surrendered my Volkswagen Jetta Sportwagen TDI (due to the Federal emissions issue).&lt;/p&gt;
+&lt;p&gt;On my way back home I ended up getting caught in the traffic from this &lt;a href="https://www.wsoctv.com/news/local/1-killed-in-i-85-crash-in-rowan-county/766779940"&gt;fatal incident&lt;/a&gt;, I had to go all across Lake Norman, I got home at 3, and fell asleep around 3:45. Sunday was fairly easy I will try and post links to some of the talks I attended, I really enjoyed Percona's troubleshooting and analyzing database performance with PMM; that was done by the Percona CEO who spoke with me afterwards. I was really happy about all of that, and I might try and get some benchmarks of my own, I do like analyzing performance on many different level going back to other blog articles like &lt;a href="../urxvt_vs_eterm.html"&gt;using perf&lt;/a&gt;. However they aren't to the caliber I would like them to be at. I'm just trying to produce content so that I can get into a pattern/habit of writing more.&lt;/p&gt;
+&lt;p&gt;On my commutes I thought that I would really like to try and present, I had done some presentations to the Phoenix Linux Users Group. But when I went a deployment with the Army I lost some momentum. I am committing to doing a speech next year given that my speech/paper is accepted, but I haven't determined what my topic will be I could cover toolsets that I use at work, but really that is what https://stackshare.io/ is for I think, I don't know if many people will get a lot out of that. So I have thought about these topics:
+  - Quagga/Bird Routing software for Linux
+  - Kernel tunable via sysctl
+  - iptables GPU offloading
+  - fuzzing an open source project to assist with security analysis&lt;/p&gt;
+&lt;p&gt;Or focus on some directed core content, like SSL certificates, or the Percona CEO giving a speech about analyzing performance, here are some ideas:
+  - SSL certificates, again I still think many don't know this area as well as they should 
+  - git porcelain and plumbing
+  - Linux powertools like nmap, qutebrowser, copyq, autokey/xbindkeys, xidotools, xautomate
+Some of these could be prime for an easier ones targeted for a Sunday afternoon when people are about ready to leave, and they also can be done by me independently and I can make the content available through other means such as vimeo/youtube/archive.org
+I don't entirely know, but I have time to polish something up. I also hope that by committing here to doing this it will help to re-enforce that. Sorry if this is either long or scattered, I really am very tired, and I might go back and edit this later.&lt;/p&gt;</content><category term="Linux"></category></entry><entry><title>Resume Blogging</title><link href="https://kondor6c.github.io/resume-blogging.html" rel="alternate"></link><published>2018-06-04T00:41:00-04:00</published><updated>2018-06-04T00:41:00-04:00</updated><author><name>Kevin Faulkner</name></author><id>tag:kondor6c.github.io,2018-06-04:/resume-blogging.html</id><summary type="html">&lt;p&gt;After a number of continuing situations, I resume blogging&lt;/p&gt;</summary><content type="html">&lt;p&gt;After a few issues that almost perfectly lined up to steal momentum I'm going to resume blogging. If you follow this (I doubt many were/are), I apologize for the lack of updates. I'll try to briefly run down some of the events that lead to the large (almost year delay):
+The Prior Events&lt;/p&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;Before SouthEast Linux Fest my Wife's mother very unexpectedly died.&lt;/li&gt;
+&lt;li&gt;After SELF I had some motivation and tried to look into interesting topics, generally Software Defined Radio (I liked the LimeSDR) and followed some crypto currency investigation which lead to Zcash.&lt;/li&gt;
+&lt;li&gt;Shortly after I was looking into creating an RPM for Zcash, we had a pipe burst in our house around the kitchen sink and that fell directly on my workstation. This one situation alone was perhaps the biggest issue, I didn't have my personal workstation and that severly hampered my projects and work. I ended up buying a couple motherboards off ebay and NewEgg which were all dead on arrival, all Asus Z10-D16 WS (LGA 2011-v3 Haswell based Xeon's) had BIOS issues, I had RMA'd a Z10-D16 PE that failed a BIOS update, this whole process ended up causing a 3 month disruption to me and my family.&lt;/li&gt;
+&lt;li&gt;October 20th, my wife texted me saying her water broke and our first daughter was born on the 21st. Subsequently, I missed All Things Open 2017, which I was really looking forward to attending since Jeff Altwood was doing the keynote. I prepaid and everything haha.&lt;/li&gt;
+&lt;li&gt;In December 2017, work/employer had major issues with Amazon's Aurora and what appeared to be (using NewRelic) long connection times, I had painstakingly tracked these down to be delay in resolving the DNS entries (querying Route53), some of them ended up having a 3 second delay, and it happened fairly frequently. This timeframe was our busy season and my wife went back to work and we got a few lessons in parenting.&lt;/li&gt;
+&lt;li&gt;I got the flu on New Years Eve! This really sucked, and was not like anything I had before, even my first dose of the Anthrax shot sucked, but this was way worse and other flu's were not nearly as bad as this year (2018). Then almost 3 days after I went to work, my wife brought home the norovirus from work (she works as a nurse at a local hospital).&lt;/li&gt;
+&lt;li&gt;Dual disk failure event on my ZFS array, I'll document this later I am still very pleased with ZFS on Linux.&lt;/li&gt;
+&lt;li&gt;I got a new job working at Early Warning as a Senior Devops Engineer, things were hot and heavy when I got there, but now things have calmed down some and I'm learning more about the environment.
+One of these alone (maybe not the pipe breakage) might have been easier to brush off. But these events seemed to happen right after each other, and just really seemed to keep me from picking things back up.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Going Forward, Future Plans&lt;/h2&gt;
+&lt;p&gt;So I have thought about trying to resume, sharing information and source code, not only that but the community those are some of the tenants that comprise my focus. That I'm going to try and start fresh, using a static content blog and move to a more planned deliberate site. I moved the content to Pelican, most of the content I create is static and I don't have a real need for something that is more dynamic. Both store their files as plain text which make disaster recovery much easier. Here are a few principles that I will be focusing on:
+  - The primary focus should/will be the blog and its content
+  - There will be (nor have there ever been) any schedules, I feel that they just lead to missed deadlines and excuses, and on my side it just creates frustration and contention.
+  - I will be focusing on tagging content better and remaining consistent with those tags, even trying to go back through the older content.
+  - There will be no "sponsorships" or advertisements.
+  - Creating a couple different categories/partitions, one will be for configurations or one line scripts that I frequently access, this is more for content reference. The other will be Hardware, various hardware components that I have bought, used or otherwise might be important to share. I hope that it might help people either not make the same mistake or get a good value from something.
+  - I would like to create more videos, and make them better, there was a comment about loud typing sounds in the one and first video I created on SHA1 OpenSSL certificate chains, loud typing sounds. I agree, although I removed the comment, it still resonates with me and I hope I can improve.
+  - I would like for suggestions to be made on content, I don't know how this will work, but maybe with github/gitlab/pagure.io issues, and then having votes on those topics. I think that might come easier when I have earned a reputation of delivering and the quality of that product.&lt;/p&gt;
+&lt;p&gt;Very soon I hope to create a few issues, ranging from my most recent expedition in to creating a home router with Gentoo, and recording the ongoing ZFS usage, the one liners I use, and hardware/things I interact with. I genuinely hope that I can help others.&lt;/p&gt;</content><category term="blogging"></category><category term="real world"></category><category term="non-tech"></category></entry><entry><title>OpenSSL Video</title><link href="https://kondor6c.github.io/OpenSSL-Video.html" rel="alternate"></link><published>2016-12-24T19:45:33-04:00</published><updated>2018-05-12T04:16:56-04:00</updated><author><name>Kevin Faulkner</name></author><id>tag:kondor6c.github.io,2016-12-24:/OpenSSL-Video.html</id><summary type="html">&lt;p class="first last"&gt;After having to generate a SHA1 certifcate and other people on my team did not understand the cert process, I make a video on it&lt;/p&gt;
+</summary><content type="html">&lt;p&gt;I've wanted to make videos for a while now, and I finally have. I rehearsed for a couple iterations now, I wrote the outline and all the commands out before hand; [[public:linux:common#openssl|here is where you can view the outline/commands]] . Everything went pretty smoothly, everybody I spoke to in my circle spoke positively about it, I wish I could get a couple more reactions about the technical content. I tried to upload the video to a public locations: &lt;cite&gt;vimeo &amp;lt;https://vimeo.com/196973859&amp;gt;&lt;/cite&gt;, &lt;cite&gt;youtube &amp;lt;https://www.youtube.com/watch?v=KXi3-3dEb8k&amp;gt;&lt;/cite&gt;, and perhaps more importantly &lt;cite&gt;archive.org &amp;lt;https://archive.org/details/GeneratingSslCertificatesInLinux&amp;gt;&lt;/cite&gt; . Although it might not get that many views there I would like the content to be publicly accessible and really without advertisements. Now you can grab the &lt;cite&gt;torrent &amp;lt;https://archive.org/download/GeneratingSslCertificatesInLinux/GeneratingSslCertificatesInLinux_archive.torrent&amp;gt;&lt;/cite&gt; and share it so that others can view it freely.&lt;/p&gt;
+&lt;dl class="docutils"&gt;
+&lt;dt&gt;I plan on making other videos, if you have ideas or feedback on past videos email me (&lt;a class="reference external" href="mailto:kondor6c&amp;#64;lazytree.us"&gt;kondor6c&amp;#64;lazytree.us&lt;/a&gt;). Here are some of my ideas on the next video courses:&lt;/dt&gt;
+&lt;dd&gt;&lt;ul class="first last simple"&gt;
+&lt;li&gt;Editors (vim/emacs/nano)&lt;/li&gt;
+&lt;li&gt;Web servers and dokuwiki (Apache, Nginx)&lt;/li&gt;
+&lt;li&gt;debugging using Packet capturing (focus on SSL and errors)&lt;/li&gt;
+&lt;li&gt;operational topics (like df, top, ps, free, du, kill, rm, find)&lt;/li&gt;
+&lt;li&gt;reverse proxy and a Java web application server&lt;/li&gt;
+&lt;li&gt;automating previous topics&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;I hope that this will help other people. If you have ideas or again feedback, let me know. I used qt-recordmydesktop and edited it with openshot, the microphone worked out well, which is a Blue (company) Yeti (model). I would encourage you to accelerate the speed of the recording, I spoke with my wife and we both agree the recording sounds more professional/better at 1.5x speed.&lt;/p&gt;
+</content><category term="Linux"></category></entry><entry><title>urxvt_vs_eterm</title><link href="https://kondor6c.github.io/urxvt_vs_eterm.html" rel="alternate"></link><published>2016-10-14T21:51:41-04:00</published><updated>2016-10-14T21:51:41-04:00</updated><author><name>Kevin Faulkner</name></author><id>tag:kondor6c.github.io,2016-10-14:/urxvt_vs_eterm.html</id><summary type="html">&lt;p&gt;Brief look at performance with perf and a couple terminals&lt;/p&gt;</summary><content type="html">&lt;p&gt;====== urxvt vs Eterm ======
+So I was trying different terminals so that I can keep on terminal just for a screencast sessions. I want to keep screencasting clean and partitioned. Additionally I have admitted to myself (now everyone else) that I need to know more about profiling the system, I got &lt;a href="Breddan Gregg's book"&gt;http://www.brendangregg.com/books.html&lt;/a&gt; on system performance, so far its very through. One complaint is that as a Solaris guy and even regarding many of his Linux presentations and writings is that he really favors dtrace, for obvious reasons; its a fantastic tracing tool. However due to license restrictions it isn't available on Linux (except for &lt;a href="OEL"&gt; http://www.oracle.com/technetwork/articles/servers-storage-dev/dtrace-on-linux-1956556.html&lt;/a&gt;). So I have first been reading up and trying out tools like perf. All the while I kept reading that urxvt has a lower footprint than many other terminals; in order to get some of these metrics they were using metrics &lt;a href="like"&gt; https://www.void.gr/kargig/blog/2008/06/22/the-quest-for-a-better-rxvt-unicode-on-gentoo/&lt;/a&gt; &lt;a href="RSS"&gt; https://forums.gentoo.org/viewtopic-t-539368-view-previous.html?sid=d495c38e4482f4e9e59e1f969fc45f2e&lt;/a&gt; and &lt;a href="htop"&gt; https://bbs.archlinux.org/viewtopic.php?id=125217&lt;/a&gt; output.... While other use &lt;a href="install size"&gt; https://bbs.archlinux.org/viewtopic.php?id=65634&lt;/a&gt; and &lt;a href="striped binary size"&gt; http://www.calno.com/evilvte/&lt;/a&gt;.... tisk tisk. Where has the massive use of htop come from? I understand it has colors, but it doesn't bring much more to the table (and you have to install it)!
+Well I remembered using Eterm, and that it had &lt;a href="SMID optimizations"&gt; http://arstechnica.com/features/2000/03/simd/&lt;/a&gt;, I thought that I would give perf a try to figure this out. This output is far from through, and is extremely basic (I would like to do some more analyzing)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[kondor6c@horse ~]$ perf stat -d Eterm
+
+ Performance counter stats for &amp;#39;Eterm&amp;#39;:
+
+        149.269413      task-clock:u (msec)       #    0.064 CPUs utilized
+                 0      context-switches:u        #    0.000 K/sec
+                 0      cpu-migrations:u          #    0.000 K/sec
+             6,141      page-faults:u             #    0.041 M/sec
+       170,152,520      cycles:u                  #    1.140 GHz                      (54.58%)
+       333,404,464      instructions:u            #    1.96  insn per cycle           (65.90%)
+        74,065,473      branches:u                #  496.187 M/sec                    (64.70%)
+           898,795      branch-misses:u           #    1.21% of all branches          (65.13%)
+        93,099,936      L1-dcache-loads:u         #  623.704 M/sec                    (54.92%)
+         4,197,791      L1-dcache-load-misses:u   #    4.51% of all L1-dcache hits    (24.98%)
+           323,876      LLC-loads:u               #    2.170 M/sec                    (29.76%)
+            31,341      LLC-load-misses:u         #    9.68% of all LL-cache hits     (42.03%)
+
+       2.348637133 seconds time elapsed
+
+[kondor6c@horse ~]$ perf stat -d urxvt
+urxvt: no visual found for requested depth 256, using default visual.
+urxvt: no visual found for requested depth 256, using default visual.
+
+ Performance counter stats for &amp;#39;urxvt&amp;#39;:
+
+        221.960133      task-clock:u (msec)       #    0.096 CPUs utilized          
+                 0      context-switches:u        #    0.000 K/sec                  
+                 0      cpu-migrations:u          #    0.000 K/sec                  
+             7,553      page-faults:u             #    0.034 M/sec                  
+       283,231,245      cycles:u                  #    1.276 GHz                      (53.93%)
+       464,723,521      instructions:u            #    1.64  insn per cycle           (64.73%)
+       108,938,037      branches:u                #  490.800 M/sec                    (63.29%)
+         1,682,643      branch-misses:u           #    1.54% of all branches          (61.20%)
+       133,799,730      L1-dcache-loads:u         #  602.810 M/sec                    (58.34%)
+         4,321,438      L1-dcache-load-misses:u   #    3.23% of all L1-dcache hits    (26.90%)
+           832,193      LLC-loads:u               #    3.749 M/sec                    (29.48%)
+           122,159      LLC-load-misses:u         #   14.68% of all LL-cache hits     (41.89%)
+
+       2.315625428 seconds time elapsed
+
+[kondor6c@horse ~]$
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I ran ps auxf as quick as I could, far from scientific. But the results are interesting. I did add a few color settings to .Xdefaults (solarized and tab support).&lt;/p&gt;
+&lt;p&gt;In short, try to think about other tools at our disposal, we are fortunate to not have a few tools that a vendor distributes, instead many great people have encountered problems and have written tools that we can use. I try to avoid top output unless I'm in super quick triage kind of situation, where I need to understand what is going on in a disaster. Additionally plan ahead because I don't believe that perf is installed by default on many distributions.&lt;/p&gt;
+&lt;p&gt;{{tag&amp;gt;urxvt Desktop}}&lt;/p&gt;</content><category term="Linux"></category></entry><entry><title>Hurricane Matthew Weekend</title><link href="https://kondor6c.github.io/hurricane_matthew_weekend.html" rel="alternate"></link><published>2016-10-12T14:28:00-04:00</published><updated>2016-10-12T14:28:00-04:00</updated><author><name>Kevin Faulkner</name></author><id>tag:kondor6c.github.io,2016-10-12:/hurricane_matthew_weekend.html</id><summary type="html">&lt;p&gt;Work that I did over when Hurricane Matthew gently blew in&lt;/p&gt;</summary><content type="html">&lt;p&gt;As rain falls from Hurricane Matthew, I can't split wood or  I have started to work on some items, and have recorded various thoughts.&lt;/p&gt;
+&lt;p&gt;I started to look at the failure of the btrfs volume, this truly appears that the failure was not hardware related; instead it is just corrupt checksums. I ran two SMART tests on all of my hard drives, none of them (I paid particular attention to the drives mentioned that were corrupt) had failed any tests. While SMART is far from perfect, it is the best kind of test that we really have at our disposal and I appreciate having it and smartmontools available. I do not believe I can, in good conscience recommend btrfs, even though I have &lt;strong&gt;love&lt;/strong&gt; for open source technology. &lt;/p&gt;
+&lt;p&gt;Quassel IRC is a nice due to the fact that I can detach graphical clients and preview links, I wish there was a something similar for BitTorrent. I have liked Qbittorrent, I can easily download magnet links and jump the the completed file to listen to it immediately. But with rtorrent you can keep it centralized. I think I am leaning in that direction since there appear to be organization methods with rtorrent so you can have for example "bitlove podcasts", "audiobooks", "fan fiction", "latest version" and maybe "archive" for images such as Damn Vulnerable Linux, which is hard to obtain any more. I'm having a difficult time having files just scattered.&lt;/p&gt;
+&lt;p&gt;Fedora seemed to have had a failure with their mirrors, strangely I tried to do a dnf|yum update, and it failed due to a 503; I had never seen that before. On IRC user "misc" reported at 13:16:08, that it was a failed firewall upgrade. Additionally user smooge said that 90% of Fedora's network is the same provider. I thought about it, I don't think more than one provider would have prevented this unless it was a failure by the provider itself. If this was a failed upgrade done by fedora staff/volunteers then it still might have failed if a provider was being used.&lt;/p&gt;
+&lt;p&gt;Writing some of the scripts I plan on using, I was using KDE's Kate editor. I can't say I like the new look and feel compared to KDE version 4. I use the vi mode, when you do a search and replace it puts you in to the vi mode, which genuinely I am moderately used to using. I know I need to get better at it, but sed works so well.
+I will need to start tagging blog entries, this is the longest I have blogged and information management like this is posing some new challenges. All in all, I like writing, since I have moved I don't have many //friends// that share an interest in open source technology or what not, so I think this is an outlet to release that, so to speak.&lt;/p&gt;</content><category term="Linux"></category></entry><entry><title>options-vs-arguments-vs-parameters</title><link href="https://kondor6c.github.io/options-vs-arguments-vs-parameters.html" rel="alternate"></link><published>2016-09-26T21:58:04-04:00</published><updated>2016-09-26T21:58:04-04:00</updated><author><name>Kevin Faulkner</name></author><id>tag:kondor6c.github.io,2016-09-26:/options-vs-arguments-vs-parameters.html</id><summary type="html">&lt;p&gt;trivial discussion about semantics of positioning vocabulary&lt;/p&gt;</summary><content type="html">&lt;p&gt;====== options, arguments, or parameters ======&lt;/p&gt;
+&lt;p&gt;Where I am currently employed there has been, in my opinion, an over application of the term "parameter". Or at least from where I have been in the past. I have always thought that for example:
+&lt;code&gt;
+example -x test.txt
+&lt;/code&gt;
+-x would be a switch, and the option after -x, test.txt, would be argument. But it seems here or recently we apply the term parameter to everything. Which I guess I'm not opposed to, I'm just observing. Is this trivial, yes, very trivial. But I'm not really trying to advocate change or anything like that. Let's look at the man page for sort:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;SORT(1)                                                               User Commands                                                               SORT(1)
+
+NAME
+       sort - sort lines of text files
+
+SYNOPSIS
+       sort [OPTION]... [FILE]...
+       sort [OPTION]... --files0-from=F
+
+DESCRIPTION
+       Write sorted concatenation of all FILE(s) to standard output.
+
+       With no FILE, or when FILE is -, read standard input.
+
+       Mandatory arguments to long options are mandatory for short options too.  Ordering options:
+
+       -b, --ignore-leading-blanks
+              ignore leading blanks
+
+       -d, --dictionary-order
+              consider only blanks and alphanumeric characters
+
+       -f, --ignore-case
+              fold lower case to upper case characters
+
+       -g, --general-numeric-sort
+              compare according to general numerical value
+
+       -i, --ignore-nonprinting
+              consider only printable characters
+
+       -M, --month-sort
+              compare (unknown) &amp;lt; &amp;#39;JAN&amp;#39; &amp;lt; ... &amp;lt; &amp;#39;DEC&amp;#39;
+
+       -h, --human-numeric-sort
+              compare human readable numbers (e.g., 2K 1G)
+
+       -n, --numeric-sort
+              compare according to string numerical value
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The man page says sort, but we can't seem to find anything about "switch" or "parameter".
+If we look at, for example, grep (perhaps one the most commonly used tools in my toolkit), swtich appears, look at the [[http://git.savannah.gnu.org/cgit/grep.git/tree/doc/grep.in.1#n294|source]].
+I could find parameter but it was only in regards to awk, it was not in grep, sed, ping, awk, time, top. I did find it in [[https://github.com/curl/curl/blame/master/docs/curl.1#L773|curl]]!
+Here is a good a good page, describing that there is a difference in computer science in the terms: http://stackoverflow.com/questions/156767/whats-the-difference-between-an-argument-and-a-parameter
+If we look at [[https://en.wikipedia.org/wiki/Command-line_interface#Arguments|wikipedia]], it seems to use all of the terms. Perhaps this really just highlights the triviality of all this :-) Why did I search for this? Curious I suppose. Have a good day!&lt;/p&gt;</content><category term="Linux"></category></entry><entry><title>Emacs</title><link href="https://kondor6c.github.io/give_emacs_another_try.html" rel="alternate"></link><published>2016-09-18T21:45:15-04:00</published><updated>2016-09-18T21:45:15-04:00</updated><author><name>Kevin Faulkner</name></author><id>tag:kondor6c.github.io,2016-09-18:/give_emacs_another_try.html</id><summary type="html">&lt;p&gt;I revisit emacs, and try to use it&lt;/p&gt;</summary><content type="html">&lt;h1&gt;emacs&lt;/h1&gt;
+&lt;p&gt;Those that know me, know that I preach the use of vi as an editor. Reason being as those who know me might be able to recite: vi is everywhere and doesn't need to be installed, its very powerful for its size, some jobs demand it! That fact was mentioned to me by someone at Phoenix Linux Users Group meeting, which was call CAT (Chat About Technology; lets go eat CAT, it was a bad joke, but we went with it) someone stated that some GE jobs require the use knowledge of vi, sure enough I went to &lt;a href="GE Careers"&gt;http://www.ge.com/careers&lt;/a&gt; and I found in fact some jobs do require it. I later speculated while at NightHawk, that some GE medical modalities only had vi installed. In other jobs, I witnessed administrators stopping work on solving a problem to install an editor that they could use, literally blew my mind. That's why I try to inform people that they //at least// need some kind of working knowledge of vi and nano, but not so much nano since the editor has a command legend at the bottom.&lt;/p&gt;
+&lt;p&gt;This brings me to the topic of this blog entry I think that I'm going to revisit emacs, considering it hit it version 25. Honestly my very first editor was emacs, I would always press F10 and a drop down menu would be presented where I could function. This was back in Redhat 6 on my 486's, I didn't know much then and had trouble finding the assistance I needed, but emacs more than helped. Now I used to give emacs a hard time about the key sequences, but with F10 that can be managed. But I have come to try and use them more often since bash by default uses emacs like shortcuts. Additionally, aside from the large size of the editor (sometimes up to 120MB installed) it isn't installed everywhere, emacs is a fine editor behaves exactly as you would expect. I have learned about emacs has something called &lt;a href="TRAMP"&gt;https://www.emacswiki.org/emacs/TrampMode&lt;/a&gt; mode, which basically allows it to run locally and send all the changes to the files over SSH. I'm not sure I would do all my editing that way, but I could do some editing of Chef cookbooks. I have tried to use org mode, but I think I have finalized on task warrior, more on that later; I have a task entry for it! Lastly emacs has &lt;a href="evil mode"&gt;https://www.emacswiki.org/emacs/Evil&lt;/a&gt;, which allows for it to act like vi in some aspects.&lt;/p&gt;</content><category term="Linux"></category></entry><entry><title>standardization</title><link href="https://kondor6c.github.io/standardization.html" rel="alternate"></link><published>2016-08-29T21:03:51-04:00</published><updated>2016-08-29T21:03:51-04:00</updated><author><name>Kevin Faulkner</name></author><id>tag:kondor6c.github.io,2016-08-29:/standardization.html</id><summary type="html">&lt;p&gt;small thoughts on standardization and internal rules/policies&lt;/p&gt;</summary><content type="html">&lt;p&gt;====== Standardization ======
+I am sure many of us have seen the xkcd comic "&lt;a href="https://xkcd.com/927/"&gt;Standrads&lt;/a&gt;", if not check it out, its kinda funny. I have been thinking about the debate and later burden that we seem to impose on ourselves through well intended standardization. This came around when there was a discussion at my full time employer about standardizing a spaces around the text and brackets
+&lt;code&gt;only_if {node.fqdn.upcase =~ 'PROD'}&lt;/code&gt;
+compared to 
+&lt;code&gt;only_if { node.fqdn.upcase =~ 'PROD' }&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Yes, I believe that the former (spaces) is easier to read. I objected to making a rule about it and burying it somewhere in a wiki that we maintain. I feared it would be a rule that would later become something that would be held against a new team member or contributor; "oh you didn't adhere to our 8 pages of rules". I felt it increased the barrier to entry and wasted time, not only in what we would spend maintaining the document, discussing it, possibly revising it, and the very time we spent debating the merits of having a rule. I thought it was very trivial that if we felt it was that bad to read the author should be able to do as he/she pleases. Rules and regulations are rigid in nature and tend to get buried, lost and forgotten; they grow old and start to become a burden on the organization!&lt;/p&gt;
+&lt;p&gt;I had thought about some of these rules that Unix must have adopted in a &lt;a href="blog post"&gt;https://utcc.utoronto.ca/~cks/space/blog/unix/MoreAndUnixFossilization&lt;/a&gt; about the utility 'more' and 'less'. Whereas they don't mention any kind of discussion I can only think about the hours lost making the specification over something rather trivial such as a screen pager. Maybe I'm over-trivializing it? I'm not sure, but certainly in a modern perspective it feels like a minute detail. I worry that any rule I would put in place might become something like saying 'more' can only do these things. Even while the tool set is rapidly advancing.&lt;/p&gt;
+&lt;p&gt;Having said all that, I am a huge fan of RedHat Enterprise Linux and CentOS, which to many would complain that its PHP is X years old (to which I will typically counter that their OS X BASH version is close to 10 years old, and doesn't support named indexes/hashes). I feel with RHEL they quickly change packages and more are available through the community with &lt;a href="EPEL"&gt;https://fedoraproject.org/wiki/EPEL&lt;/a&gt;. They don't want to introduce a change that might change the behavior of something that is compiled on it. The operating system is a very stable piece of software. Linus even has a rule that the kernel must never &lt;a href="break userspace"&gt;http://yarchive.net/comp/linux/gcc_vs_kernel_stability.html&lt;/a&gt;. I don't know if CentOS/RHEL has a large rule set, it might break my heart if they did, but I would understand why it would be large (and hopefully lively document).&lt;/p&gt;
+&lt;p&gt;Therefore in conclusion, I still hold my opinion on what rules and regulations are in software. They are global variables. But they have their use, I think they should be used with care like a house plant, too many of them and they become unmanageable, a burden themselves and hard to work around. With care, they become a lively addition to any organization.&lt;/p&gt;</content><category term="Linux"></category></entry><entry><title>powershell_linux_debut</title><link href="https://kondor6c.github.io/powershell_linux_debut.html" rel="alternate"></link><published>2016-08-19T08:36:07-04:00</published><updated>2016-08-19T08:36:07-04:00</updated><author><name>Kevin Faulkner</name></author><id>tag:kondor6c.github.io,2016-08-19:/powershell_linux_debut.html</id><summary type="html">&lt;p&gt;Powershell was announced for Linux, I take a quick look&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Powershell Linux debut&lt;/h1&gt;
+&lt;p&gt;I began to experiment with Powershell. I feel that Microsoft has to follow through on showing the community that it meant what it said, that Microsoft Loves Linux. Perhaps I can lump myself into that group too, because I remember the October Document, and the utter frustration in trying to get Linux to work in a mostly Windows environment. I think Microsoft senses that the game is changing, and is changing with it. Linus Torvalds had said that "If Microsoft ever does applications for Linux it means I've won." and now that they are changing their business practices to bring software to Linux, is totally incredible. Its good as a company they are becoming a software company that makes software for products in demand.&lt;/p&gt;
+&lt;p&gt;While I am writing this I am trying to use Powershell to some degree, my family members and friends/co-workers have told me to look into Powershell (I think mostly to assist with scripts ;-) but still). My initial observations is that everything is well laid out, with thought, Get-&lt;em&gt;, Invoke-&lt;/em&gt;, Set-* (you get the idea). However as a shell, something you interact with frequently just to get a look at things it makes features such as tab completion very hard since they're all the same structure. I see both sides, it being good for a consistent theme, but it gets extreme. Really what it feels like is more of an object oriented language shell. Yeah, kinda awkward. I would like to revisit this awkward-ness and either support it with more evidence or &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;PS /root&amp;gt; type ./.ssh/
+type : Access to the path &amp;#39;/root/.ssh/&amp;#39; is denied.
+At line:1 char:1
++ type ./.ssh/
++ ~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo          : PermissionDenied: (/root/.ssh/:String) [Get-Content], UnauthorizedAccessException
+PS /root&amp;gt; cat .ssh 
+/bin/cat: .ssh: Is a directory
+PS /root&amp;gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;hmmm seems like type should handle a directory? ls -l and find show me its a directory, but type is link a symlink to Get-Content. I could see this causing problems, especially since type is a builtin of BASH. I don't know off the top of my head why Get-Content would be effectively symlinked.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;PS /root&amp;gt; Get-Process -Name rtorrent
+Get-Process : Cannot find a process with the name &amp;quot;rtorrent&amp;quot;. Verify the process name and call the cmdlet again.                                                        At line:1 char:1                                                                                                                                                        
++ Get-Process -Name rtorrent
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (rtorrent:String) [Get-Process], ProcessCommandException
+    + FullyQualifiedErrorId : NoProcessFoundForGivenName,Microsoft.PowerShell.Commands.GetProcessCommand
+
+PS /root&amp;gt; ps aux |grep rtorrent
+ec2-user 26164  0.0  1.0 658724 10488 pts/1    Sl+  Aug03  21:36 rtorrent
+PS /root&amp;gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;It worked on systemd. &lt;/p&gt;
+&lt;p&gt;Granted this is an alpha version, I found it hard to get "help" on this item using --help, -help, /help did not... help! Later learned that there is a facility entirely to this Get-Help (aka man!). Also consider that powershell will act as coreutils + more, as in it won't have bc, wget/curl, vi, tar, or others. So powershell needs to include many these functions with itself; Invoke-RestMethod, this will come in handy later! We can set alias' but I thought some of the alias' I would be overwriting Linux utilities and then I would be in a world of pain (Yes I could specify the full path, but still not fun).&lt;/p&gt;
+&lt;p&gt;In conclusion this is a good thing, I don't want my negativity to make it sound like anything bad. But I could never imagine using this as any kind of a default shell any time soon or ever. I haven't actually got to learn that much about it, I've done more typing than learning.&lt;/p&gt;</content><category term="Linux"></category></entry><entry><title>btrfs Scrub Fail</title><link href="https://kondor6c.github.io/btrfs_srub_fail.html" rel="alternate"></link><published>2016-05-05T12:17:58-04:00</published><updated>2016-10-16T14:10:08-04:00</updated><author><name>Kevin Faulkner</name></author><id>tag:kondor6c.github.io,2016-05-05:/btrfs_srub_fail.html</id><summary type="html">&lt;p&gt;I experience unrecoverable error on btrfs RAID 5, ignoring previous claims of instability&lt;/p&gt;</summary><content type="html">&lt;h1&gt;btrfs scrub fail&lt;/h1&gt;
+&lt;p&gt;{{tag&amp;gt;btrfs}}
+I wrote this earlier on a internal corporate blog (Atlassian's Confluence), but I don't think many read it, it doesn't give out any corporate information, but since I wrote it on "company time" I figured I should put it there. But with the late night phone calls and the subsequent difficult time in falling asleep I think a few minutes here and there all balances out. That's another topic for another time. Here is a repost of the blog. I'm really only putting it here for the sake of context and centralizing my posts. This was written on May 11th 2016.
+btrfs&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;I have been trying/using btrfs. I have really wanted to give it a chance even and I thought a perfect place for that would be at home. So a little bit of background my home machine is a Xeon E5-2620 v3 and it's got 32GB of ECC RAM, I have 4x3TB disks that are in a btrfs RAID 5 setup, it mostly holds torrents (all legal of course), virtual machine disks, and backups (old army documents, pictures). Things had been going rough when I first tried using btrfs (on my root volume), but that turned out to be a bad SSD, nothing to do with the RAID 5. So I kept ext4 on my SSD (rootfs) and I continue to use btrfs on the RAID. Just last week I had a disk fail due to bad sectors, I had time to replace it but after the replace operation.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@horse ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# btrfs replace start /dev/sdf /dev/sde /mnt/extra&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I continue to get unrepairable errors.... btrfsck doesn't address it, btrfs scrub on finds the errors. The volume mounts, and unmounts, it just seems that I should be able to address these without going into a recovery, I think it happened during the course of the replace operation. I was able to move the files to a different volume, but it doesn't seem to make a difference. I found the files by looking at the inode that the checksum failed with. As I continue to address these errors I'll keep you posted on the status of my btrfs experience. I was hesitating using ZFS due to the licensing issues. I have long been a fan of ZFS, I think I might try it now; after all I have ECC RAM which is the recommendation. Another thought is to just delete the disk, then re-add it, since it seems to be just one that has the errors.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@horse ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# btrfs scrub status /mnt/extra&lt;/span&gt;
+scrub status &lt;span class="k"&gt;for&lt;/span&gt; 8289c25f-a8d1-44aa-8c18-6215831d2cae
+        scrub started at Thu May  &lt;span class="m"&gt;5&lt;/span&gt; &lt;span class="m"&gt;12&lt;/span&gt;:17:58 &lt;span class="m"&gt;2016&lt;/span&gt; and finished after &lt;span class="m"&gt;40&lt;/span&gt;:13:09
+        total bytes scrubbed: &lt;span class="m"&gt;4&lt;/span&gt;.52TiB with &lt;span class="m"&gt;12&lt;/span&gt; errors
+        error details: &lt;span class="nv"&gt;read&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;4&lt;/span&gt; &lt;span class="nv"&gt;csum&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;8&lt;/span&gt;
+        corrected errors: &lt;span class="m"&gt;0&lt;/span&gt;, uncorrectable errors: &lt;span class="m"&gt;12&lt;/span&gt;, unverified errors: &lt;span class="m"&gt;0&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;root@horse ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# btrfsck --repair /dev/sda&lt;/span&gt;
+enabling repair mode
+Checking filesystem on /dev/sda
+UUID: 8289c25f-a8d1-44aa-8c18-6215831d2cae
+checking extents
+checking free space cache
+checking fs roots
+checking root refs
+found &lt;span class="m"&gt;4961408222736&lt;/span&gt; bytes used err is &lt;span class="m"&gt;0&lt;/span&gt;
+total csum bytes: &lt;span class="m"&gt;4837631228&lt;/span&gt;
+total tree bytes: &lt;span class="m"&gt;6034817024&lt;/span&gt;
+total fs tree bytes: &lt;span class="m"&gt;754761728&lt;/span&gt;
+total extent tree bytes: &lt;span class="m"&gt;84541440&lt;/span&gt;
+btree space waste bytes: &lt;span class="m"&gt;420880645&lt;/span&gt;
+file data blocks allocated: &lt;span class="m"&gt;42712031051776&lt;/span&gt;
+ referenced &lt;span class="m"&gt;4948738207744&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;root@horse ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# mount /mnt/extra/&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;root@horse ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# dmesg |grep btrfs&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;703225&lt;/span&gt;.538312&lt;span class="o"&gt;]&lt;/span&gt; btrfs&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;10452&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;: segfault at &lt;span class="m"&gt;30&lt;/span&gt; ip 00005647596ed880 sp 00007fff57c1bb40 error &lt;span class="m"&gt;4&lt;/span&gt; in btrfs&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;564759698000&lt;/span&gt;+92000&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;703232&lt;/span&gt;.764835&lt;span class="o"&gt;]&lt;/span&gt; btrfs&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;10521&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;: segfault at &lt;span class="m"&gt;30&lt;/span&gt; ip 00005597082f2880 sp 00007fff2371b050 error &lt;span class="m"&gt;4&lt;/span&gt; in btrfs&lt;span class="o"&gt;[&lt;/span&gt;55970829d000+92000&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;root@horse ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# #echo &amp;quot;segfaults with ECC?&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;root@horse ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# dmesg |tail -n3&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;843497&lt;/span&gt;.711057&lt;span class="o"&gt;]&lt;/span&gt; BTRFS info &lt;span class="o"&gt;(&lt;/span&gt;device sda&lt;span class="o"&gt;)&lt;/span&gt;: relocating block group &lt;span class="m"&gt;12359603060736&lt;/span&gt; flags &lt;span class="m"&gt;129&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;843517&lt;/span&gt;.301202&lt;span class="o"&gt;]&lt;/span&gt; BTRFS info &lt;span class="o"&gt;(&lt;/span&gt;device sda&lt;span class="o"&gt;)&lt;/span&gt;: found &lt;span class="m"&gt;366&lt;/span&gt; extents
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;843519&lt;/span&gt;.453459&lt;span class="o"&gt;]&lt;/span&gt; BTRFS info &lt;span class="o"&gt;(&lt;/span&gt;device sda&lt;span class="o"&gt;)&lt;/span&gt;: found &lt;span class="m"&gt;366&lt;/span&gt; extents
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;843519&lt;/span&gt;.913111&lt;span class="o"&gt;]&lt;/span&gt; BTRFS info &lt;span class="o"&gt;(&lt;/span&gt;device sda&lt;span class="o"&gt;)&lt;/span&gt;: relocating block group &lt;span class="m"&gt;12356381835264&lt;/span&gt; flags &lt;span class="m"&gt;129&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;843539&lt;/span&gt;.377181&lt;span class="o"&gt;]&lt;/span&gt; BTRFS info &lt;span class="o"&gt;(&lt;/span&gt;device sda&lt;span class="o"&gt;)&lt;/span&gt;: found &lt;span class="m"&gt;366&lt;/span&gt; extents
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;843540&lt;/span&gt;.827521&lt;span class="o"&gt;]&lt;/span&gt; BTRFS info &lt;span class="o"&gt;(&lt;/span&gt;device sda&lt;span class="o"&gt;)&lt;/span&gt;: found &lt;span class="m"&gt;366&lt;/span&gt; extents
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;843720&lt;/span&gt;.099900&lt;span class="o"&gt;]&lt;/span&gt; BTRFS info &lt;span class="o"&gt;(&lt;/span&gt;device sda&lt;span class="o"&gt;)&lt;/span&gt;: disk space caching is enabled
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;843720&lt;/span&gt;.099907&lt;span class="o"&gt;]&lt;/span&gt; BTRFS: has skinny extents
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;843720&lt;/span&gt;.995888&lt;span class="o"&gt;]&lt;/span&gt; BTRFS info &lt;span class="o"&gt;(&lt;/span&gt;device sda&lt;span class="o"&gt;)&lt;/span&gt;: bdev /dev/sde errs: wr &lt;span class="m"&gt;0&lt;/span&gt;, rd &lt;span class="m"&gt;76&lt;/span&gt;, flush &lt;span class="m"&gt;0&lt;/span&gt;, corrupt &lt;span class="m"&gt;8&lt;/span&gt;, gen &lt;span class="m"&gt;0&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;843721&lt;/span&gt;.573752&lt;span class="o"&gt;]&lt;/span&gt; BTRFS: checking UUID tree
+&lt;span class="o"&gt;[&lt;/span&gt;root@horse ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# rpm -qa |grep btrfs-pr&lt;/span&gt;
+btrfs-progs-4.4.1-1.fc23.x86_64
+&lt;span class="o"&gt;[&lt;/span&gt;root@horse ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# uname -a&lt;/span&gt;
+Linux horse &lt;span class="m"&gt;4&lt;/span&gt;.4.8-300.fc23.x86_64 &lt;span class="c1"&gt;#1 SMP Wed Apr 20 16:59:27 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</content><category term="Linux"></category><category term="btrfs"></category></entry><entry><title>RAID5 btrfs total failure and subsequent abandonment</title><link href="https://kondor6c.github.io/btrfs_total_failure.html" rel="alternate"></link><published>2016-03-30T22:16:56-04:00</published><updated>2018-05-12T04:16:56-04:00</updated><author><name>Kevin Faulkner</name></author><id>tag:kondor6c.github.io,2016-03-30:/btrfs_total_failure.html</id><summary type="html">&lt;p class="first last"&gt;btrfs RAID 5 fails entirely and takes my data with it&lt;/p&gt;
+</summary><content type="html">&lt;p&gt;My btrfs volume failed last night. I tried to rebalance the array to a &amp;quot;JBOD&amp;quot; (just a bunch of disks), it seems that it failed during that rebalance. To really drill down into the failure, it seems based on lines of the device info (bdev...) both those devices have errors. I suspect that these one batch of these read errors were directly due to the failure last time, (this one has rd 76 corrupt 16, other one had corrupt 8 and read 76). Two &amp;quot;failed&amp;quot; devices, during the course of a rebalance, where I was trying to change the structure of the file system. I think I screwed myself over. I would have thought, based on my last rebalance that it would have refused to run, due to fact that there were bad checksums/errors on the device. I have remembered that btrfs took a very long time to get a check/repair ability (fsck), and that was one reason why ext4 was used in &lt;cite&gt;Fedora 24 &amp;lt;https://www.reddit.com/r/linux/comments/3awppp/btrfs_as_default_filesystem_for_fedora_23/&amp;gt;&lt;/cite&gt;, although OpenSUSE has made it the default.&lt;/p&gt;
+&lt;p&gt;My next filesystem for my movie backups, Virtual Machine images, and other files, will probably be ZFS. I remember being told about ZFS back in 2006. I remember just being awe of that filesystem, mostly the fact that it had RAIDz, compression, checksumming, I didn't know a lot about the details of it but it sounded like a comprehensive filesystem. I was wanting to try it but never had the ability to use it, and then I tried to purchase spare Solaris machines on eBay. I was told never to even look at the source code of ZFS or OpenSolaris due to CDDL (I'm not a lawyer, I know the man's intent was good, but it might have been an exaggeration). But this isn't stopping me from trying to run it on Linux now, one difference that I'm not looking forward to is that there is no defragmentation support (neither offline or online, just doesn't exist), and there is no ability to change the file system type like you can with btrfs (even though that is the part that seemed to fail on me). This file system is going to be a secondary file system on my machine, so it being a tainted 3rd party kernel module is not a concern to me. Also another point is that you need ECC memory, which I have on this machine. Considering all that I should be good with ZFS. I will try to post my experiences with it.&lt;/p&gt;
+&lt;p&gt;Here is the actions I took and most of the output, if anyone comes to this post from a search engine, my volume failed I did not recover the data:
+.. code-block:: console&lt;/p&gt;
+&lt;blockquote&gt;
+[&lt;a class="reference external" href="mailto:root&amp;#64;horse"&gt;root&amp;#64;horse&lt;/a&gt; ~]# btrfs balance start -dconvert=single /mnt/extra/
+ERROR: error during balancing '/mnt/extra/': Read-only file system
+There may be more info in syslog - try dmesg | tail
+[&lt;a class="reference external" href="mailto:root&amp;#64;horse"&gt;root&amp;#64;horse&lt;/a&gt; ~]#
+[&lt;a class="reference external" href="mailto:root&amp;#64;horse"&gt;root&amp;#64;horse&lt;/a&gt; ~]# dmesg | tail
+[ 3710.919178] &amp;nbsp;[&amp;lt;ffffffff8f1f4d3d&amp;gt;] ? __vma_link_rb+0xfd/0x110
+[ 3710.919182] &amp;nbsp;[&amp;lt;ffffffff8f25b4b2&amp;gt;] do_vfs_ioctl+0xa2/0x5d0
+[ 3710.919186] &amp;nbsp;[&amp;lt;ffffffff8f062776&amp;gt;] ? __do_page_fault+0x206/0x4d0
+[ 3710.919190] &amp;nbsp;[&amp;lt;ffffffff8f25ba59&amp;gt;] SyS_ioctl+0x79/0x90
+[ 3710.919196] &amp;nbsp;[&amp;lt;ffffffff8f7ec572&amp;gt;] entry_SYSCALL_64_fastpath+0x1a/0xa4
+[ 3710.919228] ---[ end trace 58ee1a8a51b783ac ]---
+[ 3710.919232] BTRFS: error (device sdf) in btrfs_run_delayed_refs:2963: errno=-5 IO failure
+[ 3710.919235] BTRFS info (device sdf): forced readonly
+[ 3734.949833] BTRFS info (device sdg1): disk space caching is enabled
+[ 3734.949839] BTRFS info (device sdg1): has skinny extents
+[ &amp;nbsp; 71.460425] BTRFS info (device sdb): disk space caching is enabled
+[ &amp;nbsp; 71.460433] BTRFS info (device sdb): has skinny extents
+[ &amp;nbsp; 72.576302] BTRFS info (device sdb): bdev /dev/sdd errs: wr 0, rd 76, flush 0, corrupt 16, gen 0
+[ &amp;nbsp; 72.576311] BTRFS info (device sdb): bdev /dev/sdf errs: wr 510, rd 158743, flush 170, corrupt 0, gen 0
+[ &amp;nbsp; 78.476016] BTRFS error (device sdb): parent transid verify failed on 12670714019840 wanted 95664 found 90828
+[ &amp;nbsp; 78.488997] BTRFS error (device sdb): parent transid verify failed on 12670714019840 wanted 95664 found 90828
+[ &amp;nbsp; 78.489007] BTRFS error (device sdb): failed to read block groups: -5
+[ &amp;nbsp; 78.507884] BTRFS: open_ctree failed
+[&lt;a class="reference external" href="mailto:root&amp;#64;horse"&gt;root&amp;#64;horse&lt;/a&gt; ~]# mount -o degraded /dev/sdf /mnt/extra/
+mount: wrong fs type, bad option, bad superblock on /dev/sdf,
+&amp;nbsp; &amp;nbsp; &amp;nbsp; missing codepage or helper program, or other error
+&amp;nbsp; &amp;nbsp; &amp;nbsp; In some cases useful info is found in syslog - try
+&amp;nbsp; &amp;nbsp; &amp;nbsp; dmesg | tail or so.
+[&lt;a class="reference external" href="mailto:root&amp;#64;horse"&gt;root&amp;#64;horse&lt;/a&gt; ~]#
+[&lt;a class="reference external" href="mailto:root&amp;#64;horse"&gt;root&amp;#64;horse&lt;/a&gt; ~]# btrfsck --repair --init-csum-tree /dev/sdb
+enabling repair mode
+Creating a new CRC tree
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+leaf parent key incorrect 12670714019840
+Checking filesystem on /dev/sdb
+UUID: 8289c25f-a8d1-44aa-8c18-6215831d2cae
+Reinit crc root
+parent transid verify failed on 12670694375424 wanted 95645 found 90828
+parent transid verify failed on 12670694375424 wanted 95645 found 90828
+parent transid verify failed on 12670694375424 wanted 95645 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670713872384 wanted 95664 found 90828
+parent transid verify failed on 12670713872384 wanted 95664 found 90828
+bytenr mismatch, want=12670713872384, have=12670713741312
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670713872384 wanted 95664 found 90828
+parent transid verify failed on 12670713872384 wanted 95664 found 90828
+bytenr mismatch, want=12670713872384, have=12670713741312
+Unable to find block group for 0
+extent-tree.c:289: find_search_start: Assertion &lt;cite&gt;1&lt;/cite&gt; failed.
+btrfs check(+0x4e29a)[0x556fccd8d29a]
+btrfs check(btrfs_reserve_extent+0xabe)[0x556fccd9215e]
+btrfs check(btrfs_alloc_free_block+0x5f)[0x556fccd9221f]
+btrfs check(+0x46584)[0x556fccd85584]
+btrfs check(btrfs_search_slot+0x2a2)[0x556fccd863c2]
+btrfs check(btrfs_csum_file_block+0x47f)[0x556fccd9786f]
+btrfs check(+0xf67e)[0x556fccd4e67e]
+btrfs check(cmd_check+0x27be)[0x556fccd72d4e]
+btrfs check(main+0x7d)[0x556fccd4eddd]
+/lib64/libc.so.6(__libc_start_main+0xf1)[0x7fb048cd4731]
+btrfs check(_start+0x29)[0x556fccd4eee9]
+[&lt;a class="reference external" href="mailto:root&amp;#64;horse"&gt;root&amp;#64;horse&lt;/a&gt; ~]#&lt;/blockquote&gt;
+&lt;!--  --&gt;
+</content><category term="Linux"></category><category term="btrfs"></category></entry><entry><title>Modern Marvels Engineering Disasters</title><link href="https://kondor6c.github.io/modern-marvels-engineering-disasters.html" rel="alternate"></link><published>2016-03-30T22:16:56-04:00</published><updated>2018-05-12T04:16:56-04:00</updated><author><name>Kevin Faulkner</name></author><id>tag:kondor6c.github.io,2016-03-30:/modern-marvels-engineering-disasters.html</id><summary type="html">&lt;p class="first last"&gt;After watching Modern Marvels Engineering Disasters series I reflect on our profession and our &amp;quot;disasters&amp;quot;&lt;/p&gt;
+</summary><content type="html">&lt;div class="section" id="engineering-disasters"&gt;
+&lt;h2&gt;Engineering Disasters&lt;/h2&gt;
+&lt;blockquote&gt;
+&amp;quot;If you look at the major disasters in history, you see in retrospect a sequence of mistakes each one of &amp;gt;which at the time appeared to be innocent an inconsequential. Which all combined in an unfortunate way at the &amp;gt;time of the disaster to create a disaster.&amp;quot;
+Dr. Roger L. McCarthy PE (Chairman Exponent Failure Analysis)&lt;/blockquote&gt;
+&lt;p&gt;While watching Modern Marvels, I have been really enjoying the Engineering Disasters, the particular enjoyment lies in the fact that one can view the root cause analysis. The software engineering profession is in comparison to other engineering disciplines, such as civil engineering or aeronautical engineering is rather young (and &lt;cite&gt;some argue &amp;lt;http://www.theatlantic.com/technology/archive/2015/11/programmers-should-not-call-themselves-engineers/414271/&amp;gt;&lt;/cite&gt; not a real engineering discipline, since the IEEE in some form recognizes software engineering I will too). Additionally there is little to no serious fallout from a miss of a route distribution or a variable not being in scope correctly. Of course I would like to place emphasis on the fact that some circumstances this is not true, such as the PATRIOT missile system and the time issue, or perhaps a healthcare company. There are other areas that my &amp;quot;serious fallout&amp;quot; statement does not apply, but they are the exception. If someone can't read a news site or view an advertisement everyone is still safe.&lt;/p&gt;
+&lt;p&gt;What I keep thinking is, &amp;quot;what will our disasters be, if we had a software engineering disaster?&amp;quot;, there might be some outages on there and it might be very interesting. But more importantly what have we learned and as an industry what have we agreed on or put in place to prevent further disasters? If I had to immediately come in and say a few items backups and security items would be among the first. Perhaps I will make a more through list, but really as an industry as we mature I think we will arrive on more through measures. But since our industry is advancing so rapidly (far more quickly than civil engineering for example, please don't take offense, my grandfather is a civil engineer and I have great respect for him and his practice), I think that if we ratified a standard, it would quickly become out of date and would instead hold us down. This is especially true with security.&lt;/p&gt;
+&lt;p&gt;So really, maybe, our industry is unique and young, I really look forward to how it will change! But I also think we will increasingly need to be more accountable for our mistakes and acknowledge them (I also think this is a sigh of maturity in general in particular with junior and senior level engineers). Fortunately we won't be liable for a dam collapse which would kill hundreds, or a structural engineer that has a pillar collapse and thus be brought to trial for the failure. Keep in mind, what small things that we think are uncommon and just &amp;quot;won't happen&amp;quot; might cause a failure somewhere else. With those thoughts and planning, we will be better engineers! Try reading the book &lt;cite&gt;Web Operations &amp;lt;http://shop.oreilly.com/product/0636920000136.do&amp;gt;&lt;/cite&gt; or watch a hangops video, of which I will correctly link later.&lt;/p&gt;
+&lt;/div&gt;
+</content><category term="Linux"></category></entry><entry><title>bash tips 1</title><link href="https://kondor6c.github.io/bash_tips1.html" rel="alternate"></link><published>2016-03-29T22:16:56-04:00</published><updated>2016-03-29T22:16:56-04:00</updated><author><name>Kevin Faulkner</name></author><id>tag:kondor6c.github.io,2016-03-29:/bash_tips1.html</id><summary type="html">&lt;p&gt;after reviewing some "bash tips" I post a reflection&lt;/p&gt;</summary><content type="html">&lt;h1&gt;BASH tips&lt;/h1&gt;
+&lt;p&gt;So I read a comment on Hacker News about ctrl+o and and the comment (and subsequent comments) made it sound as though it was this ultra helpful trick. Well I had a bit of difficulty finding what and how to use, perhaps its because I'm a bit stupid. So here is how it works, you type a command (I found it works best when you use ctrl+r then press ctrl+o) press ctrl+o instead of enter. It will run that command, then autocomplete the next command from the last previously typed entry that you ran when you pressed ctrl+o. Might be a little confusing. Take a look at this fake, yet focused on the concept session below&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[kondor6c@workhorse ~]# &amp;lt;CTRL+R&amp;gt; service tomcat sto&amp;lt;CTRL+O&amp;gt;
+Redirecting to /bin/systemctl stop  tomcat.service
+[kondor6c@workhorse ~]# rsync -va current-version.war server:/app/tomcat/webapps/ #this will automatically appear! Just press to get the next line to automatically appear&amp;lt;CTRL+O&amp;gt;
+kondor6c@server.mooo.com&amp;#39;s password:                                                                
+sending incremental file list
+current-version.war                                                                          
+sent 43,611,957 bytes  received 824 bytes  3,426.29 bytes/sec 
+total size is 43,611,838  speedup is 0.99 
+
+[kondor6c@workhorse ~]# service tomcat start &amp;lt;enter&amp;gt;
+Redirecting to /bin/systemctl start  tomcat.service
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As you can see ctrl+o would require explicit knowledge of what was ran last, otherwise you wasted time. Additionally I would want to group any commands that I would type after one another into a one liner or make it a script-able action. In short I'm glad I learned about it, I probably won't instruct others about it, as I think it will be harder to grasp, and I don't see the use case being that strong.&lt;/p&gt;
+&lt;p&gt;I have explored many "Bash tips" I think I know the vast majority of them. If you know of one I encourage you to share it. Here are just a couple that I have very recently discussed with coworkers/intern:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;"ctrl + \" : sends a SIGQUIT as in a signal 3, which tries to dump the core, if not then it will generally quit with a higher priority than SIGINT, not really a BASH specific tip, but certainly useful.&lt;/li&gt;
+&lt;li&gt;"~." : When ssh'ing and you have a hung session, press "~." on the SSH session, this should interrupt it and bring you out. I have found that when my sessions are hung they are not always at a newline &lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;kondor6c@computer:~$ ~?
+Supported escape sequences:
+ ~.   - terminate connection (and any multiplexed sessions)
+ ~B   - send a BREAK to the remote system
+ ~C   - open a command line
+ ~R   - request rekey
+ ~V/v - decrease/increase verbosity (LogLevel)
+ ~^Z  - suspend ssh
+ ~#   - list forwarded connections
+ ~&amp;amp;   - background ssh (when waiting for connections to terminate)
+ ~?   - this message
+ ~~   - send the escape character by typing it twice
+(Note that escapes are only recognized immediately after newline.)
+kondor6c@computer:~$ #&amp;lt;enter&amp;gt;
+kondor6c@computer:~$ #&amp;lt;enter&amp;gt; then press ~.
+kondor6c@computer:~$ Connection to computer closed.
+&lt;/pre&gt;&lt;/div&gt;</content><category term="Linux"></category></entry><entry><title>pyenv</title><link href="https://kondor6c.github.io/pyenv.html" rel="alternate"></link><published>2016-03-27T16:09:23-04:00</published><updated>2016-03-27T16:09:23-04:00</updated><author><name>Kevin Faulkner</name></author><id>tag:kondor6c.github.io,2016-03-27:/pyenv.html</id><summary type="html">&lt;p&gt;Version managers for languages&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Version Managers&lt;/h1&gt;
+&lt;p&gt;I have been enjoying the idea of version managers for interpreted languages like Ruby, Python and even NodeJS. Python likes to advocate using virtualenv, which works very well when interacting and writing the code. However when interacting with automation like Ansible or Chef this becomes difficult since you have to source the shell scripts to install a given version.&lt;/p&gt;
+&lt;p&gt;Some might argue that there isn't a need to have one of these version managers, and as you might guess I disagree with that, and advocate for them. If you lock in the version that you are testing/developing with this allows for more stability (no surprises is a good thing in production). You can then bring in a new version by putting it through a testing suite. This way you are not constrained to what version that the operating system is doing, it would be nice if the code worked correctly despite a new version, but frequently these are factors out of our control. When your building your project, setup a version manager might require a little bit of work but what if you get a little distracted (personal project focused) or get pulled my from a given project (corporate focused), having the version locked removes a lot of potential pain. Additionally this would allow moving to docker since all you need to do is setup that version manager and you could be on Arch Linux in a docker container. &lt;/p&gt;
+&lt;p&gt;We don't know what the future holds, if we make our projects explicit on the versions it needs (even dependencies), then we are increasing the stability.&lt;/p&gt;
+&lt;p&gt;I frequently try to argue the other side, and two arguments I can see is that it's easier to just do "yum install ruby-devel" or that it increases the likelihood that package requirements/dependencies become stale. The ease of use of many version managers are increasingly more simple, all you need to do is switch to the development user and pipe the install script from curl to bash. Now the former I might have to agree with you on, and generally you could specify in the requirements that a "greater than" version is acceptable and lock it when you feel it is a concern.
+To add credibility to my statements I have used [[https://rvm.io/|RVM]] in production in these examples gitlab, a custom application, and with Canvas LMS. I have code in place for [[https://github.com/creationix/nvm|NVM]] (NodeJS) and I am investigating [[https://github.com/yyuu/pyenv-installer|pyenv]] for Python.&lt;/p&gt;</content><category term="Linux"></category></entry><entry><title>white_spaces_can_be_dangerous</title><link href="https://kondor6c.github.io/white_spaces_can_be_dangerous.html" rel="alternate"></link><published>2015-12-19T23:20:24-05:00</published><updated>2015-12-19T23:20:24-05:00</updated><author><name>Kevin Faulkner</name></author><id>tag:kondor6c.github.io,2015-12-19:/white_spaces_can_be_dangerous.html</id><summary type="html">&lt;p&gt;brief look at go and spacing&lt;/p&gt;</summary><content type="html">&lt;p&gt;====== White spaces can be dangerous  ======
+When I was some go I noticed that it refused to compile due to a white space:&lt;/p&gt;
+&lt;p&gt;''
+./go-test-router.go:17: invalid identifier character U+2502
+./go-test-router.go:17: syntax error: unexpected name, expecting }
+''&lt;/p&gt;
+&lt;p&gt;I have noticed this first with Microsoft Windows formatting of white spaces and new lines. This is also true Word quotes. This was due to the fact that we had to put documentation on sharepoint. Something I still don't agree with to this day.&lt;/p&gt;</content><category term="Linux"></category></entry><entry><title>tiddlywiki_entry_everyday_for_30_days</title><link href="https://kondor6c.github.io/tiddlywiki_entry_everyday_for_30_days.html" rel="alternate"></link><published>2015-12-17T15:24:57-05:00</published><updated>2015-12-17T15:24:57-05:00</updated><author><name>Kevin Faulkner</name></author><id>tag:kondor6c.github.io,2015-12-17:/tiddlywiki_entry_everyday_for_30_days.html</id><summary type="html">&lt;p&gt;I try to commit to writing in tiddlywiki once a day for 30 days&lt;/p&gt;</summary><content type="html">&lt;p&gt;====== Tiddlywiki entry everyday for 30 days ======&lt;/p&gt;
+&lt;p&gt;I'm going to make it a goal to make a tiddlywiki entry every day for 30 days. This will be in effort to help form a habit. Here is my plan, add items to track quick ideas like Million dollar ideas, things to research, plans for the house, programming/learning notes. Really Tiddlywiki should be quick and dirty, I want this dokuwiki to be more mature, organized, especially since it's versioned with git. With that I can more or less commit myself to goals (even though the goals section is just as "set in stone" as this is).
+I need to tiddly for 30 days, wiki 30 days, blog 30 days, keepass 30 days. Physically, I should stationary bike for 30 days, lift weights/push ups 30 days, run 30 days.
+Here are some blog entry ideas:
+  * thoughts on RPM macros, Fedora installing them now with an RPM
+  * thoughts on new KDE/plasma and the work laptop
+  * reflect on 30 day progresses
+  * golang efforts
+I can't think of any more right now, but I should put them in Tiddlywiki. By the way, Ubuntu keeps the trackpad enabled whereas Fedora has it insensitive. I've already highlighted and deleted this text... This needs to change.&lt;/p&gt;</content><category term="Linux"></category><category term="note_taking"></category></entry><entry><title>x2go or FreeNX</title><link href="https://kondor6c.github.io/x2go_or_freenx.html" rel="alternate"></link><published>2015-11-19T23:01:56-04:00</published><updated>2018-05-12T04:16:56-04:00</updated><author><name>Kevin Faulkner</name></author><id>tag:kondor6c.github.io,2015-11-19:/x2go_or_freenx.html</id><summary type="html">&lt;p class="first last"&gt;After working on a Bohdi ticket I express fondness for Neatx&lt;/p&gt;
+</summary><content type="html">&lt;p&gt;I have had the worst time with x2go both on Fedora and Ubuntu, I thought neatx from Google was the preferred method for doing remote sessions but I heard that had changed. x2go doesn't even offer a Windows client like NoMachine offers. I was trying to test libpng on a scaleway Fedora 22 ARM server (&lt;a class="reference external" href="https://bodhi.fedoraproject.org/updates/FEDORA-2015-6c07ab1fa6"&gt;https://bodhi.fedoraproject.org/updates/FEDORA-2015-6c07ab1fa6&lt;/a&gt;). I guess I'll have to find another way of doing that.&lt;/p&gt;
+</content><category term="x2go"></category><category term="fedora"></category><category term="qa"></category><category term="remote"></category></entry></feed>
