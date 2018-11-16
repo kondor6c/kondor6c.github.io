@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>options-vs-arguments-vs-parameters - lazytree</title>
+    <title>infrastructure - lazytree</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -9,21 +9,16 @@
 
 
 
-<link rel="canonical" href="/options-vs-arguments-vs-parameters.html">
 
-        <meta name="author" content="Kevin Faulkner" />
-        <meta name="keywords" content="Linux" />
-        <meta name="description" content="trivial discussion about semantics of positioning vocabulary" />
+    <meta name="author" content="Kevin Faulkner" />
+    <meta name="keywords" content="infrastructure" />
 
+    <!-- Open Graph tags -->
         <meta property="og:site_name" content="lazytree" />
-        <meta property="og:type" content="article"/>
-        <meta property="og:title" content="options-vs-arguments-vs-parameters"/>
-        <meta property="og:url" content="/options-vs-arguments-vs-parameters.html"/>
-        <meta property="og:description" content="trivial discussion about semantics of positioning vocabulary"/>
-        <meta property="article:published_time" content="2016-09-26" />
-            <meta property="article:section" content="devops" />
-            <meta property="article:tag" content="Linux" />
-            <meta property="article:author" content="Kevin Faulkner" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="lazytree"/>
+        <meta property="og:url" content=""/>
+        <meta property="og:description" content="lazytree"/>
 
 
 
@@ -58,13 +53,13 @@ lazytree            </a>
                         <li >
                             <a href="/category/community-content-ideas-conferences.html">Community, content ideas, conferences</a>
                         </li>
-                        <li class="active">
+                        <li >
                             <a href="/category/devops.html">Devops</a>
                         </li>
                         <li >
                             <a href="/category/homelab.html">Homelab</a>
                         </li>
-                        <li >
+                        <li class="active">
                             <a href="/category/infrastructure.html">Infrastructure</a>
                         </li>
                         <li >
@@ -85,92 +80,13 @@ lazytree            </a>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1>
-                    <a href="/options-vs-arguments-vs-parameters.html"
-                       rel="bookmark"
-                       title="Permalink to options-vs-arguments-vs-parameters">
-                        options-vs-arguments-vs-parameters
-                    </a>
-                </h1>
-            </header>
-            <div class="entry-content">
-                <div class="panel">
-                    <div class="panel-body">
-<footer class="post-info">
-    <span class="label label-default">Date</span>
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2016-09-26T21:58:04-04:00"> Mon 26 September 2016</time>
-    </span>
-
-
-
-
-
-<span class="label label-default">Tags</span>
-	<a href="/tag/linux.html">Linux</a>
-    
-</footer><!-- /.post-info -->                    </div>
+            <article>
+                <h2><a href="/gnutls_ed25519.html">GnuTLS and ed25519</a></h2>
+                <div class="summary"><p>GNUTLS 3.6 brings ed25519 key support</p>
+                    <a class="btn btn-default btn-xs" href="/gnutls_ed25519.html">more ...</a>
                 </div>
-                <p>====== options, arguments, or parameters ======</p>
-<p>Where I am currently employed there has been, in my opinion, an over application of the term "parameter". Or at least from where I have been in the past. I have always thought that for example:
-<code>
-example -x test.txt
-</code>
--x would be a switch, and the option after -x, test.txt, would be argument. But it seems here or recently we apply the term parameter to everything. Which I guess I'm not opposed to, I'm just observing. Is this trivial, yes, very trivial. But I'm not really trying to advocate change or anything like that. Let's look at the man page for sort:</p>
-<div class="highlight"><pre><span></span>SORT(1)                                                               User Commands                                                               SORT(1)
-
-NAME
-       sort - sort lines of text files
-
-SYNOPSIS
-       sort [OPTION]... [FILE]...
-       sort [OPTION]... --files0-from=F
-
-DESCRIPTION
-       Write sorted concatenation of all FILE(s) to standard output.
-
-       With no FILE, or when FILE is -, read standard input.
-
-       Mandatory arguments to long options are mandatory for short options too.  Ordering options:
-
-       -b, --ignore-leading-blanks
-              ignore leading blanks
-
-       -d, --dictionary-order
-              consider only blanks and alphanumeric characters
-
-       -f, --ignore-case
-              fold lower case to upper case characters
-
-       -g, --general-numeric-sort
-              compare according to general numerical value
-
-       -i, --ignore-nonprinting
-              consider only printable characters
-
-       -M, --month-sort
-              compare (unknown) &lt; &#39;JAN&#39; &lt; ... &lt; &#39;DEC&#39;
-
-       -h, --human-numeric-sort
-              compare human readable numbers (e.g., 2K 1G)
-
-       -n, --numeric-sort
-              compare according to string numerical value
-</pre></div>
-
-
-<p>The man page says sort, but we can't seem to find anything about "switch" or "parameter".
-If we look at, for example, grep (perhaps one the most commonly used tools in my toolkit), swtich appears, look at the [[http://git.savannah.gnu.org/cgit/grep.git/tree/doc/grep.in.1#n294|source]].
-I could find parameter but it was only in regards to awk, it was not in grep, sed, ping, awk, time, top. I did find it in [[https://github.com/curl/curl/blame/master/docs/curl.1#L773|curl]]!
-Here is a good a good page, describing that there is a difference in computer science in the terms: http://stackoverflow.com/questions/156767/whats-the-difference-between-an-argument-and-a-parameter
-If we look at [[https://en.wikipedia.org/wiki/Command-line_interface#Arguments|wikipedia]], it seems to use all of the terms. Perhaps this really just highlights the triviality of all this :-) Why did I search for this? Curious I suppose. Have a good day!</p>
-            </div>
-            <!-- /.entry-content -->
-        </article>
-    </section>
+            </article>
+            <hr/>
 
         </div>
         <div class="col-sm-3" id="sidebar">
