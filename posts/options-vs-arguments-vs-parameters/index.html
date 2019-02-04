@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>blog</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="revised" content="2019-02-04T10:02:56 EST">
+<title>options-vs-arguments-vs-parameters :: blog</title>
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/nucleus.css" rel="stylesheet">
+<link href="/theme-flex/style.css" rel="stylesheet">
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<script src="/js/jquery-2.x.min.js"></script>
+<script type="text/javascript">
+      var baseurl = "https:\/\/kondor6c.github.io\/";
+</script>
+<meta name="description" content="trivial discussion about semantics of positioning vocabulary">
+
+
+
+    
+  </head>
+  <body data-url="/posts/options-vs-arguments-vs-parameters/">
+    
+      <header>
+  <div class="logo">
+    
+	
+  
+    <a class="baselink" href="https://kondor6c.github.io/">blog</a>
+  
+
+
+  </div>
+  <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
+    <nav class="shortcuts">
+            <li class="" role="">
+                <a href="https://github.com/kondor6c/"  rel="noopener">
+                  <i class='fa fa-github'></i> <label>Github repo</label>
+                </a>
+            </li>
+    </nav>
+</header>
+<article>
+  <aside>
+    <ul class="menu">
+          <li data-nav-id="/" class="dd-item">
+          <a href="/">
+            <i class="fa fa-fw fa-home"></i>
+          </a>
+          </li>
+    <li data-nav-id="/posts/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/posts/">Posts</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/posts/trust_tls/" class="dd-item">
+        <div>
+          <a href="/posts/trust_tls/">
+            Trust TLS
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/gnutls_ed25519/" class="dd-item">
+        <div>
+          <a href="/posts/gnutls_ed25519/">
+            GnuTLS and ed25519
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/end_of_disk_issues/" class="dd-item">
+        <div>
+          <a href="/posts/end_of_disk_issues/">
+            An End of Disk Issues?
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/self-2018/" class="dd-item">
+        <div>
+          <a href="/posts/self-2018/">
+            SELF 2018
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/resume-blogging/" class="dd-item">
+        <div>
+          <a href="/posts/resume-blogging/">
+            Resume Blogging
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/openssl-video/" class="dd-item">
+        <div>
+          <a href="/posts/openssl-video/">
+            OpenSSL Video
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/urxvt_vs_eterm/" class="dd-item">
+        <div>
+          <a href="/posts/urxvt_vs_eterm/">
+            urxvt_vs_eterm
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/hurricane_matthew_weekend/" class="dd-item">
+        <div>
+          <a href="/posts/hurricane_matthew_weekend/">
+            Hurricane Matthew Weekend
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/options-vs-arguments-vs-parameters/" class="dd-item active">
+        <div>
+          <a href="/posts/options-vs-arguments-vs-parameters/">
+            options-vs-arguments-vs-parameters
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/give_emacs_another_try/" class="dd-item">
+        <div>
+          <a href="/posts/give_emacs_another_try/">
+            Emacs
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/standardization/" class="dd-item">
+        <div>
+          <a href="/posts/standardization/">
+            standardization
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/powershell_linux_debut/" class="dd-item">
+        <div>
+          <a href="/posts/powershell_linux_debut/">
+            powershell_linux_debut
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/modern-marvels-engineering-disasters/" class="dd-item">
+        <div>
+          <a href="/posts/modern-marvels-engineering-disasters/">
+            
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/btrfs_total_failure/" class="dd-item">
+        <div>
+          <a href="/posts/btrfs_total_failure/">
+            RAID5 btrfs total failure and subsequent abandonment
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/bash_tips1/" class="dd-item">
+        <div>
+          <a href="/posts/bash_tips1/">
+            bash tips 1
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/white_spaces_can_be_dangerous/" class="dd-item">
+        <div>
+          <a href="/posts/white_spaces_can_be_dangerous/">
+            white_spaces_can_be_dangerous
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/tiddlywiki_entry_everyday_for_30_days/" class="dd-item">
+        <div>
+          <a href="/posts/tiddlywiki_entry_everyday_for_30_days/">
+            tiddlywiki_entry_everyday_for_30_days
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/x2go_or_freenx/" class="dd-item">
+        <div>
+          <a href="/posts/x2go_or_freenx/">
+            x2go or FreeNX
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/btrfs_scrub_fail/" class="dd-item">
+        <div>
+          <a href="/posts/btrfs_scrub_fail/">
+            
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/pyenv/" class="dd-item">
+        <div>
+          <a href="/posts/pyenv/">
+            pyenv
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    </ul>
+    <section>
+    </section>
+  </aside>
+  <section class="page">
+    
+    <div class="nav-select">
+      <center>Navigation : 
+        <select onchange="javascript:location.href = this.value;">
+          
+    <option value="/posts/" >
+   Posts</option> 
+      <option value="/posts/trust_tls/" >- Trust TLS</option>
+      <option value="/posts/gnutls_ed25519/" >- GnuTLS and ed25519</option>
+      <option value="/posts/end_of_disk_issues/" >- An End of Disk Issues?</option>
+      <option value="/posts/self-2018/" >- SELF 2018</option>
+      <option value="/posts/resume-blogging/" >- Resume Blogging</option>
+      <option value="/posts/openssl-video/" >- OpenSSL Video</option>
+      <option value="/posts/urxvt_vs_eterm/" >- urxvt_vs_eterm</option>
+      <option value="/posts/hurricane_matthew_weekend/" >- Hurricane Matthew Weekend</option>
+      <option value="/posts/options-vs-arguments-vs-parameters/"  selected>- options-vs-arguments-vs-parameters</option>
+      <option value="/posts/give_emacs_another_try/" >- Emacs</option>
+      <option value="/posts/standardization/" >- standardization</option>
+      <option value="/posts/powershell_linux_debut/" >- powershell_linux_debut</option>
+      <option value="/posts/modern-marvels-engineering-disasters/" >- </option>
+      <option value="/posts/btrfs_total_failure/" >- RAID5 btrfs total failure and subsequent abandonment</option>
+      <option value="/posts/bash_tips1/" >- bash tips 1</option>
+      <option value="/posts/white_spaces_can_be_dangerous/" >- white_spaces_can_be_dangerous</option>
+      <option value="/posts/tiddlywiki_entry_everyday_for_30_days/" >- tiddlywiki_entry_everyday_for_30_days</option>
+      <option value="/posts/x2go_or_freenx/" >- x2go or FreeNX</option>
+      <option value="/posts/btrfs_scrub_fail/" >- </option>
+      <option value="/posts/pyenv/" >- pyenv</option>
+  
+
+
+
+        </select>
+      </center>
+    </div>
+      <div>
+        <div class="searchbox">
+          <input data-search-input id="search-by" type="text" placeholder="Search...">
+        </div>
+        <script type="text/javascript" src="/js/lunr.min.js"></script>
+        <script type="text/javascript" src="/js/auto-complete.js"></script>
+        <link href="/css/auto-complete.css" rel="stylesheet">
+        <script type="text/javascript">
+          
+              var baseurl = "https:\/\/kondor6c.github.io\/";
+          
+        </script>
+        <script type="text/javascript" src="/js/search.js"></script>
+      </div>
+    
+
+    <h1>options-vs-arguments-vs-parameters</h1>
+    
+    
+    
+    <p>====== options, arguments, or parameters ======</p>
+
+<p>Where I am currently employed there has been, in my opinion, an over application of the term &ldquo;parameter&rdquo;. Or at least from where I have been in the past. I have always thought that for example:</p>
+
+<pre><code>example -x test.txt
+</code></pre>
+
+<p>-x would be a switch, and the option after -x, test.txt, would be argument. But it seems here or recently we apply the term parameter to everything. Which I guess I&rsquo;m not opposed to, I&rsquo;m just observing. Is this trivial, yes, very trivial. But I&rsquo;m not really trying to advocate change or anything like that. Let&rsquo;s look at the man page for sort:</p>
+
+<pre><code>SORT(1)                                                               User Commands                                                               SORT(1)
+
+NAME
+       sort - sort lines of text files
+
+SYNOPSIS
+       sort [OPTION]... [FILE]...
+       sort [OPTION]... --files0-from=F
+
+DESCRIPTION
+       Write sorted concatenation of all FILE(s) to standard output.
+
+       With no FILE, or when FILE is -, read standard input.
+
+       Mandatory arguments to long options are mandatory for short options too.  Ordering options:
+
+       -b, --ignore-leading-blanks
+              ignore leading blanks
+
+       -d, --dictionary-order
+              consider only blanks and alphanumeric characters
+
+       -f, --ignore-case
+              fold lower case to upper case characters
+
+       -g, --general-numeric-sort
+              compare according to general numerical value
+
+       -i, --ignore-nonprinting
+              consider only printable characters
+
+       -M, --month-sort
+              compare (unknown) &lt; 'JAN' &lt; ... &lt; 'DEC'
+
+       -h, --human-numeric-sort
+              compare human readable numbers (e.g., 2K 1G)
+
+       -n, --numeric-sort
+              compare according to string numerical value
+</code></pre>
+
+<p>The man page says sort, but we can&rsquo;t seem to find anything about &ldquo;switch&rdquo; or &ldquo;parameter&rdquo;.
+If we look at, for example, grep (perhaps one the most commonly used tools in my toolkit), swtich appears, look at the [[<a href="http://git.savannah.gnu.org/cgit/grep.git/tree/doc/grep.in.1#n294|source]">http://git.savannah.gnu.org/cgit/grep.git/tree/doc/grep.in.1#n294|source]</a>].
+I could find parameter but it was only in regards to awk, it was not in grep, sed, ping, awk, time, top. I did find it in [[<a href="https://github.com/curl/curl/blame/master/docs/curl.1#L773|curl]]!">https://github.com/curl/curl/blame/master/docs/curl.1#L773|curl]]!</a>
+Here is a good a good page, describing that there is a difference in computer science in the terms: <a href="http://stackoverflow.com/questions/156767/whats-the-difference-between-an-argument-and-a-parameter">http://stackoverflow.com/questions/156767/whats-the-difference-between-an-argument-and-a-parameter</a>
+If we look at [[<a href="https://en.wikipedia.org/wiki/Command-line_interface#Arguments|wikipedia]">https://en.wikipedia.org/wiki/Command-line_interface#Arguments|wikipedia]</a>], it seems to use all of the terms. Perhaps this really just highlights the triviality of all this :-) Why did I search for this? Curious I suppose. Have a good day!</p>
+
+
+    
+    
+        <div class="chevrons">
+    <div id="navigation">
+<a class="nav nav-prev" href="/posts/hurricane_matthew_weekend/" title="Hurricane Matthew Weekend"> <i class="fa fa-chevron-left"></i><label>Hurricane Matthew Weekend</label></a>
+    <a class="nav nav-next" href="/posts/give_emacs_another_try/" title="Emacs" style="margin-right: 0px;"><label>Emacs</label><i class="fa fa-chevron-right"></i></a></div>
+  </div>
+
+  </section>
+</article>
+
+<footer>
+
+<div class="footline">
+    
+    <div class="tags"> 
+      
+        <a class="label label-default" href="https://kondor6c.github.io/tags/linux">linux</a>
+      
+    </div>
+    
+
+    
+
+    
+    <div class="date">
+        <i class='fa fa-calendar'></i> Last update on 26/09/2016
+    </div>
+    
+
+    
+    <div class="github-link">
+      <a href="https://github.com/kondor6c/contentposts/options-vs-arguments-vs-parameters.md" target="blank"><i class="fa fa-code-fork"></i>
+        Improve this page</a>
+    </div>
+    
+  </div>
+
+
+	<div>
+
+
+  
+    Create a content/_footer.md file to customize the footer content
+  
+
+
+
+	</div>
+</footer>
+
+<script src="/js/clipboard.min.js"></script>
+
+<link href="/css/featherlight.min.css" rel="stylesheet">
+<script src="/js/featherlight.min.js"></script>
+
+
+
+<script src="/theme-flex/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

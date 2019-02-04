@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>blog</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="revised" content="2019-02-04T10:02:56 EST">
+<title> :: blog</title>
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/nucleus.css" rel="stylesheet">
+<link href="/theme-flex/style.css" rel="stylesheet">
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<script src="/js/jquery-2.x.min.js"></script>
+<script type="text/javascript">
+      var baseurl = "https:\/\/kondor6c.github.io\/";
+</script>
+<meta name="description" content="">
+
+
+
+    
+  </head>
+  <body data-url="/posts/btrfs_scrub_fail/">
+    
+      <header>
+  <div class="logo">
+    
+	
+  
+    <a class="baselink" href="https://kondor6c.github.io/">blog</a>
+  
+
+
+  </div>
+  <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
+    <nav class="shortcuts">
+            <li class="" role="">
+                <a href="https://github.com/kondor6c/"  rel="noopener">
+                  <i class='fa fa-github'></i> <label>Github repo</label>
+                </a>
+            </li>
+    </nav>
+</header>
+<article>
+  <aside>
+    <ul class="menu">
+          <li data-nav-id="/" class="dd-item">
+          <a href="/">
+            <i class="fa fa-fw fa-home"></i>
+          </a>
+          </li>
+    <li data-nav-id="/posts/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/posts/">Posts</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/posts/trust_tls/" class="dd-item">
+        <div>
+          <a href="/posts/trust_tls/">
+            Trust TLS
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/gnutls_ed25519/" class="dd-item">
+        <div>
+          <a href="/posts/gnutls_ed25519/">
+            GnuTLS and ed25519
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/end_of_disk_issues/" class="dd-item">
+        <div>
+          <a href="/posts/end_of_disk_issues/">
+            An End of Disk Issues?
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/self-2018/" class="dd-item">
+        <div>
+          <a href="/posts/self-2018/">
+            SELF 2018
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/resume-blogging/" class="dd-item">
+        <div>
+          <a href="/posts/resume-blogging/">
+            Resume Blogging
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/openssl-video/" class="dd-item">
+        <div>
+          <a href="/posts/openssl-video/">
+            OpenSSL Video
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/urxvt_vs_eterm/" class="dd-item">
+        <div>
+          <a href="/posts/urxvt_vs_eterm/">
+            urxvt_vs_eterm
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/hurricane_matthew_weekend/" class="dd-item">
+        <div>
+          <a href="/posts/hurricane_matthew_weekend/">
+            Hurricane Matthew Weekend
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/options-vs-arguments-vs-parameters/" class="dd-item">
+        <div>
+          <a href="/posts/options-vs-arguments-vs-parameters/">
+            options-vs-arguments-vs-parameters
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/give_emacs_another_try/" class="dd-item">
+        <div>
+          <a href="/posts/give_emacs_another_try/">
+            Emacs
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/standardization/" class="dd-item">
+        <div>
+          <a href="/posts/standardization/">
+            standardization
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/powershell_linux_debut/" class="dd-item">
+        <div>
+          <a href="/posts/powershell_linux_debut/">
+            powershell_linux_debut
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/modern-marvels-engineering-disasters/" class="dd-item">
+        <div>
+          <a href="/posts/modern-marvels-engineering-disasters/">
+            
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/btrfs_total_failure/" class="dd-item">
+        <div>
+          <a href="/posts/btrfs_total_failure/">
+            RAID5 btrfs total failure and subsequent abandonment
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/bash_tips1/" class="dd-item">
+        <div>
+          <a href="/posts/bash_tips1/">
+            bash tips 1
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/white_spaces_can_be_dangerous/" class="dd-item">
+        <div>
+          <a href="/posts/white_spaces_can_be_dangerous/">
+            white_spaces_can_be_dangerous
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/tiddlywiki_entry_everyday_for_30_days/" class="dd-item">
+        <div>
+          <a href="/posts/tiddlywiki_entry_everyday_for_30_days/">
+            tiddlywiki_entry_everyday_for_30_days
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/x2go_or_freenx/" class="dd-item">
+        <div>
+          <a href="/posts/x2go_or_freenx/">
+            x2go or FreeNX
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/btrfs_scrub_fail/" class="dd-item active">
+        <div>
+          <a href="/posts/btrfs_scrub_fail/">
+            
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/pyenv/" class="dd-item">
+        <div>
+          <a href="/posts/pyenv/">
+            pyenv
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    </ul>
+    <section>
+    </section>
+  </aside>
+  <section class="page">
+    
+    <div class="nav-select">
+      <center>Navigation : 
+        <select onchange="javascript:location.href = this.value;">
+          
+    <option value="/posts/" >
+   Posts</option> 
+      <option value="/posts/trust_tls/" >- Trust TLS</option>
+      <option value="/posts/gnutls_ed25519/" >- GnuTLS and ed25519</option>
+      <option value="/posts/end_of_disk_issues/" >- An End of Disk Issues?</option>
+      <option value="/posts/self-2018/" >- SELF 2018</option>
+      <option value="/posts/resume-blogging/" >- Resume Blogging</option>
+      <option value="/posts/openssl-video/" >- OpenSSL Video</option>
+      <option value="/posts/urxvt_vs_eterm/" >- urxvt_vs_eterm</option>
+      <option value="/posts/hurricane_matthew_weekend/" >- Hurricane Matthew Weekend</option>
+      <option value="/posts/options-vs-arguments-vs-parameters/" >- options-vs-arguments-vs-parameters</option>
+      <option value="/posts/give_emacs_another_try/" >- Emacs</option>
+      <option value="/posts/standardization/" >- standardization</option>
+      <option value="/posts/powershell_linux_debut/" >- powershell_linux_debut</option>
+      <option value="/posts/modern-marvels-engineering-disasters/" >- </option>
+      <option value="/posts/btrfs_total_failure/" >- RAID5 btrfs total failure and subsequent abandonment</option>
+      <option value="/posts/bash_tips1/" >- bash tips 1</option>
+      <option value="/posts/white_spaces_can_be_dangerous/" >- white_spaces_can_be_dangerous</option>
+      <option value="/posts/tiddlywiki_entry_everyday_for_30_days/" >- tiddlywiki_entry_everyday_for_30_days</option>
+      <option value="/posts/x2go_or_freenx/" >- x2go or FreeNX</option>
+      <option value="/posts/btrfs_scrub_fail/"  selected>- </option>
+      <option value="/posts/pyenv/" >- pyenv</option>
+  
+
+
+
+        </select>
+      </center>
+    </div>
+      <div>
+        <div class="searchbox">
+          <input data-search-input id="search-by" type="text" placeholder="Search...">
+        </div>
+        <script type="text/javascript" src="/js/lunr.min.js"></script>
+        <script type="text/javascript" src="/js/auto-complete.js"></script>
+        <link href="/css/auto-complete.css" rel="stylesheet">
+        <script type="text/javascript">
+          
+              var baseurl = "https:\/\/kondor6c.github.io\/";
+          
+        </script>
+        <script type="text/javascript" src="/js/search.js"></script>
+      </div>
+    
+
+    <h1></h1>
+    
+    
+    
+    
+
+<p>title: btrfs Scrub Fail
+date: 2016-05-05
+category: devops
+tags:
+- linux
+- btrfs
+slug: btrfs_srub_fail</p>
+
+<h2 id="description-i-experience-unrecoverable-error-on-btrfs-raid-5-ignoring-previous-claims-of-instability">description: I experience unrecoverable error on btrfs RAID 5, ignoring previous claims of instability</h2>
+
+<h1 id="btrfs-scrub-fail">btrfs scrub fail</h1>
+
+<p>{{tag&gt;btrfs}}
+I wrote this earlier on a internal corporate blog (Atlassian&rsquo;s Confluence), but I don&rsquo;t think many read it, it doesn&rsquo;t give out any corporate information, but since I wrote it on &ldquo;company time&rdquo; I figured I should put it there. But with the late night phone calls and the subsequent difficult time in falling asleep I think a few minutes here and there all balances out. That&rsquo;s another topic for another time. Here is a repost of the blog. I&rsquo;m really only putting it here for the sake of context and centralizing my posts. This was written on May 11th 2016.</p>
+
+<h2 id="btrfs">btrfs</h2>
+
+<p>I have been trying/using btrfs. I have really wanted to give it a chance even and I thought a perfect place for that would be at home. So a little bit of background my home machine is a Xeon E5-2620 v3 and it&rsquo;s got 32GB of ECC RAM, I have 4x3TB disks that are in a btrfs RAID 5 setup, it mostly holds torrents (all legal of course), virtual machine disks, and backups (old army documents, pictures). Things had been going rough when I first tried using btrfs (on my root volume), but that turned out to be a bad SSD, nothing to do with the RAID 5. So I kept ext4 on my SSD (rootfs) and I continue to use btrfs on the RAID. Just last week I had a disk fail due to bad sectors, I had time to replace it but after the replace operation.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@horse ~<span style="color:#f92672">]</span># btrfs replace start /dev/sdf /dev/sde /mnt/extra</code></pre></div>
+<p>I continue to get unrepairable errors&hellip;. btrfsck doesn&rsquo;t address it, btrfs scrub on finds the errors. The volume mounts, and unmounts, it just seems that I should be able to address these without going into a recovery, I think it happened during the course of the replace operation. I was able to move the files to a different volume, but it doesn&rsquo;t seem to make a difference. I found the files by looking at the inode that the checksum failed with. As I continue to address these errors I&rsquo;ll keep you posted on the status of my btrfs experience. I was hesitating using ZFS due to the licensing issues. I have long been a fan of ZFS, I think I might try it now; after all I have ECC RAM which is the recommendation. Another thought is to just delete the disk, then re-add it, since it seems to be just one that has the errors.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@horse ~<span style="color:#f92672">]</span><span style="color:#75715e"># btrfs scrub status /mnt/extra
+</span><span style="color:#75715e"></span>scrub status <span style="color:#00a8c8">for</span> 8289c25f-a8d1-44aa-8c18-6215831d2cae
+        scrub started at Thu May  <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">12</span>:17:58 <span style="color:#ae81ff">2016</span> and finished after <span style="color:#ae81ff">40</span>:13:09
+        total bytes scrubbed: <span style="color:#ae81ff">4</span>.52TiB with <span style="color:#ae81ff">12</span> errors
+        error details: <span style="color:#111">read</span><span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> <span style="color:#111">csum</span><span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>
+        corrected errors: <span style="color:#ae81ff">0</span>, uncorrectable errors: <span style="color:#ae81ff">12</span>, unverified errors: <span style="color:#ae81ff">0</span>
+<span style="color:#f92672">[</span>root@horse ~<span style="color:#f92672">]</span><span style="color:#75715e"># btrfsck --repair /dev/sda
+</span><span style="color:#75715e"></span>enabling repair mode
+Checking filesystem on /dev/sda
+UUID: 8289c25f-a8d1-44aa-8c18-6215831d2cae
+checking extents
+checking free space cache
+checking fs roots
+checking root refs
+found <span style="color:#ae81ff">4961408222736</span> bytes used err is <span style="color:#ae81ff">0</span>
+total csum bytes: <span style="color:#ae81ff">4837631228</span>
+total tree bytes: <span style="color:#ae81ff">6034817024</span>
+total fs tree bytes: <span style="color:#ae81ff">754761728</span>
+total extent tree bytes: <span style="color:#ae81ff">84541440</span>
+btree space waste bytes: <span style="color:#ae81ff">420880645</span>
+file data blocks allocated: <span style="color:#ae81ff">42712031051776</span>
+ referenced <span style="color:#ae81ff">4948738207744</span>
+<span style="color:#f92672">[</span>root@horse ~<span style="color:#f92672">]</span><span style="color:#75715e"># mount /mnt/extra/
+</span><span style="color:#75715e"></span><span style="color:#f92672">[</span>root@horse ~<span style="color:#f92672">]</span><span style="color:#75715e"># dmesg |grep btrfs
+</span><span style="color:#75715e"></span><span style="color:#f92672">[</span><span style="color:#ae81ff">703225</span>.538312<span style="color:#f92672">]</span> btrfs<span style="color:#f92672">[</span><span style="color:#ae81ff">10452</span><span style="color:#f92672">]</span>: segfault at <span style="color:#ae81ff">30</span> ip 00005647596ed880 sp 00007fff57c1bb40 error <span style="color:#ae81ff">4</span> in btrfs<span style="color:#f92672">[</span><span style="color:#ae81ff">564759698000</span>+92000<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span><span style="color:#ae81ff">703232</span>.764835<span style="color:#f92672">]</span> btrfs<span style="color:#f92672">[</span><span style="color:#ae81ff">10521</span><span style="color:#f92672">]</span>: segfault at <span style="color:#ae81ff">30</span> ip 00005597082f2880 sp 00007fff2371b050 error <span style="color:#ae81ff">4</span> in btrfs<span style="color:#f92672">[</span>55970829d000+92000<span style="color:#f92672">]</span>
+<span style="color:#f92672">[</span>root@horse ~<span style="color:#f92672">]</span><span style="color:#75715e"># #echo &#34;segfaults with ECC?&#34;
+</span><span style="color:#75715e"></span><span style="color:#f92672">[</span>root@horse ~<span style="color:#f92672">]</span><span style="color:#75715e"># dmesg |tail -n3
+</span><span style="color:#75715e"></span><span style="color:#f92672">[</span><span style="color:#ae81ff">843497</span>.711057<span style="color:#f92672">]</span> BTRFS info <span style="color:#f92672">(</span>device sda<span style="color:#f92672">)</span>: relocating block group <span style="color:#ae81ff">12359603060736</span> flags <span style="color:#ae81ff">129</span>
+<span style="color:#f92672">[</span><span style="color:#ae81ff">843517</span>.301202<span style="color:#f92672">]</span> BTRFS info <span style="color:#f92672">(</span>device sda<span style="color:#f92672">)</span>: found <span style="color:#ae81ff">366</span> extents
+<span style="color:#f92672">[</span><span style="color:#ae81ff">843519</span>.453459<span style="color:#f92672">]</span> BTRFS info <span style="color:#f92672">(</span>device sda<span style="color:#f92672">)</span>: found <span style="color:#ae81ff">366</span> extents
+<span style="color:#f92672">[</span><span style="color:#ae81ff">843519</span>.913111<span style="color:#f92672">]</span> BTRFS info <span style="color:#f92672">(</span>device sda<span style="color:#f92672">)</span>: relocating block group <span style="color:#ae81ff">12356381835264</span> flags <span style="color:#ae81ff">129</span>
+<span style="color:#f92672">[</span><span style="color:#ae81ff">843539</span>.377181<span style="color:#f92672">]</span> BTRFS info <span style="color:#f92672">(</span>device sda<span style="color:#f92672">)</span>: found <span style="color:#ae81ff">366</span> extents
+<span style="color:#f92672">[</span><span style="color:#ae81ff">843540</span>.827521<span style="color:#f92672">]</span> BTRFS info <span style="color:#f92672">(</span>device sda<span style="color:#f92672">)</span>: found <span style="color:#ae81ff">366</span> extents
+<span style="color:#f92672">[</span><span style="color:#ae81ff">843720</span>.099900<span style="color:#f92672">]</span> BTRFS info <span style="color:#f92672">(</span>device sda<span style="color:#f92672">)</span>: disk space caching is enabled
+<span style="color:#f92672">[</span><span style="color:#ae81ff">843720</span>.099907<span style="color:#f92672">]</span> BTRFS: has skinny extents
+<span style="color:#f92672">[</span><span style="color:#ae81ff">843720</span>.995888<span style="color:#f92672">]</span> BTRFS info <span style="color:#f92672">(</span>device sda<span style="color:#f92672">)</span>: bdev /dev/sde errs: wr <span style="color:#ae81ff">0</span>, rd <span style="color:#ae81ff">76</span>, flush <span style="color:#ae81ff">0</span>, corrupt <span style="color:#ae81ff">8</span>, gen <span style="color:#ae81ff">0</span>
+<span style="color:#f92672">[</span><span style="color:#ae81ff">843721</span>.573752<span style="color:#f92672">]</span> BTRFS: checking UUID tree
+<span style="color:#f92672">[</span>root@horse ~<span style="color:#f92672">]</span><span style="color:#75715e"># rpm -qa |grep btrfs-pr
+</span><span style="color:#75715e"></span>btrfs-progs-4.4.1-1.fc23.x86_64
+<span style="color:#f92672">[</span>root@horse ~<span style="color:#f92672">]</span><span style="color:#75715e"># uname -a
+</span><span style="color:#75715e"></span>Linux horse <span style="color:#ae81ff">4</span>.4.8-300.fc23.x86_64 #1 SMP Wed Apr <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">16</span>:59:27 UTC <span style="color:#ae81ff">2016</span> x86_64 x86_64 x86_64 GNU/Linux</code></pre></div>
+
+    
+    
+        <div class="chevrons">
+    <div id="navigation">
+<a class="nav nav-prev" href="/posts/x2go_or_freenx/" title="x2go or FreeNX"> <i class="fa fa-chevron-left"></i><label>x2go or FreeNX</label></a>
+    <a class="nav nav-next" href="/posts/pyenv/" title="pyenv" style="margin-right: 0px;"><label>pyenv</label><i class="fa fa-chevron-right"></i></a></div>
+  </div>
+
+  </section>
+</article>
+
+<footer>
+
+<div class="footline">
+    
+
+    
+
+    
+
+    
+    <div class="github-link">
+      <a href="https://github.com/kondor6c/contentposts/btrfs_scrub_fail.md" target="blank"><i class="fa fa-code-fork"></i>
+        Improve this page</a>
+    </div>
+    
+  </div>
+
+
+	<div>
+
+
+  
+    Create a content/_footer.md file to customize the footer content
+  
+
+
+
+	</div>
+</footer>
+
+<script src="/js/clipboard.min.js"></script>
+
+<link href="/css/featherlight.min.css" rel="stylesheet">
+<script src="/js/featherlight.min.js"></script>
+
+
+
+<script src="/theme-flex/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

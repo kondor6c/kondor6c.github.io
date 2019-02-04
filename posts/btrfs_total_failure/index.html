@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>blog</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="revised" content="2019-02-04T10:02:56 EST">
+<title>RAID5 btrfs total failure and subsequent abandonment :: blog</title>
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/nucleus.css" rel="stylesheet">
+<link href="/theme-flex/style.css" rel="stylesheet">
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<script src="/js/jquery-2.x.min.js"></script>
+<script type="text/javascript">
+      var baseurl = "https:\/\/kondor6c.github.io\/";
+</script>
+<meta name="description" content="">
+
+
+
+    
+  </head>
+  <body data-url="/posts/btrfs_total_failure/">
+    
+      <header>
+  <div class="logo">
+    
+	
+  
+    <a class="baselink" href="https://kondor6c.github.io/">blog</a>
+  
+
+
+  </div>
+  <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
+    <nav class="shortcuts">
+            <li class="" role="">
+                <a href="https://github.com/kondor6c/"  rel="noopener">
+                  <i class='fa fa-github'></i> <label>Github repo</label>
+                </a>
+            </li>
+    </nav>
+</header>
+<article>
+  <aside>
+    <ul class="menu">
+          <li data-nav-id="/" class="dd-item">
+          <a href="/">
+            <i class="fa fa-fw fa-home"></i>
+          </a>
+          </li>
+    <li data-nav-id="/posts/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/posts/">Posts</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/posts/trust_tls/" class="dd-item">
+        <div>
+          <a href="/posts/trust_tls/">
+            Trust TLS
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/gnutls_ed25519/" class="dd-item">
+        <div>
+          <a href="/posts/gnutls_ed25519/">
+            GnuTLS and ed25519
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/end_of_disk_issues/" class="dd-item">
+        <div>
+          <a href="/posts/end_of_disk_issues/">
+            An End of Disk Issues?
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/self-2018/" class="dd-item">
+        <div>
+          <a href="/posts/self-2018/">
+            SELF 2018
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/resume-blogging/" class="dd-item">
+        <div>
+          <a href="/posts/resume-blogging/">
+            Resume Blogging
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/openssl-video/" class="dd-item">
+        <div>
+          <a href="/posts/openssl-video/">
+            OpenSSL Video
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/urxvt_vs_eterm/" class="dd-item">
+        <div>
+          <a href="/posts/urxvt_vs_eterm/">
+            urxvt_vs_eterm
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/hurricane_matthew_weekend/" class="dd-item">
+        <div>
+          <a href="/posts/hurricane_matthew_weekend/">
+            Hurricane Matthew Weekend
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/options-vs-arguments-vs-parameters/" class="dd-item">
+        <div>
+          <a href="/posts/options-vs-arguments-vs-parameters/">
+            options-vs-arguments-vs-parameters
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/give_emacs_another_try/" class="dd-item">
+        <div>
+          <a href="/posts/give_emacs_another_try/">
+            Emacs
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/standardization/" class="dd-item">
+        <div>
+          <a href="/posts/standardization/">
+            standardization
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/powershell_linux_debut/" class="dd-item">
+        <div>
+          <a href="/posts/powershell_linux_debut/">
+            powershell_linux_debut
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/modern-marvels-engineering-disasters/" class="dd-item">
+        <div>
+          <a href="/posts/modern-marvels-engineering-disasters/">
+            
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/btrfs_total_failure/" class="dd-item active">
+        <div>
+          <a href="/posts/btrfs_total_failure/">
+            RAID5 btrfs total failure and subsequent abandonment
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/bash_tips1/" class="dd-item">
+        <div>
+          <a href="/posts/bash_tips1/">
+            bash tips 1
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/white_spaces_can_be_dangerous/" class="dd-item">
+        <div>
+          <a href="/posts/white_spaces_can_be_dangerous/">
+            white_spaces_can_be_dangerous
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/tiddlywiki_entry_everyday_for_30_days/" class="dd-item">
+        <div>
+          <a href="/posts/tiddlywiki_entry_everyday_for_30_days/">
+            tiddlywiki_entry_everyday_for_30_days
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/x2go_or_freenx/" class="dd-item">
+        <div>
+          <a href="/posts/x2go_or_freenx/">
+            x2go or FreeNX
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/btrfs_scrub_fail/" class="dd-item">
+        <div>
+          <a href="/posts/btrfs_scrub_fail/">
+            
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/posts/pyenv/" class="dd-item">
+        <div>
+          <a href="/posts/pyenv/">
+            pyenv
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    </ul>
+    <section>
+    </section>
+  </aside>
+  <section class="page">
+    
+    <div class="nav-select">
+      <center>Navigation : 
+        <select onchange="javascript:location.href = this.value;">
+          
+    <option value="/posts/" >
+   Posts</option> 
+      <option value="/posts/trust_tls/" >- Trust TLS</option>
+      <option value="/posts/gnutls_ed25519/" >- GnuTLS and ed25519</option>
+      <option value="/posts/end_of_disk_issues/" >- An End of Disk Issues?</option>
+      <option value="/posts/self-2018/" >- SELF 2018</option>
+      <option value="/posts/resume-blogging/" >- Resume Blogging</option>
+      <option value="/posts/openssl-video/" >- OpenSSL Video</option>
+      <option value="/posts/urxvt_vs_eterm/" >- urxvt_vs_eterm</option>
+      <option value="/posts/hurricane_matthew_weekend/" >- Hurricane Matthew Weekend</option>
+      <option value="/posts/options-vs-arguments-vs-parameters/" >- options-vs-arguments-vs-parameters</option>
+      <option value="/posts/give_emacs_another_try/" >- Emacs</option>
+      <option value="/posts/standardization/" >- standardization</option>
+      <option value="/posts/powershell_linux_debut/" >- powershell_linux_debut</option>
+      <option value="/posts/modern-marvels-engineering-disasters/" >- </option>
+      <option value="/posts/btrfs_total_failure/"  selected>- RAID5 btrfs total failure and subsequent abandonment</option>
+      <option value="/posts/bash_tips1/" >- bash tips 1</option>
+      <option value="/posts/white_spaces_can_be_dangerous/" >- white_spaces_can_be_dangerous</option>
+      <option value="/posts/tiddlywiki_entry_everyday_for_30_days/" >- tiddlywiki_entry_everyday_for_30_days</option>
+      <option value="/posts/x2go_or_freenx/" >- x2go or FreeNX</option>
+      <option value="/posts/btrfs_scrub_fail/" >- </option>
+      <option value="/posts/pyenv/" >- pyenv</option>
+  
+
+
+
+        </select>
+      </center>
+    </div>
+      <div>
+        <div class="searchbox">
+          <input data-search-input id="search-by" type="text" placeholder="Search...">
+        </div>
+        <script type="text/javascript" src="/js/lunr.min.js"></script>
+        <script type="text/javascript" src="/js/auto-complete.js"></script>
+        <link href="/css/auto-complete.css" rel="stylesheet">
+        <script type="text/javascript">
+          
+              var baseurl = "https:\/\/kondor6c.github.io\/";
+          
+        </script>
+        <script type="text/javascript" src="/js/search.js"></script>
+      </div>
+    
+
+    <h1>RAID5 btrfs total failure and subsequent abandonment</h1>
+    
+    
+    
+    <div class="document" id="raid5-btrfs-total-failure-and-subsequent-abandonment">
+<h1 class="title">RAID5 btrfs total failure and subsequent abandonment</h1>
+
+<p>My btrfs volume failed last night. I tried to rebalance the array to a &quot;JBOD&quot; (just a bunch of disks), it seems that it failed during that rebalance. To really drill down into the failure, it seems based on lines of the device info (bdev...) both those devices have errors. I suspect that these one batch of these read errors were directly due to the failure last time, (this one has rd 76 corrupt 16, other one had corrupt 8 and read 76). Two &quot;failed&quot; devices, during the course of a rebalance, where I was trying to change the structure of the file system. I think I screwed myself over. I would have thought, based on my last rebalance that it would have refused to run, due to fact that there were bad checksums/errors on the device. I have remembered that btrfs took a very long time to get a check/repair ability (fsck), and that was one reason why ext4 was used in <cite>Fedora 24 &lt;https://www.reddit.com/r/linux/comments/3awppp/btrfs_as_default_filesystem_for_fedora_23/&gt;</cite>, although OpenSUSE has made it the default.</p>
+<p>My next filesystem for my movie backups, Virtual Machine images, and other files, will probably be ZFS. I remember being told about ZFS back in 2006. I remember just being awe of that filesystem, mostly the fact that it had RAIDz, compression, checksumming, I didn't know a lot about the details of it but it sounded like a comprehensive filesystem. I was wanting to try it but never had the ability to use it, and then I tried to purchase spare Solaris machines on eBay. I was told never to even look at the source code of ZFS or OpenSolaris due to CDDL (I'm not a lawyer, I know the man's intent was good, but it might have been an exaggeration). But this isn't stopping me from trying to run it on Linux now, one difference that I'm not looking forward to is that there is no defragmentation support (neither offline or online, just doesn't exist), and there is no ability to change the file system type like you can with btrfs (even though that is the part that seemed to fail on me). This file system is going to be a secondary file system on my machine, so it being a tainted 3rd party kernel module is not a concern to me. Also another point is that you need ECC memory, which I have on this machine. Considering all that I should be good with ZFS. I will try to post my experiences with it.</p>
+<p>Here is the actions I took and most of the output, if anyone comes to this post from a search engine, my volume failed I did not recover the data:
+.. code-block:: console</p>
+<blockquote>
+[<a class="reference external" href="mailto:root&#64;horse">root&#64;horse</a> ~]# btrfs balance start -dconvert=single /mnt/extra/
+ERROR: error during balancing '/mnt/extra/': Read-only file system
+There may be more info in syslog - try dmesg | tail
+[<a class="reference external" href="mailto:root&#64;horse">root&#64;horse</a> ~]#
+[<a class="reference external" href="mailto:root&#64;horse">root&#64;horse</a> ~]# dmesg | tail
+[ 3710.919178] &nbsp;[&lt;ffffffff8f1f4d3d&gt;] ? __vma_link_rb+0xfd/0x110
+[ 3710.919182] &nbsp;[&lt;ffffffff8f25b4b2&gt;] do_vfs_ioctl+0xa2/0x5d0
+[ 3710.919186] &nbsp;[&lt;ffffffff8f062776&gt;] ? __do_page_fault+0x206/0x4d0
+[ 3710.919190] &nbsp;[&lt;ffffffff8f25ba59&gt;] SyS_ioctl+0x79/0x90
+[ 3710.919196] &nbsp;[&lt;ffffffff8f7ec572&gt;] entry_SYSCALL_64_fastpath+0x1a/0xa4
+[ 3710.919228] ---[ end trace 58ee1a8a51b783ac ]---
+[ 3710.919232] BTRFS: error (device sdf) in btrfs_run_delayed_refs:2963: errno=-5 IO failure
+[ 3710.919235] BTRFS info (device sdf): forced readonly
+[ 3734.949833] BTRFS info (device sdg1): disk space caching is enabled
+[ 3734.949839] BTRFS info (device sdg1): has skinny extents
+[ &nbsp; 71.460425] BTRFS info (device sdb): disk space caching is enabled
+[ &nbsp; 71.460433] BTRFS info (device sdb): has skinny extents
+[ &nbsp; 72.576302] BTRFS info (device sdb): bdev /dev/sdd errs: wr 0, rd 76, flush 0, corrupt 16, gen 0
+[ &nbsp; 72.576311] BTRFS info (device sdb): bdev /dev/sdf errs: wr 510, rd 158743, flush 170, corrupt 0, gen 0
+[ &nbsp; 78.476016] BTRFS error (device sdb): parent transid verify failed on 12670714019840 wanted 95664 found 90828
+[ &nbsp; 78.488997] BTRFS error (device sdb): parent transid verify failed on 12670714019840 wanted 95664 found 90828
+[ &nbsp; 78.489007] BTRFS error (device sdb): failed to read block groups: -5
+[ &nbsp; 78.507884] BTRFS: open_ctree failed
+[<a class="reference external" href="mailto:root&#64;horse">root&#64;horse</a> ~]# mount -o degraded /dev/sdf /mnt/extra/
+mount: wrong fs type, bad option, bad superblock on /dev/sdf,
+&nbsp; &nbsp; &nbsp; missing codepage or helper program, or other error
+&nbsp; &nbsp; &nbsp; In some cases useful info is found in syslog - try
+&nbsp; &nbsp; &nbsp; dmesg | tail or so.
+[<a class="reference external" href="mailto:root&#64;horse">root&#64;horse</a> ~]#
+[<a class="reference external" href="mailto:root&#64;horse">root&#64;horse</a> ~]# btrfsck --repair --init-csum-tree /dev/sdb
+enabling repair mode
+Creating a new CRC tree
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+leaf parent key incorrect 12670714019840
+Checking filesystem on /dev/sdb
+UUID: 8289c25f-a8d1-44aa-8c18-6215831d2cae
+Reinit crc root
+parent transid verify failed on 12670694375424 wanted 95645 found 90828
+parent transid verify failed on 12670694375424 wanted 95645 found 90828
+parent transid verify failed on 12670694375424 wanted 95645 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670713872384 wanted 95664 found 90828
+parent transid verify failed on 12670713872384 wanted 95664 found 90828
+bytenr mismatch, want=12670713872384, have=12670713741312
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670714019840 wanted 95664 found 90828
+Ignoring transid failure
+parent transid verify failed on 12670713872384 wanted 95664 found 90828
+parent transid verify failed on 12670713872384 wanted 95664 found 90828
+bytenr mismatch, want=12670713872384, have=12670713741312
+Unable to find block group for 0
+extent-tree.c:289: find_search_start: Assertion <cite>1</cite> failed.
+btrfs check(+0x4e29a)[0x556fccd8d29a]
+btrfs check(btrfs_reserve_extent+0xabe)[0x556fccd9215e]
+btrfs check(btrfs_alloc_free_block+0x5f)[0x556fccd9221f]
+btrfs check(+0x46584)[0x556fccd85584]
+btrfs check(btrfs_search_slot+0x2a2)[0x556fccd863c2]
+btrfs check(btrfs_csum_file_block+0x47f)[0x556fccd9786f]
+btrfs check(+0xf67e)[0x556fccd4e67e]
+btrfs check(cmd_check+0x27be)[0x556fccd72d4e]
+btrfs check(main+0x7d)[0x556fccd4eddd]
+/lib64/libc.so.6(__libc_start_main+0xf1)[0x7fb048cd4731]
+btrfs check(_start+0x29)[0x556fccd4eee9]
+[<a class="reference external" href="mailto:root&#64;horse">root&#64;horse</a> ~]#</blockquote>
+<!--  -->
+</div>
+
+    
+    
+        <div class="chevrons">
+    <div id="navigation">
+<a class="nav nav-prev" href="/posts/modern-marvels-engineering-disasters/" title=""> <i class="fa fa-chevron-left"></i><label></label></a>
+    <a class="nav nav-next" href="/posts/bash_tips1/" title="bash tips 1" style="margin-right: 0px;"><label>bash tips 1</label><i class="fa fa-chevron-right"></i></a></div>
+  </div>
+
+  </section>
+</article>
+
+<footer>
+
+<div class="footline">
+    
+    <div class="tags"> 
+      
+        <a class="label label-default" href="https://kondor6c.github.io/tags/linux">linux</a>
+      
+        <a class="label label-default" href="https://kondor6c.github.io/tags/btrfs">btrfs</a>
+      
+    </div>
+    
+
+    
+
+    
+    <div class="date">
+        <i class='fa fa-calendar'></i> Last update on 30/03/2016
+    </div>
+    
+
+    
+    <div class="github-link">
+      <a href="https://github.com/kondor6c/contentposts/btrfs_total_failure.rst" target="blank"><i class="fa fa-code-fork"></i>
+        Improve this page</a>
+    </div>
+    
+  </div>
+
+
+	<div>
+
+
+  
+    Create a content/_footer.md file to customize the footer content
+  
+
+
+
+	</div>
+</footer>
+
+<script src="/js/clipboard.min.js"></script>
+
+<link href="/css/featherlight.min.css" rel="stylesheet">
+<script src="/js/featherlight.min.js"></script>
+
+
+
+<script src="/theme-flex/script.js"></script>
+
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

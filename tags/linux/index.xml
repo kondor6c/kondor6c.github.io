@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on blog</title>
+    <link>https://kondor6c.github.io/tags/linux/</link>
+    <description>Recent content in Linux on blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 19 Aug 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://kondor6c.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>GnuTLS and ed25519</title>
+      <link>https://kondor6c.github.io/posts/gnutls_ed25519/</link>
+      <pubDate>Sun, 19 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://kondor6c.github.io/posts/gnutls_ed25519/</guid>
+      <description>I&amp;rsquo;m very excited that GNUTLS has support for ed25519 keys, these keys are faster, smaller, and more secure than RSA keys. I found this out from a developer&amp;rsquo;s blog while doing research and messing around with CA&amp;rsquo;s in December. The reason I&amp;rsquo;m writing this is that GNUTLS 3.6 has been made available in Fedora 28, therefore can all use this. Additionally and perhaps more importantly we gain the the ability to use TLS 1.</description>
+    </item>
+    
+    <item>
+      <title>An End of Disk Issues?</title>
+      <link>https://kondor6c.github.io/posts/end_of_disk_issues/</link>
+      <pubDate>Thu, 02 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://kondor6c.github.io/posts/end_of_disk_issues/</guid>
+      <description>I have a workstation that I have built, it contains a multi-disk Large Form Factor ZFS array. There have been multiple posts in the past about some of my disk related problems that I&amp;rsquo;ve handled, you should be able to find them with a &amp;lsquo;zfs&amp;rsquo; or &amp;lsquo;disk&amp;rsquo; tag. Well I had several issues, that I hope should be calming down; going back to January, where I decided to move from 4x3TB RAID-Z (software RAID 5) to 4x4TB 7200RPM RAID 10 setup.</description>
+    </item>
+    
+    <item>
+      <title>urxvt_vs_eterm</title>
+      <link>https://kondor6c.github.io/posts/urxvt_vs_eterm/</link>
+      <pubDate>Fri, 14 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://kondor6c.github.io/posts/urxvt_vs_eterm/</guid>
+      <description>====== urxvt vs Eterm ====== So I was trying different terminals so that I can keep on terminal just for a screencast sessions. I want to keep screencasting clean and partitioned. Additionally I have admitted to myself (now everyone else) that I need to know more about profiling the system, I got http://www.brendangregg.com/books.html on system performance, so far its very through. One complaint is that as a Solaris guy and even regarding many of his Linux presentations and writings is that he really favors dtrace, for obvious reasons; its a fantastic tracing tool.</description>
+    </item>
+    
+    <item>
+      <title>Hurricane Matthew Weekend</title>
+      <link>https://kondor6c.github.io/posts/hurricane_matthew_weekend/</link>
+      <pubDate>Wed, 12 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://kondor6c.github.io/posts/hurricane_matthew_weekend/</guid>
+      <description>As rain falls from Hurricane Matthew, I can&amp;rsquo;t split wood or I have started to work on some items, and have recorded various thoughts.
+I started to look at the failure of the btrfs volume, this truly appears that the failure was not hardware related; instead it is just corrupt checksums. I ran two SMART tests on all of my hard drives, none of them (I paid particular attention to the drives mentioned that were corrupt) had failed any tests.</description>
+    </item>
+    
+    <item>
+      <title>options-vs-arguments-vs-parameters</title>
+      <link>https://kondor6c.github.io/posts/options-vs-arguments-vs-parameters/</link>
+      <pubDate>Mon, 26 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://kondor6c.github.io/posts/options-vs-arguments-vs-parameters/</guid>
+      <description>====== options, arguments, or parameters ======
+Where I am currently employed there has been, in my opinion, an over application of the term &amp;ldquo;parameter&amp;rdquo;. Or at least from where I have been in the past. I have always thought that for example:
+example -x test.txt  -x would be a switch, and the option after -x, test.txt, would be argument. But it seems here or recently we apply the term parameter to everything.</description>
+    </item>
+    
+    <item>
+      <title>standardization</title>
+      <link>https://kondor6c.github.io/posts/standardization/</link>
+      <pubDate>Mon, 29 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://kondor6c.github.io/posts/standardization/</guid>
+      <description>====== Standardization ====== I am sure many of us have seen the xkcd comic &amp;ldquo;Standrads&amp;rdquo;, if not check it out, its kinda funny. I have been thinking about the debate and later burden that we seem to impose on ourselves through well intended standardization. This came around when there was a discussion at my full time employer about standardizing a spaces around the text and brackets only_if {node.fqdn.upcase =~ &#39;PROD&#39;} compared to only_if { node.</description>
+    </item>
+    
+    <item>
+      <title>powershell_linux_debut</title>
+      <link>https://kondor6c.github.io/posts/powershell_linux_debut/</link>
+      <pubDate>Fri, 19 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://kondor6c.github.io/posts/powershell_linux_debut/</guid>
+      <description>Powershell Linux debut I began to experiment with Powershell. I feel that Microsoft has to follow through on showing the community that it meant what it said, that Microsoft Loves Linux. Perhaps I can lump myself into that group too, because I remember the October Document, and the utter frustration in trying to get Linux to work in a mostly Windows environment. I think Microsoft senses that the game is changing, and is changing with it.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://kondor6c.github.io/posts/modern-marvels-engineering-disasters/</link>
+      <pubDate>Wed, 30 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://kondor6c.github.io/posts/modern-marvels-engineering-disasters/</guid>
+      <description>Engineering Disasters  &amp;quot;If you look at the major disasters in history, you see in retrospect a sequence of mistakes each one of &amp;gt;which at the time appeared to be innocent an inconsequential. Which all combined in an unfortunate way at the &amp;gt;time of the disaster to create a disaster.&amp;quot; Dr. Roger L. McCarthy PE (Chairman Exponent Failure Analysis) While watching Modern Marvels, I have been really enjoying the Engineering Disasters, the particular enjoyment lies in the fact that one can view the root cause analysis.</description>
+    </item>
+    
+    <item>
+      <title>RAID5 btrfs total failure and subsequent abandonment</title>
+      <link>https://kondor6c.github.io/posts/btrfs_total_failure/</link>
+      <pubDate>Wed, 30 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://kondor6c.github.io/posts/btrfs_total_failure/</guid>
+      <description>RAID5 btrfs total failure and subsequent abandonment My btrfs volume failed last night. I tried to rebalance the array to a &amp;quot;JBOD&amp;quot; (just a bunch of disks), it seems that it failed during that rebalance. To really drill down into the failure, it seems based on lines of the device info (bdev...) both those devices have errors. I suspect that these one batch of these read errors were directly due to the failure last time, (this one has rd 76 corrupt 16, other one had corrupt 8 and read 76).</description>
+    </item>
+    
+    <item>
+      <title>bash tips 1</title>
+      <link>https://kondor6c.github.io/posts/bash_tips1/</link>
+      <pubDate>Tue, 29 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://kondor6c.github.io/posts/bash_tips1/</guid>
+      <description>BASH tips So I read a comment on Hacker News about ctrl+o and and the comment (and subsequent comments) made it sound as though it was this ultra helpful trick. Well I had a bit of difficulty finding what and how to use, perhaps its because I&amp;rsquo;m a bit stupid. So here is how it works, you type a command (I found it works best when you use ctrl+r then press ctrl+o) press ctrl+o instead of enter.</description>
+    </item>
+    
+    <item>
+      <title>white_spaces_can_be_dangerous</title>
+      <link>https://kondor6c.github.io/posts/white_spaces_can_be_dangerous/</link>
+      <pubDate>Sat, 19 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://kondor6c.github.io/posts/white_spaces_can_be_dangerous/</guid>
+      <description>====== White spaces can be dangerous ====== When I was some go I noticed that it refused to compile due to a white space:
+&amp;ldquo; ./go-test-router.go:17: invalid identifier character U+2502 ./go-test-router.go:17: syntax error: unexpected name, expecting } &amp;ldquo;
+I have noticed this first with Microsoft Windows formatting of white spaces and new lines. This is also true Word quotes. This was due to the fact that we had to put documentation on sharepoint.</description>
+    </item>
+    
+    <item>
+      <title>tiddlywiki_entry_everyday_for_30_days</title>
+      <link>https://kondor6c.github.io/posts/tiddlywiki_entry_everyday_for_30_days/</link>
+      <pubDate>Thu, 17 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://kondor6c.github.io/posts/tiddlywiki_entry_everyday_for_30_days/</guid>
+      <description>====== Tiddlywiki entry everyday for 30 days ======
+I&amp;rsquo;m going to make it a goal to make a tiddlywiki entry every day for 30 days. This will be in effort to help form a habit. Here is my plan, add items to track quick ideas like Million dollar ideas, things to research, plans for the house, programming/learning notes. Really Tiddlywiki should be quick and dirty, I want this dokuwiki to be more mature, organized, especially since it&amp;rsquo;s versioned with git.</description>
+    </item>
+    
+    <item>
+      <title>pyenv</title>
+      <link>https://kondor6c.github.io/posts/pyenv/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://kondor6c.github.io/posts/pyenv/</guid>
+      <description>Version Managers I have been enjoying the idea of version managers for interpreted languages like Ruby, Python and even NodeJS. Python likes to advocate using virtualenv, which works very well when interacting and writing the code. However when interacting with automation like Ansible or Chef this becomes difficult since you have to source the shell scripts to install a given version.
+Some might argue that there isn&amp;rsquo;t a need to have one of these version managers, and as you might guess I disagree with that, and advocate for them.</description>
+    </item>
+    
+  </channel>
+</rss>
