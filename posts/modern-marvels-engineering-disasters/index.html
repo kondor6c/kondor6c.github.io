@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-	<meta name="generator" content="Hugo 0.48" />
     <title>blog</title>
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="revised" content="2019-02-04T10:02:56 EST">
-<title>blog :: blog</title>
+<title> :: blog</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link href="/css/font-awesome.min.css" rel="stylesheet">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -24,7 +23,7 @@
 
     
   </head>
-  <body data-url="/">
+  <body data-url="/posts/modern-marvels-engineering-disasters/">
     
       <header>
   <div class="logo">
@@ -53,10 +52,11 @@
             <i class="fa fa-fw fa-home"></i>
           </a>
           </li>
-    <li data-nav-id="/posts/" class="dd-item haschildren
+    <li data-nav-id="/posts/" class="dd-item parent haschildren
         ">
       <div>
-      <a href="/posts/">Posts</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      <a href="/posts/">Posts</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
       </div>
         <ul>
       <li data-nav-id="/posts/trust_tls/" class="dd-item">
@@ -143,7 +143,7 @@
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
-      <li data-nav-id="/posts/modern-marvels-engineering-disasters/" class="dd-item">
+      <li data-nav-id="/posts/modern-marvels-engineering-disasters/" class="dd-item active">
         <div>
           <a href="/posts/modern-marvels-engineering-disasters/">
             
@@ -216,7 +216,28 @@
         <select onchange="javascript:location.href = this.value;">
           
     <option value="/posts/" >
-   Posts</option>
+   Posts</option> 
+      <option value="/posts/trust_tls/" >- Trust TLS</option>
+      <option value="/posts/gnutls_ed25519/" >- GnuTLS and ed25519</option>
+      <option value="/posts/end_of_disk_issues/" >- An End of Disk Issues?</option>
+      <option value="/posts/self-2018/" >- SELF 2018</option>
+      <option value="/posts/resume-blogging/" >- Resume Blogging</option>
+      <option value="/posts/openssl-video/" >- OpenSSL Video</option>
+      <option value="/posts/urxvt_vs_eterm/" >- urxvt_vs_eterm</option>
+      <option value="/posts/hurricane_matthew_weekend/" >- Hurricane Matthew Weekend</option>
+      <option value="/posts/options-vs-arguments-vs-parameters/" >- options-vs-arguments-vs-parameters</option>
+      <option value="/posts/give_emacs_another_try/" >- Emacs</option>
+      <option value="/posts/standardization/" >- standardization</option>
+      <option value="/posts/powershell_linux_debut/" >- powershell_linux_debut</option>
+      <option value="/posts/modern-marvels-engineering-disasters/"  selected>- </option>
+      <option value="/posts/btrfs_total_failure/" >- RAID5 btrfs total failure and subsequent abandonment</option>
+      <option value="/posts/bash_tips1/" >- bash tips 1</option>
+      <option value="/posts/white_spaces_can_be_dangerous/" >- white_spaces_can_be_dangerous</option>
+      <option value="/posts/tiddlywiki_entry_everyday_for_30_days/" >- tiddlywiki_entry_everyday_for_30_days</option>
+      <option value="/posts/x2go_or_freenx/" >- x2go or FreeNX</option>
+      <option value="/posts/btrfs_scrub_fail/" >- </option>
+      <option value="/posts/pyenv/" >- pyenv</option>
+  
 
 
 
@@ -239,33 +260,27 @@
       </div>
     
 
+    <h1></h1>
     
     
     
-    
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fa fa-bars"></i> navigation</a>
-</span>
-           
-	
-		<h1>Customize your own home page</h1>
-		<p>
-		  The site is working. Don't forget to customize this homepage with your own. You typically have 2 choices :
-		</p>
-		<ul>
-		  <li><b>1. </b> Create an _index.md document in the content folder</li>
-		  <li><b>2. </b> Configure your server to automatically redirect this home page to one of your documentation pages</li>
-		</ul>
-	
-	<p><i class="fa fa-heart fa-4x"></i></p>
+    <div class="document" id="engineering-disasters">
+<h1 class="title">Engineering Disasters</h1>
 
-
+<blockquote>
+&quot;If you look at the major disasters in history, you see in retrospect a sequence of mistakes each one of &gt;which at the time appeared to be innocent an inconsequential. Which all combined in an unfortunate way at the &gt;time of the disaster to create a disaster.&quot;
+Dr. Roger L. McCarthy PE (Chairman Exponent Failure Analysis)</blockquote>
+<p>While watching Modern Marvels, I have been really enjoying the Engineering Disasters, the particular enjoyment lies in the fact that one can view the root cause analysis. The software engineering profession is in comparison to other engineering disciplines, such as civil engineering or aeronautical engineering is rather young (and <cite>some argue &lt;http://www.theatlantic.com/technology/archive/2015/11/programmers-should-not-call-themselves-engineers/414271/&gt;</cite> not a real engineering discipline, since the IEEE in some form recognizes software engineering I will too). Additionally there is little to no serious fallout from a miss of a route distribution or a variable not being in scope correctly. Of course I would like to place emphasis on the fact that some circumstances this is not true, such as the PATRIOT missile system and the time issue, or perhaps a healthcare company. There are other areas that my &quot;serious fallout&quot; statement does not apply, but they are the exception. If someone can't read a news site or view an advertisement everyone is still safe.</p>
+<p>What I keep thinking is, &quot;what will our disasters be, if we had a software engineering disaster?&quot;, there might be some outages on there and it might be very interesting. But more importantly what have we learned and as an industry what have we agreed on or put in place to prevent further disasters? If I had to immediately come in and say a few items backups and security items would be among the first. Perhaps I will make a more through list, but really as an industry as we mature I think we will arrive on more through measures. But since our industry is advancing so rapidly (far more quickly than civil engineering for example, please don't take offense, my grandfather is a civil engineer and I have great respect for him and his practice), I think that if we ratified a standard, it would quickly become out of date and would instead hold us down. This is especially true with security.</p>
+<p>So really, maybe, our industry is unique and young, I really look forward to how it will change! But I also think we will increasingly need to be more accountable for our mistakes and acknowledge them (I also think this is a sigh of maturity in general in particular with junior and senior level engineers). Fortunately we won't be liable for a dam collapse which would kill hundreds, or a structural engineer that has a pillar collapse and thus be brought to trial for the failure. Keep in mind, what small things that we think are uncommon and just &quot;won't happen&quot; might cause a failure somewhere else. With those thoughts and planning, we will be better engineers! Try reading the book <cite>Web Operations &lt;http://shop.oreilly.com/product/0636920000136.do&gt;</cite> or watch a hangops video, of which I will correctly link later.</p>
+</div>
 
     
     
         <div class="chevrons">
     <div id="navigation">
-<a class="nav nav-next" href="/posts/" title="Posts" style="margin-right: 0px;"><label>Posts</label><i class="fa fa-chevron-right"></i></a></div>
+<a class="nav nav-prev" href="/posts/powershell_linux_debut/" title="powershell_linux_debut"> <i class="fa fa-chevron-left"></i><label>powershell_linux_debut</label></a>
+    <a class="nav nav-next" href="/posts/btrfs_total_failure/" title="RAID5 btrfs total failure and subsequent abandonment" style="margin-right: 0px;"><label>RAID5 btrfs total failure and subsequent abandonment</label><i class="fa fa-chevron-right"></i></a></div>
   </div>
 
   </section>
@@ -275,18 +290,24 @@
 
 <div class="footline">
     
+    <div class="tags"> 
+      
+        <a class="label label-default" href="https://kondor6c.github.io/tags/linux">linux</a>
+      
+    </div>
+    
 
     
 
     
     <div class="date">
-        <i class='fa fa-calendar'></i> Last update on 03/02/2019
+        <i class='fa fa-calendar'></i> Last update on 30/03/2016
     </div>
     
 
     
     <div class="github-link">
-      <a href="https://github.com/kondor6c/content" target="blank"><i class="fa fa-code-fork"></i>
+      <a href="https://github.com/kondor6c/contentposts/engineering_disasters.rst" target="blank"><i class="fa fa-code-fork"></i>
         Improve this page</a>
     </div>
     

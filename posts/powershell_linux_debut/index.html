@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-	<meta name="generator" content="Hugo 0.48" />
     <title>blog</title>
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="revised" content="2019-02-04T10:02:56 EST">
-<title>blog :: blog</title>
+<title>powershell_linux_debut :: blog</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link href="/css/font-awesome.min.css" rel="stylesheet">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -18,13 +17,13 @@
 <script type="text/javascript">
       var baseurl = "https:\/\/kondor6c.github.io\/";
 </script>
-<meta name="description" content="">
+<meta name="description" content="Powershell was announced for Linux, I take a quick look">
 
 
 
     
   </head>
-  <body data-url="/">
+  <body data-url="/posts/powershell_linux_debut/">
     
       <header>
   <div class="logo">
@@ -53,10 +52,11 @@
             <i class="fa fa-fw fa-home"></i>
           </a>
           </li>
-    <li data-nav-id="/posts/" class="dd-item haschildren
+    <li data-nav-id="/posts/" class="dd-item parent haschildren
         ">
       <div>
-      <a href="/posts/">Posts</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      <a href="/posts/">Posts</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
       </div>
         <ul>
       <li data-nav-id="/posts/trust_tls/" class="dd-item">
@@ -136,7 +136,7 @@
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
-      <li data-nav-id="/posts/powershell_linux_debut/" class="dd-item">
+      <li data-nav-id="/posts/powershell_linux_debut/" class="dd-item active">
         <div>
           <a href="/posts/powershell_linux_debut/">
             powershell_linux_debut
@@ -216,7 +216,28 @@
         <select onchange="javascript:location.href = this.value;">
           
     <option value="/posts/" >
-   Posts</option>
+   Posts</option> 
+      <option value="/posts/trust_tls/" >- Trust TLS</option>
+      <option value="/posts/gnutls_ed25519/" >- GnuTLS and ed25519</option>
+      <option value="/posts/end_of_disk_issues/" >- An End of Disk Issues?</option>
+      <option value="/posts/self-2018/" >- SELF 2018</option>
+      <option value="/posts/resume-blogging/" >- Resume Blogging</option>
+      <option value="/posts/openssl-video/" >- OpenSSL Video</option>
+      <option value="/posts/urxvt_vs_eterm/" >- urxvt_vs_eterm</option>
+      <option value="/posts/hurricane_matthew_weekend/" >- Hurricane Matthew Weekend</option>
+      <option value="/posts/options-vs-arguments-vs-parameters/" >- options-vs-arguments-vs-parameters</option>
+      <option value="/posts/give_emacs_another_try/" >- Emacs</option>
+      <option value="/posts/standardization/" >- standardization</option>
+      <option value="/posts/powershell_linux_debut/"  selected>- powershell_linux_debut</option>
+      <option value="/posts/modern-marvels-engineering-disasters/" >- </option>
+      <option value="/posts/btrfs_total_failure/" >- RAID5 btrfs total failure and subsequent abandonment</option>
+      <option value="/posts/bash_tips1/" >- bash tips 1</option>
+      <option value="/posts/white_spaces_can_be_dangerous/" >- white_spaces_can_be_dangerous</option>
+      <option value="/posts/tiddlywiki_entry_everyday_for_30_days/" >- tiddlywiki_entry_everyday_for_30_days</option>
+      <option value="/posts/x2go_or_freenx/" >- x2go or FreeNX</option>
+      <option value="/posts/btrfs_scrub_fail/" >- </option>
+      <option value="/posts/pyenv/" >- pyenv</option>
+  
 
 
 
@@ -239,33 +260,57 @@
       </div>
     
 
+    <h1>powershell_linux_debut</h1>
     
     
     
     
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fa fa-bars"></i> navigation</a>
-</span>
-           
-	
-		<h1>Customize your own home page</h1>
-		<p>
-		  The site is working. Don't forget to customize this homepage with your own. You typically have 2 choices :
-		</p>
-		<ul>
-		  <li><b>1. </b> Create an _index.md document in the content folder</li>
-		  <li><b>2. </b> Configure your server to automatically redirect this home page to one of your documentation pages</li>
-		</ul>
-	
-	<p><i class="fa fa-heart fa-4x"></i></p>
 
+<h1 id="powershell-linux-debut">Powershell Linux debut</h1>
+
+<p>I began to experiment with Powershell. I feel that Microsoft has to follow through on showing the community that it meant what it said, that Microsoft Loves Linux. Perhaps I can lump myself into that group too, because I remember the October Document, and the utter frustration in trying to get Linux to work in a mostly Windows environment. I think Microsoft senses that the game is changing, and is changing with it. Linus Torvalds had said that &ldquo;If Microsoft ever does applications for Linux it means I&rsquo;ve won.&rdquo; and now that they are changing their business practices to bring software to Linux, is totally incredible. Its good as a company they are becoming a software company that makes software for products in demand.</p>
+
+<p>While I am writing this I am trying to use Powershell to some degree, my family members and friends/co-workers have told me to look into Powershell (I think mostly to assist with scripts ;-) but still). My initial observations is that everything is well laid out, with thought, Get-<em>, Invoke-</em>, Set-* (you get the idea). However as a shell, something you interact with frequently just to get a look at things it makes features such as tab completion very hard since they&rsquo;re all the same structure. I see both sides, it being good for a consistent theme, but it gets extreme. Really what it feels like is more of an object oriented language shell. Yeah, kinda awkward. I would like to revisit this awkward-ness and either support it with more evidence or</p>
+
+<pre><code>PS /root&gt; type ./.ssh/
+type : Access to the path '/root/.ssh/' is denied.
+At line:1 char:1
++ type ./.ssh/
++ ~~~~~~~~~~~~~~~~~~~~~
++ CategoryInfo          : PermissionDenied: (/root/.ssh/:String) [Get-Content], UnauthorizedAccessException
+PS /root&gt; cat .ssh 
+/bin/cat: .ssh: Is a directory
+PS /root&gt; 
+</code></pre>
+
+<p>hmmm seems like type should handle a directory? ls -l and find show me its a directory, but type is link a symlink to Get-Content. I could see this causing problems, especially since type is a builtin of BASH. I don&rsquo;t know off the top of my head why Get-Content would be effectively symlinked.</p>
+
+<pre><code>
+PS /root&gt; Get-Process -Name rtorrent
+Get-Process : Cannot find a process with the name &quot;rtorrent&quot;. Verify the process name and call the cmdlet again.                                                        At line:1 char:1                                                                                                                                                        
++ Get-Process -Name rtorrent
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (rtorrent:String) [Get-Process], ProcessCommandException
+    + FullyQualifiedErrorId : NoProcessFoundForGivenName,Microsoft.PowerShell.Commands.GetProcessCommand
+ 
+PS /root&gt; ps aux |grep rtorrent
+ec2-user 26164  0.0  1.0 658724 10488 pts/1    Sl+  Aug03  21:36 rtorrent
+PS /root&gt; 
+</code></pre>
+
+<p>It worked on systemd.</p>
+
+<p>Granted this is an alpha version, I found it hard to get &ldquo;help&rdquo; on this item using &ndash;help, -help, /help did not&hellip; help! Later learned that there is a facility entirely to this Get-Help (aka man!). Also consider that powershell will act as coreutils + more, as in it won&rsquo;t have bc, wget/curl, vi, tar, or others. So powershell needs to include many these functions with itself; Invoke-RestMethod, this will come in handy later! We can set alias&rsquo; but I thought some of the alias&rsquo; I would be overwriting Linux utilities and then I would be in a world of pain (Yes I could specify the full path, but still not fun).</p>
+
+<p>In conclusion this is a good thing, I don&rsquo;t want my negativity to make it sound like anything bad. But I could never imagine using this as any kind of a default shell any time soon or ever. I haven&rsquo;t actually got to learn that much about it, I&rsquo;ve done more typing than learning.</p>
 
 
     
     
         <div class="chevrons">
     <div id="navigation">
-<a class="nav nav-next" href="/posts/" title="Posts" style="margin-right: 0px;"><label>Posts</label><i class="fa fa-chevron-right"></i></a></div>
+<a class="nav nav-prev" href="/posts/standardization/" title="standardization"> <i class="fa fa-chevron-left"></i><label>standardization</label></a>
+    <a class="nav nav-next" href="/posts/modern-marvels-engineering-disasters/" title="" style="margin-right: 0px;"><label></label><i class="fa fa-chevron-right"></i></a></div>
   </div>
 
   </section>
@@ -275,18 +320,24 @@
 
 <div class="footline">
     
+    <div class="tags"> 
+      
+        <a class="label label-default" href="https://kondor6c.github.io/tags/linux">linux</a>
+      
+    </div>
+    
 
     
 
     
     <div class="date">
-        <i class='fa fa-calendar'></i> Last update on 03/02/2019
+        <i class='fa fa-calendar'></i> Last update on 19/08/2016
     </div>
     
 
     
     <div class="github-link">
-      <a href="https://github.com/kondor6c/content" target="blank"><i class="fa fa-code-fork"></i>
+      <a href="https://github.com/kondor6c/contentposts/powershell_linux_debut.md" target="blank"><i class="fa fa-code-fork"></i>
         Improve this page</a>
     </div>
     

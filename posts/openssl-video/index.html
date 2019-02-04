@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-	<meta name="generator" content="Hugo 0.48" />
     <title>blog</title>
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="revised" content="2019-02-04T10:02:56 EST">
-<title>blog :: blog</title>
+<title>OpenSSL Video :: blog</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link href="/css/font-awesome.min.css" rel="stylesheet">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -24,7 +23,7 @@
 
     
   </head>
-  <body data-url="/">
+  <body data-url="/posts/openssl-video/">
     
       <header>
   <div class="logo">
@@ -53,10 +52,11 @@
             <i class="fa fa-fw fa-home"></i>
           </a>
           </li>
-    <li data-nav-id="/posts/" class="dd-item haschildren
+    <li data-nav-id="/posts/" class="dd-item parent haschildren
         ">
       <div>
-      <a href="/posts/">Posts</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      <a href="/posts/">Posts</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
       </div>
         <ul>
       <li data-nav-id="/posts/trust_tls/" class="dd-item">
@@ -94,7 +94,7 @@
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
-      <li data-nav-id="/posts/openssl-video/" class="dd-item">
+      <li data-nav-id="/posts/openssl-video/" class="dd-item active">
         <div>
           <a href="/posts/openssl-video/">
             OpenSSL Video
@@ -216,7 +216,28 @@
         <select onchange="javascript:location.href = this.value;">
           
     <option value="/posts/" >
-   Posts</option>
+   Posts</option> 
+      <option value="/posts/trust_tls/" >- Trust TLS</option>
+      <option value="/posts/gnutls_ed25519/" >- GnuTLS and ed25519</option>
+      <option value="/posts/end_of_disk_issues/" >- An End of Disk Issues?</option>
+      <option value="/posts/self-2018/" >- SELF 2018</option>
+      <option value="/posts/resume-blogging/" >- Resume Blogging</option>
+      <option value="/posts/openssl-video/"  selected>- OpenSSL Video</option>
+      <option value="/posts/urxvt_vs_eterm/" >- urxvt_vs_eterm</option>
+      <option value="/posts/hurricane_matthew_weekend/" >- Hurricane Matthew Weekend</option>
+      <option value="/posts/options-vs-arguments-vs-parameters/" >- options-vs-arguments-vs-parameters</option>
+      <option value="/posts/give_emacs_another_try/" >- Emacs</option>
+      <option value="/posts/standardization/" >- standardization</option>
+      <option value="/posts/powershell_linux_debut/" >- powershell_linux_debut</option>
+      <option value="/posts/modern-marvels-engineering-disasters/" >- </option>
+      <option value="/posts/btrfs_total_failure/" >- RAID5 btrfs total failure and subsequent abandonment</option>
+      <option value="/posts/bash_tips1/" >- bash tips 1</option>
+      <option value="/posts/white_spaces_can_be_dangerous/" >- white_spaces_can_be_dangerous</option>
+      <option value="/posts/tiddlywiki_entry_everyday_for_30_days/" >- tiddlywiki_entry_everyday_for_30_days</option>
+      <option value="/posts/x2go_or_freenx/" >- x2go or FreeNX</option>
+      <option value="/posts/btrfs_scrub_fail/" >- </option>
+      <option value="/posts/pyenv/" >- pyenv</option>
+  
 
 
 
@@ -239,33 +260,35 @@
       </div>
     
 
+    <h1>OpenSSL Video</h1>
     
     
     
-    
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fa fa-bars"></i> navigation</a>
-</span>
-           
-	
-		<h1>Customize your own home page</h1>
-		<p>
-		  The site is working. Don't forget to customize this homepage with your own. You typically have 2 choices :
-		</p>
-		<ul>
-		  <li><b>1. </b> Create an _index.md document in the content folder</li>
-		  <li><b>2. </b> Configure your server to automatically redirect this home page to one of your documentation pages</li>
-		</ul>
-	
-	<p><i class="fa fa-heart fa-4x"></i></p>
+    <div class="document" id="new-video">
+<h1 class="title">New video</h1>
 
-
+<p>I've wanted to make videos for a while now, and I finally have. I rehearsed for a couple iterations now, I wrote the outline and all the commands out before hand; [[public:linux:common#openssl|here is where you can view the outline/commands]] . Everything went pretty smoothly, everybody I spoke to in my circle spoke positively about it, I wish I could get a couple more reactions about the technical content. I tried to upload the video to a public locations: <cite>vimeo &lt;https://vimeo.com/196973859&gt;</cite>, <cite>youtube &lt;https://www.youtube.com/watch?v=KXi3-3dEb8k&gt;</cite>, and perhaps more importantly <cite>archive.org &lt;https://archive.org/details/GeneratingSslCertificatesInLinux&gt;</cite> . Although it might not get that many views there I would like the content to be publicly accessible and really without advertisements. Now you can grab the <cite>torrent &lt;https://archive.org/download/GeneratingSslCertificatesInLinux/GeneratingSslCertificatesInLinux_archive.torrent&gt;</cite> and share it so that others can view it freely.</p>
+<dl class="docutils">
+<dt>I plan on making other videos, if you have ideas or feedback on past videos email me (<a class="reference external" href="mailto:kondor6c&#64;lazytree.us">kondor6c&#64;lazytree.us</a>). Here are some of my ideas on the next video courses:</dt>
+<dd><ul class="first last simple">
+<li>Editors (vim/emacs/nano)</li>
+<li>Web servers and dokuwiki (Apache, Nginx)</li>
+<li>debugging using Packet capturing (focus on SSL and errors)</li>
+<li>operational topics (like df, top, ps, free, du, kill, rm, find)</li>
+<li>reverse proxy and a Java web application server</li>
+<li>automating previous topics</li>
+</ul>
+</dd>
+</dl>
+<p>I hope that this will help other people. If you have ideas or again feedback, let me know. I used qt-recordmydesktop and edited it with openshot, the microphone worked out well, which is a Blue (company) Yeti (model). I would encourage you to accelerate the speed of the recording, I spoke with my wife and we both agree the recording sounds more professional/better at 1.5x speed.</p>
+</div>
 
     
     
         <div class="chevrons">
     <div id="navigation">
-<a class="nav nav-next" href="/posts/" title="Posts" style="margin-right: 0px;"><label>Posts</label><i class="fa fa-chevron-right"></i></a></div>
+<a class="nav nav-prev" href="/posts/resume-blogging/" title="Resume Blogging"> <i class="fa fa-chevron-left"></i><label>Resume Blogging</label></a>
+    <a class="nav nav-next" href="/posts/urxvt_vs_eterm/" title="urxvt_vs_eterm" style="margin-right: 0px;"><label>urxvt_vs_eterm</label><i class="fa fa-chevron-right"></i></a></div>
   </div>
 
   </section>
@@ -275,18 +298,30 @@
 
 <div class="footline">
     
+    <div class="tags"> 
+      
+        <a class="label label-default" href="https://kondor6c.github.io/tags/openssl">openssl</a>
+      
+        <a class="label label-default" href="https://kondor6c.github.io/tags/certs">certs</a>
+      
+        <a class="label label-default" href="https://kondor6c.github.io/tags/video">video</a>
+      
+        <a class="label label-default" href="https://kondor6c.github.io/tags/blogging">blogging</a>
+      
+    </div>
+    
 
     
 
     
     <div class="date">
-        <i class='fa fa-calendar'></i> Last update on 03/02/2019
+        <i class='fa fa-calendar'></i> Last update on 24/12/2016
     </div>
     
 
     
     <div class="github-link">
-      <a href="https://github.com/kondor6c/content" target="blank"><i class="fa fa-code-fork"></i>
+      <a href="https://github.com/kondor6c/contentposts/new_video.rst" target="blank"><i class="fa fa-code-fork"></i>
         Improve this page</a>
     </div>
     

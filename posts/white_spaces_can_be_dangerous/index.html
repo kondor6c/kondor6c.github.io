@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-	<meta name="generator" content="Hugo 0.48" />
     <title>blog</title>
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="revised" content="2019-02-04T10:02:56 EST">
-<title>blog :: blog</title>
+<title>white_spaces_can_be_dangerous :: blog</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link href="/css/font-awesome.min.css" rel="stylesheet">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -18,13 +17,13 @@
 <script type="text/javascript">
       var baseurl = "https:\/\/kondor6c.github.io\/";
 </script>
-<meta name="description" content="">
+<meta name="description" content="brief look at go and spacing">
 
 
 
     
   </head>
-  <body data-url="/">
+  <body data-url="/posts/white_spaces_can_be_dangerous/">
     
       <header>
   <div class="logo">
@@ -53,10 +52,11 @@
             <i class="fa fa-fw fa-home"></i>
           </a>
           </li>
-    <li data-nav-id="/posts/" class="dd-item haschildren
+    <li data-nav-id="/posts/" class="dd-item parent haschildren
         ">
       <div>
-      <a href="/posts/">Posts</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      <a href="/posts/">Posts</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
       </div>
         <ul>
       <li data-nav-id="/posts/trust_tls/" class="dd-item">
@@ -164,7 +164,7 @@
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
-      <li data-nav-id="/posts/white_spaces_can_be_dangerous/" class="dd-item">
+      <li data-nav-id="/posts/white_spaces_can_be_dangerous/" class="dd-item active">
         <div>
           <a href="/posts/white_spaces_can_be_dangerous/">
             white_spaces_can_be_dangerous
@@ -216,7 +216,28 @@
         <select onchange="javascript:location.href = this.value;">
           
     <option value="/posts/" >
-   Posts</option>
+   Posts</option> 
+      <option value="/posts/trust_tls/" >- Trust TLS</option>
+      <option value="/posts/gnutls_ed25519/" >- GnuTLS and ed25519</option>
+      <option value="/posts/end_of_disk_issues/" >- An End of Disk Issues?</option>
+      <option value="/posts/self-2018/" >- SELF 2018</option>
+      <option value="/posts/resume-blogging/" >- Resume Blogging</option>
+      <option value="/posts/openssl-video/" >- OpenSSL Video</option>
+      <option value="/posts/urxvt_vs_eterm/" >- urxvt_vs_eterm</option>
+      <option value="/posts/hurricane_matthew_weekend/" >- Hurricane Matthew Weekend</option>
+      <option value="/posts/options-vs-arguments-vs-parameters/" >- options-vs-arguments-vs-parameters</option>
+      <option value="/posts/give_emacs_another_try/" >- Emacs</option>
+      <option value="/posts/standardization/" >- standardization</option>
+      <option value="/posts/powershell_linux_debut/" >- powershell_linux_debut</option>
+      <option value="/posts/modern-marvels-engineering-disasters/" >- </option>
+      <option value="/posts/btrfs_total_failure/" >- RAID5 btrfs total failure and subsequent abandonment</option>
+      <option value="/posts/bash_tips1/" >- bash tips 1</option>
+      <option value="/posts/white_spaces_can_be_dangerous/"  selected>- white_spaces_can_be_dangerous</option>
+      <option value="/posts/tiddlywiki_entry_everyday_for_30_days/" >- tiddlywiki_entry_everyday_for_30_days</option>
+      <option value="/posts/x2go_or_freenx/" >- x2go or FreeNX</option>
+      <option value="/posts/btrfs_scrub_fail/" >- </option>
+      <option value="/posts/pyenv/" >- pyenv</option>
+  
 
 
 
@@ -239,33 +260,27 @@
       </div>
     
 
+    <h1>white_spaces_can_be_dangerous</h1>
     
     
     
-    
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fa fa-bars"></i> navigation</a>
-</span>
-           
-	
-		<h1>Customize your own home page</h1>
-		<p>
-		  The site is working. Don't forget to customize this homepage with your own. You typically have 2 choices :
-		</p>
-		<ul>
-		  <li><b>1. </b> Create an _index.md document in the content folder</li>
-		  <li><b>2. </b> Configure your server to automatically redirect this home page to one of your documentation pages</li>
-		</ul>
-	
-	<p><i class="fa fa-heart fa-4x"></i></p>
+    <p>====== White spaces can be dangerous  ======
+When I was some go I noticed that it refused to compile due to a white space:</p>
 
+<p>&ldquo;
+./go-test-router.go:17: invalid identifier character U+2502
+./go-test-router.go:17: syntax error: unexpected name, expecting }
+&ldquo;</p>
+
+<p>I have noticed this first with Microsoft Windows formatting of white spaces and new lines. This is also true Word quotes. This was due to the fact that we had to put documentation on sharepoint. Something I still don&rsquo;t agree with to this day.</p>
 
 
     
     
         <div class="chevrons">
     <div id="navigation">
-<a class="nav nav-next" href="/posts/" title="Posts" style="margin-right: 0px;"><label>Posts</label><i class="fa fa-chevron-right"></i></a></div>
+<a class="nav nav-prev" href="/posts/bash_tips1/" title="bash tips 1"> <i class="fa fa-chevron-left"></i><label>bash tips 1</label></a>
+    <a class="nav nav-next" href="/posts/tiddlywiki_entry_everyday_for_30_days/" title="tiddlywiki_entry_everyday_for_30_days" style="margin-right: 0px;"><label>tiddlywiki_entry_everyday_for_30_days</label><i class="fa fa-chevron-right"></i></a></div>
   </div>
 
   </section>
@@ -275,18 +290,24 @@
 
 <div class="footline">
     
+    <div class="tags"> 
+      
+        <a class="label label-default" href="https://kondor6c.github.io/tags/linux">linux</a>
+      
+    </div>
+    
 
     
 
     
     <div class="date">
-        <i class='fa fa-calendar'></i> Last update on 03/02/2019
+        <i class='fa fa-calendar'></i> Last update on 19/12/2015
     </div>
     
 
     
     <div class="github-link">
-      <a href="https://github.com/kondor6c/content" target="blank"><i class="fa fa-code-fork"></i>
+      <a href="https://github.com/kondor6c/contentposts/white_spaces_can_be_dangerous.md" target="blank"><i class="fa fa-code-fork"></i>
         Improve this page</a>
     </div>
     

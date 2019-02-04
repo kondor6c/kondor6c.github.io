@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-	<meta name="generator" content="Hugo 0.48" />
     <title>blog</title>
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="revised" content="2019-02-04T10:02:56 EST">
-<title>blog :: blog</title>
+<title>standardization :: blog</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link href="/css/font-awesome.min.css" rel="stylesheet">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -18,13 +17,13 @@
 <script type="text/javascript">
       var baseurl = "https:\/\/kondor6c.github.io\/";
 </script>
-<meta name="description" content="">
+<meta name="description" content="small thoughts on standardization and internal rules/policies">
 
 
 
     
   </head>
-  <body data-url="/">
+  <body data-url="/posts/standardization/">
     
       <header>
   <div class="logo">
@@ -53,10 +52,11 @@
             <i class="fa fa-fw fa-home"></i>
           </a>
           </li>
-    <li data-nav-id="/posts/" class="dd-item haschildren
+    <li data-nav-id="/posts/" class="dd-item parent haschildren
         ">
       <div>
-      <a href="/posts/">Posts</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      <a href="/posts/">Posts</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
       </div>
         <ul>
       <li data-nav-id="/posts/trust_tls/" class="dd-item">
@@ -129,7 +129,7 @@
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
-      <li data-nav-id="/posts/standardization/" class="dd-item">
+      <li data-nav-id="/posts/standardization/" class="dd-item active">
         <div>
           <a href="/posts/standardization/">
             standardization
@@ -216,7 +216,28 @@
         <select onchange="javascript:location.href = this.value;">
           
     <option value="/posts/" >
-   Posts</option>
+   Posts</option> 
+      <option value="/posts/trust_tls/" >- Trust TLS</option>
+      <option value="/posts/gnutls_ed25519/" >- GnuTLS and ed25519</option>
+      <option value="/posts/end_of_disk_issues/" >- An End of Disk Issues?</option>
+      <option value="/posts/self-2018/" >- SELF 2018</option>
+      <option value="/posts/resume-blogging/" >- Resume Blogging</option>
+      <option value="/posts/openssl-video/" >- OpenSSL Video</option>
+      <option value="/posts/urxvt_vs_eterm/" >- urxvt_vs_eterm</option>
+      <option value="/posts/hurricane_matthew_weekend/" >- Hurricane Matthew Weekend</option>
+      <option value="/posts/options-vs-arguments-vs-parameters/" >- options-vs-arguments-vs-parameters</option>
+      <option value="/posts/give_emacs_another_try/" >- Emacs</option>
+      <option value="/posts/standardization/"  selected>- standardization</option>
+      <option value="/posts/powershell_linux_debut/" >- powershell_linux_debut</option>
+      <option value="/posts/modern-marvels-engineering-disasters/" >- </option>
+      <option value="/posts/btrfs_total_failure/" >- RAID5 btrfs total failure and subsequent abandonment</option>
+      <option value="/posts/bash_tips1/" >- bash tips 1</option>
+      <option value="/posts/white_spaces_can_be_dangerous/" >- white_spaces_can_be_dangerous</option>
+      <option value="/posts/tiddlywiki_entry_everyday_for_30_days/" >- tiddlywiki_entry_everyday_for_30_days</option>
+      <option value="/posts/x2go_or_freenx/" >- x2go or FreeNX</option>
+      <option value="/posts/btrfs_scrub_fail/" >- </option>
+      <option value="/posts/pyenv/" >- pyenv</option>
+  
 
 
 
@@ -239,33 +260,31 @@
       </div>
     
 
+    <h1>standardization</h1>
     
     
     
-    
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fa fa-bars"></i> navigation</a>
-</span>
-           
-	
-		<h1>Customize your own home page</h1>
-		<p>
-		  The site is working. Don't forget to customize this homepage with your own. You typically have 2 choices :
-		</p>
-		<ul>
-		  <li><b>1. </b> Create an _index.md document in the content folder</li>
-		  <li><b>2. </b> Configure your server to automatically redirect this home page to one of your documentation pages</li>
-		</ul>
-	
-	<p><i class="fa fa-heart fa-4x"></i></p>
+    <p>====== Standardization ======
+I am sure many of us have seen the xkcd comic &ldquo;<a href="https://xkcd.com/927/">Standrads</a>&rdquo;, if not check it out, its kinda funny. I have been thinking about the debate and later burden that we seem to impose on ourselves through well intended standardization. This came around when there was a discussion at my full time employer about standardizing a spaces around the text and brackets
+<code>only_if {node.fqdn.upcase =~ 'PROD'}</code>
+compared to
+<code>only_if { node.fqdn.upcase =~ 'PROD' }</code></p>
 
+<p>Yes, I believe that the former (spaces) is easier to read. I objected to making a rule about it and burying it somewhere in a wiki that we maintain. I feared it would be a rule that would later become something that would be held against a new team member or contributor; &ldquo;oh you didn&rsquo;t adhere to our 8 pages of rules&rdquo;. I felt it increased the barrier to entry and wasted time, not only in what we would spend maintaining the document, discussing it, possibly revising it, and the very time we spent debating the merits of having a rule. I thought it was very trivial that if we felt it was that bad to read the author should be able to do as he/she pleases. Rules and regulations are rigid in nature and tend to get buried, lost and forgotten; they grow old and start to become a burden on the organization!</p>
+
+<p>I had thought about some of these rules that Unix must have adopted in a <a href="blog post">https://utcc.utoronto.ca/~cks/space/blog/unix/MoreAndUnixFossilization</a> about the utility &lsquo;more&rsquo; and &lsquo;less&rsquo;. Whereas they don&rsquo;t mention any kind of discussion I can only think about the hours lost making the specification over something rather trivial such as a screen pager. Maybe I&rsquo;m over-trivializing it? I&rsquo;m not sure, but certainly in a modern perspective it feels like a minute detail. I worry that any rule I would put in place might become something like saying &lsquo;more&rsquo; can only do these things. Even while the tool set is rapidly advancing.</p>
+
+<p>Having said all that, I am a huge fan of RedHat Enterprise Linux and CentOS, which to many would complain that its PHP is X years old (to which I will typically counter that their OS X BASH version is close to 10 years old, and doesn&rsquo;t support named indexes/hashes). I feel with RHEL they quickly change packages and more are available through the community with <a href="EPEL">https://fedoraproject.org/wiki/EPEL</a>. They don&rsquo;t want to introduce a change that might change the behavior of something that is compiled on it. The operating system is a very stable piece of software. Linus even has a rule that the kernel must never <a href="break userspace">http://yarchive.net/comp/linux/gcc_vs_kernel_stability.html</a>. I don&rsquo;t know if CentOS/RHEL has a large rule set, it might break my heart if they did, but I would understand why it would be large (and hopefully lively document).</p>
+
+<p>Therefore in conclusion, I still hold my opinion on what rules and regulations are in software. They are global variables. But they have their use, I think they should be used with care like a house plant, too many of them and they become unmanageable, a burden themselves and hard to work around. With care, they become a lively addition to any organization.</p>
 
 
     
     
         <div class="chevrons">
     <div id="navigation">
-<a class="nav nav-next" href="/posts/" title="Posts" style="margin-right: 0px;"><label>Posts</label><i class="fa fa-chevron-right"></i></a></div>
+<a class="nav nav-prev" href="/posts/give_emacs_another_try/" title="Emacs"> <i class="fa fa-chevron-left"></i><label>Emacs</label></a>
+    <a class="nav nav-next" href="/posts/powershell_linux_debut/" title="powershell_linux_debut" style="margin-right: 0px;"><label>powershell_linux_debut</label><i class="fa fa-chevron-right"></i></a></div>
   </div>
 
   </section>
@@ -275,18 +294,24 @@
 
 <div class="footline">
     
+    <div class="tags"> 
+      
+        <a class="label label-default" href="https://kondor6c.github.io/tags/linux">linux</a>
+      
+    </div>
+    
 
     
 
     
     <div class="date">
-        <i class='fa fa-calendar'></i> Last update on 03/02/2019
+        <i class='fa fa-calendar'></i> Last update on 29/08/2016
     </div>
     
 
     
     <div class="github-link">
-      <a href="https://github.com/kondor6c/content" target="blank"><i class="fa fa-code-fork"></i>
+      <a href="https://github.com/kondor6c/contentposts/standardization.md" target="blank"><i class="fa fa-code-fork"></i>
         Improve this page</a>
     </div>
     

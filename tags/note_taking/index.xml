@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Note_taking on blog</title>
+    <link>https://kondor6c.github.io/tags/note_taking/</link>
+    <description>Recent content in Note_taking on blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 17 Dec 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://kondor6c.github.io/tags/note_taking/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>tiddlywiki_entry_everyday_for_30_days</title>
+      <link>https://kondor6c.github.io/posts/tiddlywiki_entry_everyday_for_30_days/</link>
+      <pubDate>Thu, 17 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://kondor6c.github.io/posts/tiddlywiki_entry_everyday_for_30_days/</guid>
+      <description>====== Tiddlywiki entry everyday for 30 days ======
+I&amp;rsquo;m going to make it a goal to make a tiddlywiki entry every day for 30 days. This will be in effort to help form a habit. Here is my plan, add items to track quick ideas like Million dollar ideas, things to research, plans for the house, programming/learning notes. Really Tiddlywiki should be quick and dirty, I want this dokuwiki to be more mature, organized, especially since it&amp;rsquo;s versioned with git.</description>
+    </item>
+    
+  </channel>
+</rss>

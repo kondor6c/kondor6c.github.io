@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-	<meta name="generator" content="Hugo 0.48" />
     <title>blog</title>
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="revised" content="2019-02-04T10:02:56 EST">
-<title>blog :: blog</title>
+<title>bash tips 1 :: blog</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link href="/css/font-awesome.min.css" rel="stylesheet">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -18,13 +17,13 @@
 <script type="text/javascript">
       var baseurl = "https:\/\/kondor6c.github.io\/";
 </script>
-<meta name="description" content="">
+<meta name="description" content="after reviewing some &#34;bash tips&#34; I post a reflection">
 
 
 
     
   </head>
-  <body data-url="/">
+  <body data-url="/posts/bash_tips1/">
     
       <header>
   <div class="logo">
@@ -53,10 +52,11 @@
             <i class="fa fa-fw fa-home"></i>
           </a>
           </li>
-    <li data-nav-id="/posts/" class="dd-item haschildren
+    <li data-nav-id="/posts/" class="dd-item parent haschildren
         ">
       <div>
-      <a href="/posts/">Posts</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      <a href="/posts/">Posts</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
       </div>
         <ul>
       <li data-nav-id="/posts/trust_tls/" class="dd-item">
@@ -157,7 +157,7 @@
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
-      <li data-nav-id="/posts/bash_tips1/" class="dd-item">
+      <li data-nav-id="/posts/bash_tips1/" class="dd-item active">
         <div>
           <a href="/posts/bash_tips1/">
             bash tips 1
@@ -216,7 +216,28 @@
         <select onchange="javascript:location.href = this.value;">
           
     <option value="/posts/" >
-   Posts</option>
+   Posts</option> 
+      <option value="/posts/trust_tls/" >- Trust TLS</option>
+      <option value="/posts/gnutls_ed25519/" >- GnuTLS and ed25519</option>
+      <option value="/posts/end_of_disk_issues/" >- An End of Disk Issues?</option>
+      <option value="/posts/self-2018/" >- SELF 2018</option>
+      <option value="/posts/resume-blogging/" >- Resume Blogging</option>
+      <option value="/posts/openssl-video/" >- OpenSSL Video</option>
+      <option value="/posts/urxvt_vs_eterm/" >- urxvt_vs_eterm</option>
+      <option value="/posts/hurricane_matthew_weekend/" >- Hurricane Matthew Weekend</option>
+      <option value="/posts/options-vs-arguments-vs-parameters/" >- options-vs-arguments-vs-parameters</option>
+      <option value="/posts/give_emacs_another_try/" >- Emacs</option>
+      <option value="/posts/standardization/" >- standardization</option>
+      <option value="/posts/powershell_linux_debut/" >- powershell_linux_debut</option>
+      <option value="/posts/modern-marvels-engineering-disasters/" >- </option>
+      <option value="/posts/btrfs_total_failure/" >- RAID5 btrfs total failure and subsequent abandonment</option>
+      <option value="/posts/bash_tips1/"  selected>- bash tips 1</option>
+      <option value="/posts/white_spaces_can_be_dangerous/" >- white_spaces_can_be_dangerous</option>
+      <option value="/posts/tiddlywiki_entry_everyday_for_30_days/" >- tiddlywiki_entry_everyday_for_30_days</option>
+      <option value="/posts/x2go_or_freenx/" >- x2go or FreeNX</option>
+      <option value="/posts/btrfs_scrub_fail/" >- </option>
+      <option value="/posts/pyenv/" >- pyenv</option>
+  
 
 
 
@@ -239,33 +260,63 @@
       </div>
     
 
+    <h1>bash tips 1</h1>
     
     
     
     
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fa fa-bars"></i> navigation</a>
-</span>
-           
-	
-		<h1>Customize your own home page</h1>
-		<p>
-		  The site is working. Don't forget to customize this homepage with your own. You typically have 2 choices :
-		</p>
-		<ul>
-		  <li><b>1. </b> Create an _index.md document in the content folder</li>
-		  <li><b>2. </b> Configure your server to automatically redirect this home page to one of your documentation pages</li>
-		</ul>
-	
-	<p><i class="fa fa-heart fa-4x"></i></p>
 
+<h1 id="bash-tips">BASH tips</h1>
+
+<p>So I read a comment on Hacker News about ctrl+o and and the comment (and subsequent comments) made it sound as though it was this ultra helpful trick. Well I had a bit of difficulty finding what and how to use, perhaps its because I&rsquo;m a bit stupid. So here is how it works, you type a command (I found it works best when you use ctrl+r then press ctrl+o) press ctrl+o instead of enter. It will run that command, then autocomplete the next command from the last previously typed entry that you ran when you pressed ctrl+o. Might be a little confusing. Take a look at this fake, yet focused on the concept session below</p>
+
+<pre><code>[kondor6c@workhorse ~]# &lt;CTRL+R&gt; service tomcat sto&lt;CTRL+O&gt;
+Redirecting to /bin/systemctl stop  tomcat.service
+[kondor6c@workhorse ~]# rsync -va current-version.war server:/app/tomcat/webapps/ #this will automatically appear! Just press to get the next line to automatically appear&lt;CTRL+O&gt;
+kondor6c@server.mooo.com's password:                                                                
+sending incremental file list
+current-version.war                                                                          
+sent 43,611,957 bytes  received 824 bytes  3,426.29 bytes/sec 
+total size is 43,611,838  speedup is 0.99 
+
+[kondor6c@workhorse ~]# service tomcat start &lt;enter&gt;
+Redirecting to /bin/systemctl start  tomcat.service
+</code></pre>
+
+<p>As you can see ctrl+o would require explicit knowledge of what was ran last, otherwise you wasted time. Additionally I would want to group any commands that I would type after one another into a one liner or make it a script-able action. In short I&rsquo;m glad I learned about it, I probably won&rsquo;t instruct others about it, as I think it will be harder to grasp, and I don&rsquo;t see the use case being that strong.</p>
+
+<p>I have explored many &ldquo;Bash tips&rdquo; I think I know the vast majority of them. If you know of one I encourage you to share it. Here are just a couple that I have very recently discussed with coworkers/intern:</p>
+
+<ul>
+<li>&ldquo;ctrl + \&rdquo; : sends a SIGQUIT as in a signal 3, which tries to dump the core, if not then it will generally quit with a higher priority than SIGINT, not really a BASH specific tip, but certainly useful.</li>
+<li>&ldquo;~.&rdquo; : When ssh&rsquo;ing and you have a hung session, press &ldquo;~.&rdquo; on the SSH session, this should interrupt it and bring you out. I have found that when my sessions are hung they are not always at a newline</li>
+</ul>
+
+<pre><code>kondor6c@computer:~$ ~?
+Supported escape sequences:
+ ~.   - terminate connection (and any multiplexed sessions)
+ ~B   - send a BREAK to the remote system
+ ~C   - open a command line
+ ~R   - request rekey
+ ~V/v - decrease/increase verbosity (LogLevel)
+ ~^Z  - suspend ssh
+ ~#   - list forwarded connections
+ ~&amp;   - background ssh (when waiting for connections to terminate)
+ ~?   - this message
+ ~~   - send the escape character by typing it twice
+(Note that escapes are only recognized immediately after newline.)
+kondor6c@computer:~$ #&lt;enter&gt;
+kondor6c@computer:~$ #&lt;enter&gt; then press ~.
+kondor6c@computer:~$ Connection to computer closed.
+</code></pre>
 
 
     
     
         <div class="chevrons">
     <div id="navigation">
-<a class="nav nav-next" href="/posts/" title="Posts" style="margin-right: 0px;"><label>Posts</label><i class="fa fa-chevron-right"></i></a></div>
+<a class="nav nav-prev" href="/posts/btrfs_total_failure/" title="RAID5 btrfs total failure and subsequent abandonment"> <i class="fa fa-chevron-left"></i><label>RAID5 btrfs total failure and subsequent abandonment</label></a>
+    <a class="nav nav-next" href="/posts/white_spaces_can_be_dangerous/" title="white_spaces_can_be_dangerous" style="margin-right: 0px;"><label>white_spaces_can_be_dangerous</label><i class="fa fa-chevron-right"></i></a></div>
   </div>
 
   </section>
@@ -275,18 +326,24 @@
 
 <div class="footline">
     
+    <div class="tags"> 
+      
+        <a class="label label-default" href="https://kondor6c.github.io/tags/linux">linux</a>
+      
+    </div>
+    
 
     
 
     
     <div class="date">
-        <i class='fa fa-calendar'></i> Last update on 03/02/2019
+        <i class='fa fa-calendar'></i> Last update on 29/03/2016
     </div>
     
 
     
     <div class="github-link">
-      <a href="https://github.com/kondor6c/content" target="blank"><i class="fa fa-code-fork"></i>
+      <a href="https://github.com/kondor6c/contentposts/bash_tips1.md" target="blank"><i class="fa fa-code-fork"></i>
         Improve this page</a>
     </div>
     

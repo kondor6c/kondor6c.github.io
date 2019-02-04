@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Real World on blog</title>
+    <link>https://kondor6c.github.io/tags/real-world/</link>
+    <description>Recent content in Real World on blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 10 Jun 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://kondor6c.github.io/tags/real-world/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>SELF 2018</title>
+      <link>https://kondor6c.github.io/posts/self-2018/</link>
+      <pubDate>Sun, 10 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://kondor6c.github.io/posts/self-2018/</guid>
+      <description>I really enjoyed SouthEast LinuxFest this year, probably more this year than I did last year. Mostly because I made a point of being more outgoing and interacting with more people. Last year I attended I had tried talking to a few people but didn&amp;rsquo;t really have a good feel for things, and volunteered for the FSF booth and tried to take the Ham radio exam. This year I attended many presentations, had an opportunity to go to a Birds Of a Feather meeting on containers put on by Michael at RedHat.</description>
+    </item>
+    
+    <item>
+      <title>Resume Blogging</title>
+      <link>https://kondor6c.github.io/posts/resume-blogging/</link>
+      <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://kondor6c.github.io/posts/resume-blogging/</guid>
+      <description>After a few issues that almost perfectly lined up to steal momentum I&amp;rsquo;m going to resume blogging. If you follow this (I doubt many were/are), I apologize for the lack of updates. I&amp;rsquo;ll try to briefly run down some of the events that lead to the large (almost year delay):
+The Prior Events  Before SouthEast Linux Fest my Wife&amp;rsquo;s mother very unexpectedly died. After SELF I had some motivation and tried to look into interesting topics, generally Software Defined Radio (I liked the LimeSDR) and followed some crypto currency investigation which lead to Zcash.</description>
+    </item>
+    
+  </channel>
+</rss>

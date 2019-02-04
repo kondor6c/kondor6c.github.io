@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Emacs on blog</title>
+    <link>https://kondor6c.github.io/tags/emacs/</link>
+    <description>Recent content in Emacs on blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 18 Sep 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://kondor6c.github.io/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Emacs</title>
+      <link>https://kondor6c.github.io/posts/give_emacs_another_try/</link>
+      <pubDate>Sun, 18 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://kondor6c.github.io/posts/give_emacs_another_try/</guid>
+      <description>emacs Those that know me, know that I preach the use of vi as an editor. Reason being as those who know me might be able to recite: vi is everywhere and doesn&amp;rsquo;t need to be installed, its very powerful for its size, some jobs demand it! That fact was mentioned to me by someone at Phoenix Linux Users Group meeting, which was call CAT (Chat About Technology; lets go eat CAT, it was a bad joke, but we went with it) someone stated that some GE jobs require the use knowledge of vi, sure enough I went to http://www.</description>
+    </item>
+    
+  </channel>
+</rss>
