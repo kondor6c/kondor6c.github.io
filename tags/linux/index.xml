@@ -6,10 +6,19 @@
     <description>Recent content in Linux on blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 19 Aug 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 17 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://kondor6c.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Golang with no Googling</title>
+      <link>https://kondor6c.github.io/posts/golang_with_no_googling/</link>
+      <pubDate>Sun, 17 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://kondor6c.github.io/posts/golang_with_no_googling/</guid>
+      <description>I spent a good amount of time learning Golang (Go, but since using two letters in any form of a search usually is an exercise in futility). My goal was fairly simple, I wanted to display some system statistics via HTTP by reading them directly from /proc. I saw that Golang had a module in the standard library call &amp;quot;syscall&amp;quot; and I decided that it might be fun to give that a try.</description>
+    </item>
     
     <item>
       <title>GnuTLS and ed25519</title>

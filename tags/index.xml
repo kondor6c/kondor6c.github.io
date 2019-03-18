@@ -6,19 +6,10 @@
     <description>Recent content in Tags on blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 03 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 10 Jun 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://kondor6c.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Apache</title>
-      <link>https://kondor6c.github.io/tags/apache/</link>
-      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://kondor6c.github.io/tags/apache/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>Blogging</title>
@@ -86,9 +77,18 @@
     <item>
       <title>Gnutls</title>
       <link>https://kondor6c.github.io/tags/gnutls/</link>
-      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 19 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>https://kondor6c.github.io/tags/gnutls/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Golang</title>
+      <link>https://kondor6c.github.io/tags/golang/</link>
+      <pubDate>Sun, 17 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://kondor6c.github.io/tags/golang/</guid>
       <description></description>
     </item>
     
@@ -102,29 +102,20 @@
     </item>
     
     <item>
-      <title>Keytool</title>
-      <link>https://kondor6c.github.io/tags/keytool/</link>
-      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
+      <title>Learning</title>
+      <link>https://kondor6c.github.io/tags/learning/</link>
+      <pubDate>Sun, 17 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://kondor6c.github.io/tags/keytool/</guid>
+      <guid>https://kondor6c.github.io/tags/learning/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Linux</title>
       <link>https://kondor6c.github.io/tags/linux/</link>
-      <pubDate>Sun, 19 Aug 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 17 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>https://kondor6c.github.io/tags/linux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Nginx</title>
-      <link>https://kondor6c.github.io/tags/nginx/</link>
-      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://kondor6c.github.io/tags/nginx/</guid>
       <description></description>
     </item>
     
@@ -149,7 +140,7 @@
     <item>
       <title>Openssl</title>
       <link>https://kondor6c.github.io/tags/openssl/</link>
-      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 24 Dec 2016 00:00:00 +0000</pubDate>
       
       <guid>https://kondor6c.github.io/tags/openssl/</guid>
       <description></description>
@@ -179,24 +170,6 @@
       <pubDate>Thu, 19 Nov 2015 00:00:00 +0000</pubDate>
       
       <guid>https://kondor6c.github.io/tags/remote/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ssl</title>
-      <link>https://kondor6c.github.io/tags/ssl/</link>
-      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://kondor6c.github.io/tags/ssl/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Tls</title>
-      <link>https://kondor6c.github.io/tags/tls/</link>
-      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://kondor6c.github.io/tags/tls/</guid>
       <description></description>
     </item>
     

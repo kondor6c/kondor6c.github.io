@@ -5,8 +5,8 @@
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="revised" content="2019-02-04T10:02:56 EST">
-<title>Trust TLS :: blog</title>
+<meta name="revised" content="2019-03-18T14:37:18 EDT">
+<title> :: blog</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link href="/css/font-awesome.min.css" rel="stylesheet">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -59,10 +59,17 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
       </div>
         <ul>
+      <li data-nav-id="/posts/golang_with_no_googling/" class="dd-item">
+        <div>
+          <a href="/posts/golang_with_no_googling/">
+            Golang with no Googling
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
       <li data-nav-id="/posts/trust_tls/" class="dd-item active">
         <div>
           <a href="/posts/trust_tls/">
-            Trust TLS
+            
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
@@ -217,7 +224,8 @@
           
     <option value="/posts/" >
    Posts</option> 
-      <option value="/posts/trust_tls/"  selected>- Trust TLS</option>
+      <option value="/posts/golang_with_no_googling/" >- Golang with no Googling</option>
+      <option value="/posts/trust_tls/"  selected>- </option>
       <option value="/posts/gnutls_ed25519/" >- GnuTLS and ed25519</option>
       <option value="/posts/end_of_disk_issues/" >- An End of Disk Issues?</option>
       <option value="/posts/self-2018/" >- SELF 2018</option>
@@ -260,7 +268,7 @@
       </div>
     
 
-    <h1>Trust TLS</h1>
+    <h1></h1>
     
     
     
@@ -288,6 +296,90 @@ Here are the filenames I use, I'm pretty bad at naming things, but something is 
 <span class="name builtin">export</span> <span class="name variable">REVOKE_PATH</span><span class="operator">=</span><span class="literal string interpol">${</span><span class="name variable">CA_PATH</span><span class="literal string interpol">}</span>/revoke
 mkdir -p <span class="literal string interpol">${</span><span class="name variable">CSR_PATH</span><span class="literal string interpol">}</span>/ <span class="literal string interpol">${</span><span class="name variable">KEY_PATH</span><span class="literal string interpol">}</span>/ <span class="literal string interpol">${</span><span class="name variable">CERT_PATH</span><span class="literal string interpol">}</span>/ <span class="literal string interpol">${</span><span class="name variable">REVOKE_PATH</span><span class="literal string interpol">}</span>/ <span class="literal string interpol">${</span><span class="name variable">SRL_PATH</span><span class="literal string interpol">}</span>/
 </pre>
+<div class="section" id="core-x509-certificates-details">
+<h3>core x509 certificates details</h3>
+<p>The x509 certificate structure is very well defined. Since the native form of the certificate is in ASN1, it is often useful to view those detials, you can do that with this command:
+<tt class="docutils literal">openssl x509 <span class="pre">-in</span> cert.pem <span class="pre">-outform</span> der | openssl asn1parse <span class="pre">-inform</span> der <span class="pre">-i</span></tt>. It should output something like this:
+|
+tbsCertificate
+--------------
+This field is also known as the &quot;DN&quot; and contains such fields as:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">&lt;stdin&gt;</tt>, line 38)</p>
+Unexpected indentation.</div>
+<blockquote>
+<ul class="simple">
+<li>Name of the subject (CN)</li>
+<li>Name of the issuer (CN)</li>
+<li>Public Key of the subject</li>
+<li>Expire Date</li>
+<li>Start date</li>
+<li>Version number (v2, v3)</li>
+<li>Serial number (from CA)</li>
+</ul>
+</blockquote>
+<div class="system-message">
+<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">&lt;stdin&gt;</tt>, line 45)</p>
+Block quote ends without a blank line; unexpected unindent.</div>
+<p>Extensions will be in here, since this is the core components of an x509 certificate (as specified in the header), we won't go into all the extensions and the fields they bring. It should be noted that each extension has an OID and an ASN.1, so it can be viewed in a structured manner.</p>
+<div class="section" id="signaturealgorithm">
+<h4>signatureAlgorithm</h4>
+<p>This is the algorithm used by the CA when the certificate is produced, and what was used to sign the digital certificate. This way it is known exactly what algorithm to use in order to decode the contents for verification. This WILL/MUST match the Signature algorithm (below)
+example</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">&lt;stdin&gt;</tt>, line 52)</p>
+Unexpected indentation.</div>
+<pre class="literal-block">
+Signature Algorithm: sha384WithRSAEncryption
+</pre>
+</div>
+<div class="section" id="signaturevalue">
+<h4>signatureValue</h4>
+<p>(RFC5280-4.1.1.3) This value is the signature (also hash) of tbsCertificate (DN, issuer, expire date, and more).
+By having this field, the CA has certified that the tbsCertificate field contents are valid. Primarily this is focused on the public key(link) and the subject of the certificate. Another way of putting is that by trusting the CA, you can trust that the tbsCertificate field is also valid.</p>
+</div>
+<div class="section" id="signature">
+<h4>Signature</h4>
+<p>This is simply the signature of all the certificate contents. Essentially it is showing that all the contents have been signed and the CA stamped the this with its signet ring and verified. If this part is a unclear, try reviewing PKI signatures.</p>
+<p>example (from certtool)</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">&lt;stdin&gt;</tt>, line 65)</p>
+Unexpected indentation.</div>
+<pre class="literal-block">
+Signature Algorithm: RSA-SHA384
+      Signature:
+              42:68:44:75:0b:1a:6e:c0:f0:f7:38:b4:54:57:e1:64
+              00:58:d7:e5:5f:3c:94:8b:94:2e:85:2a:24:a8:48:70
+              4b:e4:02:1d:81:84:5d:31:52:47:c1:87:39:84:2e:4d
+              10:6b:cc:35:cd:64:e0:dc:de:19:fc:9f:c6:45:9c:61
+              ea:fc:d3:97:3e:5b:50:79:77:64:70:60:12:84:7c:91
+              ea:fc:ad:bc:e8:01:da:e4:39:17:a1:65:3f:ab:a6:f4
+              7a:6b:76:72:2a:d2:07:ec:0c:e1:f1:b6:17:20:60:a9
+              19:28:24:8c:92:d1:bb:fc:b7:fa:58:7f:4d:2b:c5:59
+              77:78:8e:14:b7:a7:d4:28:c6:50:3a:cf:1a:2d:35:35
+              51:df:10:bc:d7:16:95:b8:de:5f:1f:36:d2:71:8a:8a
+</pre>
+<div class="system-message">
+<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">&lt;stdin&gt;</tt>, line 77)</p>
+Literal block ends without a blank line; unexpected unindent.</div>
+<div class="section" id="examining-the-signature">
+<h5>Examining the Signature</h5>
+<p>Since the signature is vital to the integrity of the certificate's contents, we really should look into it more. George Bolo wrote specifically about how to do this. What we need to do is just tell openssl to not print a lot of the default fields when using <tt class="docutils literal"><span class="pre">-text</span></tt>. You can find George's blog entry <cite>here &lt;https://linuxctl.com/2017/02/x509-certificate-manual-signature-verification/&gt;</cite>.</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd>openssl x509 -in cert.pem -text -noout -certopt ca_default -certopt no_validity -certopt no_serial -certopt no_subject -certopt no_extensions -certopt no_signame</dd>
+</dl>
+<p>Next we'll need to take that output, which is the signature of the CA, with RSA encryption. The key that was used to encrypt this hash was the issuer's public key. So we need to take that
+openssl rsautl -verify -inkey </p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">&lt;stdin&gt;</tt>, line 86)</p>
+Unexpected indentation.</div>
+<blockquote>
+&lt;(openssl x509 -in certs/RootCA_GnuTLS-RSA.crt -noout -pubkey) -in &lt;(openssl x509 -in certs/IntermediateCA_GnuTLS-RSA.crt -text -noout -certopt ca_default -certopt no_validity -certopt no_serial -certopt no_subject -certopt no_extensions -certopt no_signame |  grep -v 'Signature Algorithm' | tr -d '[:space:]:' | xxd -r -p) -pubin | openssl asn1parse -inform der</blockquote>
+<p>What i</p>
+</div>
+</div>
+</div>
 <div class="section" id="rootca-ecc">
 <h3>RootCA ECC</h3>
 <p>generate the key, then generate the request, otherwise known as the Certificate signing request. The req request takes the request and immediately signs it and generates the certificate. Root certicates are always self signed, these are the highest level of the trust tree. Feel free to give this certificate out. If you own this machine, distribute it, and trust it (especially in a lab/sandbox).</p>
@@ -424,6 +516,13 @@ openssl x509 -in ${CERT_PATH}/certificate.crt -text -noout
 <p>You can also look at the key you produced</p>
 <pre class="literal-block">
 openssl rsa -in privateKey.key -check
+</pre>
+</div>
+<div class="section" id="public-key-rsa">
+<h5>Public key (RSA)</h5>
+<p>Sometimes it can be useful to have the public key of the secret private key.</p>
+<pre class="literal-block">
+openssl rsa -in privateKey.pem -pubout -out publicKey.pem
 </pre>
 </div>
 <div class="section" id="examine-a-certificate-signing-request-csr">
@@ -660,6 +759,32 @@ certtool --generate-certificate --load-privkey RootCA_G-ECC.pem --outfile RootCA
 </tbody>
 </table>
 </div>
+<div class="section" id="general">
+<h2>General</h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="33%" />
+<col width="36%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">OpenSSL</th>
+<th class="head">GnuTLS</th>
+<th class="head">function</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>s_client -connect :443</td>
+<td>gnutls-cli HOST</td>
+<td>connect to $HOST:443</td>
+</tr>
+<tr><td>x509 -CAfile</td>
+<td>--load-ca-certificate</td>
+<td>verify chain againt file</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section" id="keys-rsa">
 <h2>keys (RSA)</h2>
 <table border="1" class="docutils">
@@ -752,7 +877,7 @@ ssh-keygen -f LazyTree_SSH-ecdsa -t ecdsa -b 521</p>
     
         <div class="chevrons">
     <div id="navigation">
-<a class="nav nav-prev" href="/posts/" title="Posts"> <i class="fa fa-chevron-left"></i><label>Posts</label></a>
+<a class="nav nav-prev" href="/posts/golang_with_no_googling/" title="Golang with no Googling"> <i class="fa fa-chevron-left"></i><label>Golang with no Googling</label></a>
     <a class="nav nav-next" href="/posts/gnutls_ed25519/" title="GnuTLS and ed25519" style="margin-right: 0px;"><label>GnuTLS and ed25519</label><i class="fa fa-chevron-right"></i></a></div>
   </div>
 
