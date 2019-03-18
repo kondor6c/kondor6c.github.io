@@ -5,7 +5,7 @@
     
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="revised" content="2019-02-04T10:02:56 EST">
+<meta name="revised" content="2019-03-18T14:43:41 EDT">
 <title>Posts :: blog</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link href="/css/font-awesome.min.css" rel="stylesheet">
@@ -59,10 +59,10 @@
             <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
       </div>
         <ul>
-      <li data-nav-id="/posts/trust_tls/" class="dd-item">
+      <li data-nav-id="/posts/golang_with_no_googling/" class="dd-item">
         <div>
-          <a href="/posts/trust_tls/">
-            Trust TLS
+          <a href="/posts/golang_with_no_googling/">
+            Golang with no Googling
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
@@ -185,6 +185,13 @@
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
+      <li data-nav-id="/posts/tls_in_practice/" class="dd-item">
+        <div>
+          <a href="/posts/tls_in_practice/">
+            
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
       <li data-nav-id="/posts/btrfs_scrub_fail/" class="dd-item">
         <div>
           <a href="/posts/btrfs_scrub_fail/">
@@ -217,7 +224,7 @@
           
     <option value="/posts/"  selected>
    Posts</option> 
-      <option value="/posts/trust_tls/" >- Trust TLS</option>
+      <option value="/posts/golang_with_no_googling/" >- Golang with no Googling</option>
       <option value="/posts/gnutls_ed25519/" >- GnuTLS and ed25519</option>
       <option value="/posts/end_of_disk_issues/" >- An End of Disk Issues?</option>
       <option value="/posts/self-2018/" >- SELF 2018</option>
@@ -235,6 +242,7 @@
       <option value="/posts/white_spaces_can_be_dangerous/" >- white_spaces_can_be_dangerous</option>
       <option value="/posts/tiddlywiki_entry_everyday_for_30_days/" >- tiddlywiki_entry_everyday_for_30_days</option>
       <option value="/posts/x2go_or_freenx/" >- x2go or FreeNX</option>
+      <option value="/posts/tls_in_practice/" >- </option>
       <option value="/posts/btrfs_scrub_fail/" >- </option>
       <option value="/posts/pyenv/" >- pyenv</option>
   
@@ -270,7 +278,7 @@
 <div class="extra-pagination inner">
 <nav class="pagination" role="navigation">
 	
-	<span class="page-number">Page 1 of 2</span>
+	<span class="page-number">Page 1 of 3</span>
 	
 	    <a class="older-posts" href="/posts/page/2/">Next Pages &rarr;</a>
 	
@@ -281,10 +289,10 @@
 
    <article class="post posts">
     <header class="post-header">
-        <h2 class="post-title"><a href="/posts/trust_tls/">Trust TLS</a></h2>
+        <h2 class="post-title"><a href="/posts/golang_with_no_googling/">Golang with no Googling</a></h2>
     </header>
     <section class="post-excerpt">
-        <p>Trust TLS What is trust? It really is the common name for the measure of authenticity, mainly testing the location you are trying to connect to. The standard by which something is verified to be genuine. The verification of the client is really more of authentication, user/client. The two are very similar, an authentic which is probably why they both share the same root name, authentikos greek meaning approximately original, primary one. <a class="read-more" href="/posts/trust_tls/">&raquo;</a></p>
+        <p>I spent a good amount of time learning Golang (Go, but since using two letters in any form of a search usually is an exercise in futility). My goal was fairly simple, I wanted to display some system statistics via HTTP by reading them directly from /proc. I saw that Golang had a module in the standard library call &quot;syscall&quot; and I decided that it might be fun to give that a try. <a class="read-more" href="/posts/golang_with_no_googling/">&raquo;</a></p>
     </section>
     <footer class=" footline" >
          
@@ -293,19 +301,11 @@
         
           
             
-                <a class="label label-default" href="https://kondor6c.github.io/tags/tls/">tls</a>
+                <a class="label label-default" href="https://kondor6c.github.io/tags/golang/">golang</a>
             
-                <a class="label label-default" href="https://kondor6c.github.io/tags/ssl/">ssl</a>
+                <a class="label label-default" href="https://kondor6c.github.io/tags/learning/">learning</a>
             
-                <a class="label label-default" href="https://kondor6c.github.io/tags/nginx/">nginx</a>
-            
-                <a class="label label-default" href="https://kondor6c.github.io/tags/apache/">apache</a>
-            
-                <a class="label label-default" href="https://kondor6c.github.io/tags/gnutls/">gnutls</a>
-            
-                <a class="label label-default" href="https://kondor6c.github.io/tags/openssl/">openssl</a>
-            
-                <a class="label label-default" href="https://kondor6c.github.io/tags/keytool/">keytool</a>
+                <a class="label label-default" href="https://kondor6c.github.io/tags/linux/">linux</a>
             
         
 
@@ -534,7 +534,7 @@ example -x test.txt  -x would be a switch, and the option after -x, test.txt, wo
 
 <nav class="pagination" role="navigation">
 	
-	<span class="page-number">Page 1 of 2</span>
+	<span class="page-number">Page 1 of 3</span>
 	
 	    <a class="older-posts" href="/posts/page/2/">Next Pages &rarr;</a>
 	
@@ -547,8 +547,7 @@ example -x test.txt  -x would be a switch, and the option after -x, test.txt, wo
     
         <div class="chevrons">
     <div id="navigation">
-<a class="nav nav-prev" href="/" title="blog"> <i class="fa fa-chevron-left"></i><label>blog</label></a>
-    <a class="nav nav-next" href="/posts/trust_tls/" title="Trust TLS" style="margin-right: 0px;"><label>Trust TLS</label><i class="fa fa-chevron-right"></i></a></div>
+<a class="nav nav-next" href="/posts/golang_with_no_googling/" title="Golang with no Googling" style="margin-right: 0px;"><label>Golang with no Googling</label><i class="fa fa-chevron-right"></i></a></div>
   </div>
 
   </section>
@@ -563,7 +562,7 @@ example -x test.txt  -x would be a switch, and the option after -x, test.txt, wo
 
     
     <div class="date">
-        <i class='fa fa-calendar'></i> Last update on 03/02/2019
+        <i class='fa fa-calendar'></i> Last update on 17/03/2019
     </div>
     
 

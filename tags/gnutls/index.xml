@@ -6,19 +6,10 @@
     <description>Recent content in Gnutls on blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 03 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 19 Aug 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://kondor6c.github.io/tags/gnutls/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Trust TLS</title>
-      <link>https://kondor6c.github.io/posts/trust_tls/</link>
-      <pubDate>Sun, 03 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://kondor6c.github.io/posts/trust_tls/</guid>
-      <description>Trust TLS What is trust? It really is the common name for the measure of authenticity, mainly testing the location you are trying to connect to. The standard by which something is verified to be genuine. The verification of the client is really more of authentication, user/client. The two are very similar, an authentic which is probably why they both share the same root name, authentikos greek meaning approximately original, primary one.</description>
-    </item>
     
     <item>
       <title>GnuTLS and ed25519</title>
