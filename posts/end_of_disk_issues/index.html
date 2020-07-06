@@ -1,282 +1,42 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>blog</title>
-    
-      <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="revised" content="2019-03-19T08:04:24 EDT">
-<title>An End of Disk Issues? :: blog</title>
-<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
-<link href="/css/font-awesome.min.css" rel="stylesheet">
-<link href="/css/nucleus.css" rel="stylesheet">
-<link href="/theme-flex/style.css" rel="stylesheet">
-
-<link rel="stylesheet" href="/css/bootstrap.min.css">
-<script src="/js/jquery-2.x.min.js"></script>
-<script type="text/javascript">
-      var baseurl = "https:\/\/kondor6c.github.io\/";
-</script>
-<meta name="description" content="A hopeful end to disk issues on my workstation and ending with a brief mention of topics to come">
-
-
-
-    
-  </head>
-  <body data-url="/posts/end_of_disk_issues/">
-    
-      <header>
-  <div class="logo">
-    
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>An End of Disk Issues? - Web Book</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="A hopeful end to disk issues on my workstation and ending with a brief mention of topics to come">
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+	<link rel="stylesheet" href="/css/style.css">
 	
-  
-    <a class="baselink" href="https://kondor6c.github.io/">blog</a>
-  
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		<img src="https://www.kernel.org/theme/images/logos/tux.png" alt="Tux Linux Penguin" >
 
-
-  </div>
-  <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
-    <nav class="shortcuts">
-            <li class="" role="">
-                <a href="https://github.com/kondor6c/"  rel="noopener">
-                  <i class='fa fa-github'></i> <label>Github repo</label>
-                </a>
-            </li>
-    </nav>
+		<div class="divider"></div>
+	</div>
 </header>
-<article>
-  <aside>
-    <ul class="menu">
-          <li data-nav-id="/" class="dd-item">
-          <a href="/">
-            <i class="fa fa-fw fa-home"></i>
-          </a>
-          </li>
-    <li data-nav-id="/posts/" class="dd-item parent haschildren
-        ">
-      <div>
-      <a href="/posts/">Posts</a>
-            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
-      </div>
-        <ul>
-      <li data-nav-id="/posts/golang_with_no_googling/" class="dd-item">
-        <div>
-          <a href="/posts/golang_with_no_googling/">
-            Golang with no Googling
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/gnutls_ed25519/" class="dd-item">
-        <div>
-          <a href="/posts/gnutls_ed25519/">
-            GnuTLS and ed25519
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/end_of_disk_issues/" class="dd-item active">
-        <div>
-          <a href="/posts/end_of_disk_issues/">
-            An End of Disk Issues?
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/self-2018/" class="dd-item">
-        <div>
-          <a href="/posts/self-2018/">
-            SELF 2018
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/resume-blogging/" class="dd-item">
-        <div>
-          <a href="/posts/resume-blogging/">
-            Resume Blogging
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/openssl-video/" class="dd-item">
-        <div>
-          <a href="/posts/openssl-video/">
-            OpenSSL Video
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/urxvt_vs_eterm/" class="dd-item">
-        <div>
-          <a href="/posts/urxvt_vs_eterm/">
-            urxvt_vs_eterm
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/hurricane_matthew_weekend/" class="dd-item">
-        <div>
-          <a href="/posts/hurricane_matthew_weekend/">
-            Hurricane Matthew Weekend
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/options-vs-arguments-vs-parameters/" class="dd-item">
-        <div>
-          <a href="/posts/options-vs-arguments-vs-parameters/">
-            options-vs-arguments-vs-parameters
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/give_emacs_another_try/" class="dd-item">
-        <div>
-          <a href="/posts/give_emacs_another_try/">
-            Emacs
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/standardization/" class="dd-item">
-        <div>
-          <a href="/posts/standardization/">
-            standardization
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/powershell_linux_debut/" class="dd-item">
-        <div>
-          <a href="/posts/powershell_linux_debut/">
-            powershell_linux_debut
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/modern-marvels-engineering-disasters/" class="dd-item">
-        <div>
-          <a href="/posts/modern-marvels-engineering-disasters/">
-            
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/btrfs_total_failure/" class="dd-item">
-        <div>
-          <a href="/posts/btrfs_total_failure/">
-            RAID5 btrfs total failure and subsequent abandonment
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/bash_tips1/" class="dd-item">
-        <div>
-          <a href="/posts/bash_tips1/">
-            bash tips 1
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/white_spaces_can_be_dangerous/" class="dd-item">
-        <div>
-          <a href="/posts/white_spaces_can_be_dangerous/">
-            white_spaces_can_be_dangerous
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/tiddlywiki_entry_everyday_for_30_days/" class="dd-item">
-        <div>
-          <a href="/posts/tiddlywiki_entry_everyday_for_30_days/">
-            tiddlywiki_entry_everyday_for_30_days
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/x2go_or_freenx/" class="dd-item">
-        <div>
-          <a href="/posts/x2go_or_freenx/">
-            x2go or FreeNX
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/tls_in_practice/" class="dd-item">
-        <div>
-          <a href="/posts/tls_in_practice/">
-            
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/btrfs_scrub_fail/" class="dd-item">
-        <div>
-          <a href="/posts/btrfs_scrub_fail/">
-            
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/pyenv/" class="dd-item">
-        <div>
-          <a href="/posts/pyenv/">
-            pyenv
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-        </ul>
-    </li>
-
-
-
-
-    </ul>
-    <section>
-    </section>
-  </aside>
-  <section class="page">
-    
-    <div class="nav-select">
-      <center>Navigation : 
-        <select onchange="javascript:location.href = this.value;">
-          
-    <option value="/posts/" >
-   Posts</option> 
-      <option value="/posts/golang_with_no_googling/" >- Golang with no Googling</option>
-      <option value="/posts/gnutls_ed25519/" >- GnuTLS and ed25519</option>
-      <option value="/posts/end_of_disk_issues/"  selected>- An End of Disk Issues?</option>
-      <option value="/posts/self-2018/" >- SELF 2018</option>
-      <option value="/posts/resume-blogging/" >- Resume Blogging</option>
-      <option value="/posts/openssl-video/" >- OpenSSL Video</option>
-      <option value="/posts/urxvt_vs_eterm/" >- urxvt_vs_eterm</option>
-      <option value="/posts/hurricane_matthew_weekend/" >- Hurricane Matthew Weekend</option>
-      <option value="/posts/options-vs-arguments-vs-parameters/" >- options-vs-arguments-vs-parameters</option>
-      <option value="/posts/give_emacs_another_try/" >- Emacs</option>
-      <option value="/posts/standardization/" >- standardization</option>
-      <option value="/posts/powershell_linux_debut/" >- powershell_linux_debut</option>
-      <option value="/posts/modern-marvels-engineering-disasters/" >- </option>
-      <option value="/posts/btrfs_total_failure/" >- RAID5 btrfs total failure and subsequent abandonment</option>
-      <option value="/posts/bash_tips1/" >- bash tips 1</option>
-      <option value="/posts/white_spaces_can_be_dangerous/" >- white_spaces_can_be_dangerous</option>
-      <option value="/posts/tiddlywiki_entry_everyday_for_30_days/" >- tiddlywiki_entry_everyday_for_30_days</option>
-      <option value="/posts/x2go_or_freenx/" >- x2go or FreeNX</option>
-      <option value="/posts/tls_in_practice/" >- </option>
-      <option value="/posts/btrfs_scrub_fail/" >- </option>
-      <option value="/posts/pyenv/" >- pyenv</option>
-  
-
-
-
-        </select>
-      </center>
-    </div>
-      <div>
-        <div class="searchbox">
-          <input data-search-input id="search-by" type="text" placeholder="Search...">
-        </div>
-        <script type="text/javascript" src="/js/lunr.min.js"></script>
-        <script type="text/javascript" src="/js/auto-complete.js"></script>
-        <link href="/css/auto-complete.css" rel="stylesheet">
-        <script type="text/javascript">
-          
-              var baseurl = "https:\/\/kondor6c.github.io\/";
-          
-        </script>
-        <script type="text/javascript" src="/js/search.js"></script>
-      </div>
-    
-
-    <h1>An End of Disk Issues?</h1>
-    
-    
-    
-    <p>I have a workstation that I have built, it contains a multi-disk Large Form Factor ZFS array. There have been multiple posts in the past about some of my disk related problems that I&rsquo;ve handled, you should be able to find them with a &lsquo;zfs&rsquo; or &lsquo;disk&rsquo; tag. Well I had several issues, that I hope should be calming down; going back to January, where I decided to move from 4x3TB RAID-Z (software RAID 5) to 4x4TB 7200RPM RAID 10 setup. The transition was prompted by this event and I really have written this up to share my experience with others. I spoke casually about this with Jim Salter, Michael Hrivnak, Wes Widner, and several others, but I brought it up mostly because of Jim&rsquo;s project <a href="https://github.com/jimsalterjrs/sanoid">Sanoid</a> and he&rsquo;s presented on ZFS before. I had one disk start clicking when I got back from running, I could see in <code>dmesg</code> that this disk was not responding and was trying to be reset; important thing to point out, ZFS had brought the disk OFFLINE. I had a spare 4TB &lsquo;eco&rsquo; drive that really doesn&rsquo;t deliver the performance that is needed and would hinder the array, but I wanted to get the disk replaced so that I could get another one ordered. Well I hooked the disk up, and started the zfs replace process. I woke up and found that another disk, in this RAID-Z, had reported as failing (FAULTED), all during the replace process. I knew this was very bad, two disks failing, and you can&rsquo;t stop a resilver, but you can stop a scrub, by using <code>zpool scrub -s ${pool}</code>, what I should have done is brought the disk &ldquo;online&rdquo; but what I did, could have been worse&hellip; I rebooted my workstation! During the resilver/replace process, not my finest hour.
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">An End of Disk Issues?</h1>
+			
+		</header><div class="content post__content clearfix">
+			<p>I have a workstation that I have built, it contains a multi-disk Large Form Factor ZFS array. There have been multiple posts in the past about some of my disk related problems that I&rsquo;ve handled, you should be able to find them with a &lsquo;zfs&rsquo; or &lsquo;disk&rsquo; tag. Well I had several issues, that I hope should be calming down; going back to January, where I decided to move from 4x3TB RAID-Z (software RAID 5) to 4x4TB 7200RPM RAID 10 setup. The transition was prompted by this event and I really have written this up to share my experience with others. I spoke casually about this with Jim Salter, Michael Hrivnak, Wes Widner, and several others, but I brought it up mostly because of Jim&rsquo;s project <a href="https://github.com/jimsalterjrs/sanoid">Sanoid</a> and he&rsquo;s presented on ZFS before. I had one disk start clicking when I got back from running, I could see in <code>dmesg</code> that this disk was not responding and was trying to be reset; important thing to point out, ZFS had brought the disk OFFLINE. I had a spare 4TB &lsquo;eco&rsquo; drive that really doesn&rsquo;t deliver the performance that is needed and would hinder the array, but I wanted to get the disk replaced so that I could get another one ordered. Well I hooked the disk up, and started the zfs replace process. I woke up and found that another disk, in this RAID-Z, had reported as failing (FAULTED), all during the replace process. I knew this was very bad, two disks failing, and you can&rsquo;t stop a resilver, but you can stop a scrub, by using <code>zpool scrub -s ${pool}</code>, what I should have done is brought the disk &ldquo;online&rdquo; but what I did, could have been worse&hellip; I rebooted my workstation! During the resilver/replace process, not my finest hour.
 This array doesn&rsquo;t hold too much, but it does hold &ldquo;warm&rdquo; backups (staged to go on to different disk stored elsewhere), KVM disk images (virtual machines), and other various data, usually high write IO that I don&rsquo;t want to wear on my SSD/NVMe drive, I could stand to lose this array, but I don&rsquo;t want to because it would be painful. When the machine came back, the pool was imported and the resilver restarted, this time with the clicking disk &ldquo;ONLINE&rdquo; however the other faulted disk, was now &ldquo;UNAVAILABLE&rdquo;, so I have a replace going of an online disk that is in a poor state, but ZFS had recovered from this, and the replace completed successfully. I then transferred the data elsewhere, rebuilt the pool as a RAID-10.
 The pool is now with all 7200 RPM disks in a RAID-10 setup. ZFS looks at this as one mirror (RAID 1) with a striped disk set (RAID 0), this might be confusing, I will perhaps try to do a video to cover this more. Here is some output of my now healthy disk status:</p>
-
-<pre><code>        NAME                        STATE     READ WRITE CKSUM
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">        NAME                        STATE     READ WRITE CKSUM
         extra                       ONLINE       0     0     0
           mirror-0                  ONLINE       0     0     0
             wwn-0x5000cca23dcdcfc7  ONLINE       0     0     0
@@ -284,92 +44,52 @@ The pool is now with all 7200 RPM disks in a RAID-10 setup. ZFS looks at this as
           mirror-1                  ONLINE       0     0     0
             wwn-0x5000cca22bc39ed8  ONLINE       0     0     0
             wwn-0x50000397fc580978  ONLINE       0     0     0
-</code></pre>
-
-<p>The issue that I think I had encountered for a while, was that I plugged three 4TB 7200RPM disks using the same SATA power plug coming from the power supply. I had thought I was up against a bad controller/port/cable and I plugged a red SATA cable in to signify that &ldquo;red is dead&rdquo;, but the issue continued when I plugged it into another SATA port. I realized that when I put the hard drive in a top unit or in a USB3 SATA drive, that the disk was fine it didn&rsquo;t even spin cycle. I believe that this new disk array was consuming more power enough that the disk would power on, but upon doing load wouldn&rsquo;t service the ATA commands quick enough, and linux would then reset it. Similar to this</p>
-
-<pre><code>[Wed Jun  6 12:51:54 2018] ata1: link is slow to respond, please be patient (ready=0)
+</code></pre></div><p>The issue that I think I had encountered for a while, was that I plugged three 4TB 7200RPM disks using the same SATA power plug coming from the power supply. I had thought I was up against a bad controller/port/cable and I plugged a red SATA cable in to signify that &ldquo;red is dead&rdquo;, but the issue continued when I plugged it into another SATA port. I realized that when I put the hard drive in a top unit or in a USB3 SATA drive, that the disk was fine it didn&rsquo;t even spin cycle. I believe that this new disk array was consuming more power enough that the disk would power on, but upon doing load wouldn&rsquo;t service the ATA commands quick enough, and linux would then reset it. Similar to this</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">[Wed Jun  6 12:51:54 2018] ata1: link is slow to respond, please be patient (ready=0)
 [Wed Jun  6 12:52:23 2018] ata1: COMRESET failed (errno=-16)
 [Wed Jun  6 12:52:23 2018] ata1: hard resetting link
 [Wed Jun  6 12:52:28 2018] ata1: COMRESET failed (errno=-16)
 [Wed Jun  6 12:52:28 2018] ata1: reset failed, giving up
-</code></pre>
-
-<p>Giving this &ldquo;bad disk&rdquo; a dedicated power plug resolved these issues. I had a similar issue when adding five 1U HP DL160&rsquo;s to a Cabinet, Friday night I hooked them all up, and we started the HDFS rebalance, but upon getting load on those machines, we got a phone call from Sungard saying that we&rsquo;re exceeding the power limit. Load can influence things, in many ways, I knew this; I guess this one just took me longer to realize.</p>
-
+</code></pre></div><p>Giving this &ldquo;bad disk&rdquo; a dedicated power plug resolved these issues. I had a similar issue when adding five 1U HP DL160&rsquo;s to a Cabinet, Friday night I hooked them all up, and we started the HDFS rebalance, but upon getting load on those machines, we got a phone call from Sungard saying that we&rsquo;re exceeding the power limit. Load can influence things, in many ways, I knew this; I guess this one just took me longer to realize.</p>
 <p>In other news, I have created a video on my camera showing the process of using a Yubikey and <code>pass</code> to get versioned passwords, but I realized that it was very ad-hoc and I deleted the video. I spent a fair amount of time editing in KDEnlive and audacity, but I just was not pleased with the end product so I will be redoing it and uploading it shortly. I also plan on writing up my home router creation and performance testing of MySQL as I hinted at last blog post. I did some performance testing of docker storage drivers and needless to say we will be avoiding btrfs, I didn&rsquo;t test with <code>nodatacow</code> as a mount option, but really XFS and overlay2 didn&rsquo;t have that option and performed very well. This test wasn&rsquo;t exhaustive, but enough to give an idea and fulfill proper investigation/baselining to change the storage drivers that my employer is using, without getting into too many details, a contractor configured us to use one that should not be used in production.</p>
 
-
-    
-    
-        <div class="chevrons">
-    <div id="navigation">
-<a class="nav nav-prev" href="/posts/gnutls_ed25519/" title="GnuTLS and ed25519"> <i class="fa fa-chevron-left"></i><label>GnuTLS and ed25519</label></a>
-    <a class="nav nav-next" href="/posts/self-2018/" title="SELF 2018" style="margin-right: 0px;"><label>SELF 2018</label><i class="fa fa-chevron-right"></i></a></div>
-  </div>
-
-  </section>
-</article>
-
-<footer>
-
-<div class="footline">
-    
-    <div class="tags"> 
-      
-        <a class="label label-default" href="https://kondor6c.github.io/tags/linux">linux</a>
-      
-        <a class="label label-default" href="https://kondor6c.github.io/tags/zfs">zfs</a>
-      
-        <a class="label label-default" href="https://kondor6c.github.io/tags/hardware">hardware</a>
-      
-    </div>
-    
-
-    
-
-    
-    <div class="date">
-        <i class='fa fa-calendar'></i> Last update on 02/08/2018
-    </div>
-    
-
-    
-    <div class="github-link">
-      <a href="https://github.com/kondor6c/contentposts/2018-08-02_end_of_disk_issues.md" target="blank"><i class="fa fa-code-fork"></i>
-        Improve this page</a>
-    </div>
-    
-  </div>
-
-
-	<div>
-
-
-  
-    Create a content/_footer.md file to customize the footer content
-  
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/linux/" rel="tag">linux</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/zfs/" rel="tag">zfs</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/hardware/" rel="tag">hardware</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
 
 
 
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2020 Web Book.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
 	</div>
 </footer>
-
-<script src="/js/clipboard.min.js"></script>
-
-<link href="/css/featherlight.min.css" rel="stylesheet">
-<script src="/js/featherlight.min.js"></script>
-
-
-
-<script src="/theme-flex/script.js"></script>
-
-
-    
-
-    
-    
-
-    
-  </body>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
 </html>

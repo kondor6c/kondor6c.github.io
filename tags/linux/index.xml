@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Linux on blog</title>
+    <title>linux on Web Book</title>
     <link>https://kondor6c.github.io/tags/linux/</link>
-    <description>Recent content in Linux on blog</description>
+    <description>Recent content in linux on Web Book</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 17 Mar 2019 00:00:00 +0000</lastBuildDate>
@@ -44,7 +44,7 @@
       <pubDate>Fri, 14 Oct 2016 00:00:00 +0000</pubDate>
       
       <guid>https://kondor6c.github.io/posts/urxvt_vs_eterm/</guid>
-      <description>====== urxvt vs Eterm ====== So I was trying different terminals so that I can keep on terminal just for a screencast sessions. I want to keep screencasting clean and partitioned. Additionally I have admitted to myself (now everyone else) that I need to know more about profiling the system, I got http://www.brendangregg.com/books.html on system performance, so far its very through. One complaint is that as a Solaris guy and even regarding many of his Linux presentations and writings is that he really favors dtrace, for obvious reasons; its a fantastic tracing tool.</description>
+      <description>====== urxvt vs Eterm ====== So I was trying different terminals so that I can keep on terminal just for a screencast sessions. I want to keep screencasting clean and partitioned. Additionally I have admitted to myself (now everyone else) that I need to know more about profiling the system, I got [http://www.brendangregg.com/books.html](Breddan Gregg&amp;rsquo;s book ) on system performance, so far its very through. One complaint is that as a Solaris guy and even regarding many of his Linux presentations and writings is that he really favors dtrace, for obvious reasons; its a fantastic tracing tool.</description>
     </item>
     
     <item>
@@ -65,7 +65,7 @@ I started to look at the failure of the btrfs volume, this truly appears that th
       <guid>https://kondor6c.github.io/posts/options-vs-arguments-vs-parameters/</guid>
       <description>====== options, arguments, or parameters ======
 Where I am currently employed there has been, in my opinion, an over application of the term &amp;ldquo;parameter&amp;rdquo;. Or at least from where I have been in the past. I have always thought that for example:
-example -x test.txt  -x would be a switch, and the option after -x, test.txt, would be argument. But it seems here or recently we apply the term parameter to everything.</description>
+example -x test.txt -x would be a switch, and the option after -x, test.txt, would be argument. But it seems here or recently we apply the term parameter to everything.</description>
     </item>
     
     <item>
@@ -74,7 +74,7 @@ example -x test.txt  -x would be a switch, and the option after -x, test.txt, wo
       <pubDate>Mon, 29 Aug 2016 00:00:00 +0000</pubDate>
       
       <guid>https://kondor6c.github.io/posts/standardization/</guid>
-      <description>====== Standardization ====== I am sure many of us have seen the xkcd comic &amp;ldquo;Standrads&amp;rdquo;, if not check it out, its kinda funny. I have been thinking about the debate and later burden that we seem to impose on ourselves through well intended standardization. This came around when there was a discussion at my full time employer about standardizing a spaces around the text and brackets only_if {node.fqdn.upcase =~ &#39;PROD&#39;} compared to only_if { node.</description>
+      <description>====== Standardization ====== I am sure many of us have seen the xkcd comic &amp;ldquo;Standrads&amp;quot;, if not check it out, its kinda funny. I have been thinking about the debate and later burden that we seem to impose on ourselves through well intended standardization. This came around when there was a discussion at my full time employer about standardizing a spaces around the text and brackets only_if {node.fqdn.upcase =~ &#39;PROD&#39;} compared to only_if { node.</description>
     </item>
     
     <item>
@@ -92,7 +92,11 @@ example -x test.txt  -x would be a switch, and the option after -x, test.txt, wo
       <pubDate>Wed, 30 Mar 2016 00:00:00 +0000</pubDate>
       
       <guid>https://kondor6c.github.io/posts/modern-marvels-engineering-disasters/</guid>
-      <description>Engineering Disasters  &amp;quot;If you look at the major disasters in history, you see in retrospect a sequence of mistakes each one of &amp;gt;which at the time appeared to be innocent an inconsequential. Which all combined in an unfortunate way at the &amp;gt;time of the disaster to create a disaster.&amp;quot; Dr. Roger L. McCarthy PE (Chairman Exponent Failure Analysis) While watching Modern Marvels, I have been really enjoying the Engineering Disasters, the particular enjoyment lies in the fact that one can view the root cause analysis.</description>
+      <description>&lt;div class=&#34;document&#34;&gt;
+
+
+&lt;p&gt;After watching Modern Marvels Engineering Disasters series I reflect on our profession and our &amp;quot;disasters&amp;quot;&lt;/p&gt;
+&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -101,7 +105,11 @@ example -x test.txt  -x would be a switch, and the option after -x, test.txt, wo
       <pubDate>Wed, 30 Mar 2016 00:00:00 +0000</pubDate>
       
       <guid>https://kondor6c.github.io/posts/btrfs_total_failure/</guid>
-      <description>RAID5 btrfs total failure and subsequent abandonment My btrfs volume failed last night. I tried to rebalance the array to a &amp;quot;JBOD&amp;quot; (just a bunch of disks), it seems that it failed during that rebalance. To really drill down into the failure, it seems based on lines of the device info (bdev...) both those devices have errors. I suspect that these one batch of these read errors were directly due to the failure last time, (this one has rd 76 corrupt 16, other one had corrupt 8 and read 76).</description>
+      <description>&lt;div class=&#34;document&#34;&gt;
+
+
+&lt;p&gt;btrfs RAID 5 fails entirely and takes my data with it&lt;/p&gt;
+&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -114,13 +122,23 @@ example -x test.txt  -x would be a switch, and the option after -x, test.txt, wo
     </item>
     
     <item>
+      <title>pyenv</title>
+      <link>https://kondor6c.github.io/posts/pyenv/</link>
+      <pubDate>Sun, 27 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://kondor6c.github.io/posts/pyenv/</guid>
+      <description>Version Managers I have been enjoying the idea of version managers for interpreted languages like Ruby, Python and even NodeJS. Python likes to advocate using virtualenv, which works very well when interacting and writing the code. However when interacting with automation like Ansible or Chef this becomes difficult since you have to source the shell scripts to install a given version.
+Some might argue that there isn&amp;rsquo;t a need to have one of these version managers, and as you might guess I disagree with that, and advocate for them.</description>
+    </item>
+    
+    <item>
       <title>white_spaces_can_be_dangerous</title>
       <link>https://kondor6c.github.io/posts/white_spaces_can_be_dangerous/</link>
       <pubDate>Sat, 19 Dec 2015 00:00:00 +0000</pubDate>
       
       <guid>https://kondor6c.github.io/posts/white_spaces_can_be_dangerous/</guid>
       <description>====== White spaces can be dangerous ====== When I was some go I noticed that it refused to compile due to a white space:
-&amp;ldquo; ./go-test-router.go:17: invalid identifier character U+2502 ./go-test-router.go:17: syntax error: unexpected name, expecting } &amp;ldquo;
+&#39;&amp;rsquo; ./go-test-router.go:17: invalid identifier character U+2502 ./go-test-router.go:17: syntax error: unexpected name, expecting } &#39;&amp;rsquo;
 I have noticed this first with Microsoft Windows formatting of white spaces and new lines. This is also true Word quotes. This was due to the fact that we had to put documentation on sharepoint.</description>
     </item>
     
@@ -132,16 +150,6 @@ I have noticed this first with Microsoft Windows formatting of white spaces and 
       <guid>https://kondor6c.github.io/posts/tiddlywiki_entry_everyday_for_30_days/</guid>
       <description>====== Tiddlywiki entry everyday for 30 days ======
 I&amp;rsquo;m going to make it a goal to make a tiddlywiki entry every day for 30 days. This will be in effort to help form a habit. Here is my plan, add items to track quick ideas like Million dollar ideas, things to research, plans for the house, programming/learning notes. Really Tiddlywiki should be quick and dirty, I want this dokuwiki to be more mature, organized, especially since it&amp;rsquo;s versioned with git.</description>
-    </item>
-    
-    <item>
-      <title>pyenv</title>
-      <link>https://kondor6c.github.io/posts/pyenv/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://kondor6c.github.io/posts/pyenv/</guid>
-      <description>Version Managers I have been enjoying the idea of version managers for interpreted languages like Ruby, Python and even NodeJS. Python likes to advocate using virtualenv, which works very well when interacting and writing the code. However when interacting with automation like Ansible or Chef this becomes difficult since you have to source the shell scripts to install a given version.
-Some might argue that there isn&amp;rsquo;t a need to have one of these version managers, and as you might guess I disagree with that, and advocate for them.</description>
     </item>
     
   </channel>

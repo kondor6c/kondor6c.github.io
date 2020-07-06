@@ -1,362 +1,84 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>blog</title>
-    
-      <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="revised" content="2019-03-19T08:04:24 EDT">
-<title>GnuTLS and ed25519 :: blog</title>
-<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
-<link href="/css/font-awesome.min.css" rel="stylesheet">
-<link href="/css/nucleus.css" rel="stylesheet">
-<link href="/theme-flex/style.css" rel="stylesheet">
-
-<link rel="stylesheet" href="/css/bootstrap.min.css">
-<script src="/js/jquery-2.x.min.js"></script>
-<script type="text/javascript">
-      var baseurl = "https:\/\/kondor6c.github.io\/";
-</script>
-<meta name="description" content="GNUTLS 3.6 brings ed25519 key support">
-
-
-
-    
-  </head>
-  <body data-url="/posts/gnutls_ed25519/">
-    
-      <header>
-  <div class="logo">
-    
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>GnuTLS and ed25519 - Web Book</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="GNUTLS 3.6 brings ed25519 key support">
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+	<link rel="stylesheet" href="/css/style.css">
 	
-  
-    <a class="baselink" href="https://kondor6c.github.io/">blog</a>
-  
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		<img src="https://www.kernel.org/theme/images/logos/tux.png" alt="Tux Linux Penguin" >
 
-
-  </div>
-  <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
-    <nav class="shortcuts">
-            <li class="" role="">
-                <a href="https://github.com/kondor6c/"  rel="noopener">
-                  <i class='fa fa-github'></i> <label>Github repo</label>
-                </a>
-            </li>
-    </nav>
+		<div class="divider"></div>
+	</div>
 </header>
-<article>
-  <aside>
-    <ul class="menu">
-          <li data-nav-id="/" class="dd-item">
-          <a href="/">
-            <i class="fa fa-fw fa-home"></i>
-          </a>
-          </li>
-    <li data-nav-id="/posts/" class="dd-item parent haschildren
-        ">
-      <div>
-      <a href="/posts/">Posts</a>
-            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
-      </div>
-        <ul>
-      <li data-nav-id="/posts/golang_with_no_googling/" class="dd-item">
-        <div>
-          <a href="/posts/golang_with_no_googling/">
-            Golang with no Googling
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/gnutls_ed25519/" class="dd-item active">
-        <div>
-          <a href="/posts/gnutls_ed25519/">
-            GnuTLS and ed25519
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/end_of_disk_issues/" class="dd-item">
-        <div>
-          <a href="/posts/end_of_disk_issues/">
-            An End of Disk Issues?
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/self-2018/" class="dd-item">
-        <div>
-          <a href="/posts/self-2018/">
-            SELF 2018
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/resume-blogging/" class="dd-item">
-        <div>
-          <a href="/posts/resume-blogging/">
-            Resume Blogging
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/openssl-video/" class="dd-item">
-        <div>
-          <a href="/posts/openssl-video/">
-            OpenSSL Video
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/urxvt_vs_eterm/" class="dd-item">
-        <div>
-          <a href="/posts/urxvt_vs_eterm/">
-            urxvt_vs_eterm
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/hurricane_matthew_weekend/" class="dd-item">
-        <div>
-          <a href="/posts/hurricane_matthew_weekend/">
-            Hurricane Matthew Weekend
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/options-vs-arguments-vs-parameters/" class="dd-item">
-        <div>
-          <a href="/posts/options-vs-arguments-vs-parameters/">
-            options-vs-arguments-vs-parameters
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/give_emacs_another_try/" class="dd-item">
-        <div>
-          <a href="/posts/give_emacs_another_try/">
-            Emacs
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/standardization/" class="dd-item">
-        <div>
-          <a href="/posts/standardization/">
-            standardization
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/powershell_linux_debut/" class="dd-item">
-        <div>
-          <a href="/posts/powershell_linux_debut/">
-            powershell_linux_debut
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/modern-marvels-engineering-disasters/" class="dd-item">
-        <div>
-          <a href="/posts/modern-marvels-engineering-disasters/">
-            
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/btrfs_total_failure/" class="dd-item">
-        <div>
-          <a href="/posts/btrfs_total_failure/">
-            RAID5 btrfs total failure and subsequent abandonment
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/bash_tips1/" class="dd-item">
-        <div>
-          <a href="/posts/bash_tips1/">
-            bash tips 1
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/white_spaces_can_be_dangerous/" class="dd-item">
-        <div>
-          <a href="/posts/white_spaces_can_be_dangerous/">
-            white_spaces_can_be_dangerous
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/tiddlywiki_entry_everyday_for_30_days/" class="dd-item">
-        <div>
-          <a href="/posts/tiddlywiki_entry_everyday_for_30_days/">
-            tiddlywiki_entry_everyday_for_30_days
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/x2go_or_freenx/" class="dd-item">
-        <div>
-          <a href="/posts/x2go_or_freenx/">
-            x2go or FreeNX
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/tls_in_practice/" class="dd-item">
-        <div>
-          <a href="/posts/tls_in_practice/">
-            
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/btrfs_scrub_fail/" class="dd-item">
-        <div>
-          <a href="/posts/btrfs_scrub_fail/">
-            
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/pyenv/" class="dd-item">
-        <div>
-          <a href="/posts/pyenv/">
-            pyenv
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-        </ul>
-    </li>
-
-
-
-
-    </ul>
-    <section>
-    </section>
-  </aside>
-  <section class="page">
-    
-    <div class="nav-select">
-      <center>Navigation : 
-        <select onchange="javascript:location.href = this.value;">
-          
-    <option value="/posts/" >
-   Posts</option> 
-      <option value="/posts/golang_with_no_googling/" >- Golang with no Googling</option>
-      <option value="/posts/gnutls_ed25519/"  selected>- GnuTLS and ed25519</option>
-      <option value="/posts/end_of_disk_issues/" >- An End of Disk Issues?</option>
-      <option value="/posts/self-2018/" >- SELF 2018</option>
-      <option value="/posts/resume-blogging/" >- Resume Blogging</option>
-      <option value="/posts/openssl-video/" >- OpenSSL Video</option>
-      <option value="/posts/urxvt_vs_eterm/" >- urxvt_vs_eterm</option>
-      <option value="/posts/hurricane_matthew_weekend/" >- Hurricane Matthew Weekend</option>
-      <option value="/posts/options-vs-arguments-vs-parameters/" >- options-vs-arguments-vs-parameters</option>
-      <option value="/posts/give_emacs_another_try/" >- Emacs</option>
-      <option value="/posts/standardization/" >- standardization</option>
-      <option value="/posts/powershell_linux_debut/" >- powershell_linux_debut</option>
-      <option value="/posts/modern-marvels-engineering-disasters/" >- </option>
-      <option value="/posts/btrfs_total_failure/" >- RAID5 btrfs total failure and subsequent abandonment</option>
-      <option value="/posts/bash_tips1/" >- bash tips 1</option>
-      <option value="/posts/white_spaces_can_be_dangerous/" >- white_spaces_can_be_dangerous</option>
-      <option value="/posts/tiddlywiki_entry_everyday_for_30_days/" >- tiddlywiki_entry_everyday_for_30_days</option>
-      <option value="/posts/x2go_or_freenx/" >- x2go or FreeNX</option>
-      <option value="/posts/tls_in_practice/" >- </option>
-      <option value="/posts/btrfs_scrub_fail/" >- </option>
-      <option value="/posts/pyenv/" >- pyenv</option>
-  
-
-
-
-        </select>
-      </center>
-    </div>
-      <div>
-        <div class="searchbox">
-          <input data-search-input id="search-by" type="text" placeholder="Search...">
-        </div>
-        <script type="text/javascript" src="/js/lunr.min.js"></script>
-        <script type="text/javascript" src="/js/auto-complete.js"></script>
-        <link href="/css/auto-complete.css" rel="stylesheet">
-        <script type="text/javascript">
-          
-              var baseurl = "https:\/\/kondor6c.github.io\/";
-          
-        </script>
-        <script type="text/javascript" src="/js/search.js"></script>
-      </div>
-    
-
-    <h1>GnuTLS and ed25519</h1>
-    
-    
-    
-    <p>I&rsquo;m very excited that GNUTLS has support for ed25519 keys, these keys are faster, smaller, and more secure than RSA keys. I found this out from a developer&rsquo;s blog while doing research and messing around with CA&rsquo;s in December. The reason I&rsquo;m writing this is that GNUTLS 3.6 has been made available in Fedora 28, therefore can all use this. Additionally and perhaps more importantly we gain the the ability to use TLS 1.3, which cloudflare has [written][1] [about][2]. The arrival of this support is slightly bitter sweet because we do lose support for GPG based x509 [certificates][3]. This is unfortunate in principle because the CA&rsquo;s that are apporved can impose a signifigant cost to an individual, I certainly have not used GPG based x509 certificates. I don&rsquo;t believe this is due an issue with lack of interest, I believe it is due to the difficulty of GPG and the fact that the end user often needs to have some kind of knowledge of PKI and how GPG does it; which I have found to be lacking. But like the GNUTLS developer [wrote][4], we can use Let&rsquo;s Encrypt, but it is hard to say what might be in Let&rsquo;s Encrypt&rsquo;s future. I sincerely wish it the best, it is nice to have competing or overlapping technologies, having the extra functionality does pose a couple issues because it increases an attack vector and more maintenance would be required on the software. I haven&rsquo;t found many people to use GNUTLS, but maybe people might with Kubnetes (additionally there have been concerns with OpenSSL). I guess we have that and we can roll our own CA! More on that later!</p>
-
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">GnuTLS and ed25519</h1>
+			
+		</header><div class="content post__content clearfix">
+			<p>I&rsquo;m very excited that GNUTLS has support for ed25519 keys, these keys are faster, smaller, and more secure than RSA keys. I found this out from a developer&rsquo;s blog while doing research and messing around with CA&rsquo;s in December. The reason I&rsquo;m writing this is that GNUTLS 3.6 has been made available in Fedora 28, therefore can all use this. Additionally and perhaps more importantly we gain the the ability to use TLS 1.3, which cloudflare has [written][1] [about][2]. The arrival of this support is slightly bitter sweet because we do lose support for GPG based x509 [certificates][3]. This is unfortunate in principle because the CA&rsquo;s that are apporved can impose a signifigant cost to an individual, I certainly have not used GPG based x509 certificates. I don&rsquo;t believe this is due an issue with lack of interest, I believe it is due to the difficulty of GPG and the fact that the end user often needs to have some kind of knowledge of PKI and how GPG does it; which I have found to be lacking. But like the GNUTLS developer [wrote][4], we can use Let&rsquo;s Encrypt, but it is hard to say what might be in Let&rsquo;s Encrypt&rsquo;s future. I sincerely wish it the best, it is nice to have competing or overlapping technologies, having the extra functionality does pose a couple issues because it increases an attack vector and more maintenance would be required on the software. I haven&rsquo;t found many people to use GNUTLS, but maybe people might with Kubnetes (additionally there have been concerns with OpenSSL). I guess we have that and we can roll our own CA! More on that later!</p>
 <p>We should briefly look at creating an ed25519 key with GNUTLS:</p>
-
-<pre><code>certtool --generate-privkey --key-type ed25519 --outfile key-ed25519.pem
-</code></pre>
-
-<p>That&rsquo;s it! Really simple, and personally I think it is much easier and readable than OpenSSL.</p>
-
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">certtool --generate-privkey --key-type ed25519 --outfile key-ed25519.pem
+</code></pre></div><p>That&rsquo;s it! Really simple, and personally I think it is much easier and readable than OpenSSL.</p>
 <p>[1] <a href="https://blog.cloudflare.com/why-iot-is-insecure/">https://blog.cloudflare.com/why-iot-is-insecure/</a>
 [2] <a href="https://blog.cloudflare.com/you-get-tls-1-3-you-get-tls-1-3-everyone-gets-tls-1-3/">https://blog.cloudflare.com/you-get-tls-1-3-you-get-tls-1-3-everyone-gets-tls-1-3/</a>
 [3] <a href="https://www.gnutls.org/manual/html_node/OpenPGP-certificates.html">https://www.gnutls.org/manual/html_node/OpenPGP-certificates.html</a>
 [4] <a href="https://nikmav.blogspot.com/2017/">https://nikmav.blogspot.com/2017/</a></p>
 
-
-    
-    
-        <div class="chevrons">
-    <div id="navigation">
-<a class="nav nav-prev" href="/posts/golang_with_no_googling/" title="Golang with no Googling"> <i class="fa fa-chevron-left"></i><label>Golang with no Googling</label></a>
-    <a class="nav nav-next" href="/posts/end_of_disk_issues/" title="An End of Disk Issues?" style="margin-right: 0px;"><label>An End of Disk Issues?</label><i class="fa fa-chevron-right"></i></a></div>
-  </div>
-
-  </section>
-</article>
-
-<footer>
-
-<div class="footline">
-    
-    <div class="tags"> 
-      
-        <a class="label label-default" href="https://kondor6c.github.io/tags/linux">linux</a>
-      
-        <a class="label label-default" href="https://kondor6c.github.io/tags/certs">certs</a>
-      
-        <a class="label label-default" href="https://kondor6c.github.io/tags/gnutls">gnutls</a>
-      
-    </div>
-    
-
-    
-
-    
-    <div class="date">
-        <i class='fa fa-calendar'></i> Last update on 19/08/2018
-    </div>
-    
-
-    
-    <div class="github-link">
-      <a href="https://github.com/kondor6c/contentposts/gnutls-3.6_ed25119.md" target="blank"><i class="fa fa-code-fork"></i>
-        Improve this page</a>
-    </div>
-    
-  </div>
-
-
-	<div>
-
-
-  
-    Create a content/_footer.md file to customize the footer content
-  
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/linux/" rel="tag">linux</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/certs/" rel="tag">certs</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/gnutls/" rel="tag">gnutls</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
 
 
 
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2020 Web Book.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
 	</div>
 </footer>
-
-<script src="/js/clipboard.min.js"></script>
-
-<link href="/css/featherlight.min.css" rel="stylesheet">
-<script src="/js/featherlight.min.js"></script>
-
-
-
-<script src="/theme-flex/script.js"></script>
-
-
-    
-
-    
-    
-
-    
-  </body>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
 </html>

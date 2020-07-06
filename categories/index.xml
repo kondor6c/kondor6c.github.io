@@ -1,14 +1,51 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on blog</title>
+    <title>Categories on Web Book</title>
     <link>https://kondor6c.github.io/categories/</link>
-    <description>Recent content in Categories on blog</description>
+    <description>Recent content in Categories on Web Book</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Sun, 03 Feb 2019 00:54:56 -0400</lastBuildDate>
     
 	<atom:link href="https://kondor6c.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>articles</title>
+      <link>https://kondor6c.github.io/categories/articles/</link>
+      <pubDate>Sun, 03 Feb 2019 00:54:56 -0400</pubDate>
+      
+      <guid>https://kondor6c.github.io/categories/articles/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>documents</title>
+      <link>https://kondor6c.github.io/categories/documents/</link>
+      <pubDate>Sun, 03 Feb 2019 00:54:56 -0400</pubDate>
+      
+      <guid>https://kondor6c.github.io/categories/documents/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>maintained</title>
+      <link>https://kondor6c.github.io/categories/maintained/</link>
+      <pubDate>Sun, 03 Feb 2019 00:54:56 -0400</pubDate>
+      
+      <guid>https://kondor6c.github.io/categories/maintained/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mutable</title>
+      <link>https://kondor6c.github.io/categories/mutable/</link>
+      <pubDate>Sun, 03 Feb 2019 00:54:56 -0400</pubDate>
+      
+      <guid>https://kondor6c.github.io/categories/mutable/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

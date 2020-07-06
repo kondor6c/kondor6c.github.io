@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hardware on blog</title>
+    <title>hardware on Web Book</title>
     <link>https://kondor6c.github.io/tags/hardware/</link>
-    <description>Recent content in Hardware on blog</description>
+    <description>Recent content in hardware on Web Book</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 02 Aug 2018 00:00:00 +0000</lastBuildDate>

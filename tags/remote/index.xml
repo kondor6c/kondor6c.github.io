@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Remote on blog</title>
+    <title>remote on Web Book</title>
     <link>https://kondor6c.github.io/tags/remote/</link>
-    <description>Recent content in Remote on blog</description>
+    <description>Recent content in remote on Web Book</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 19 Nov 2015 00:00:00 +0000</lastBuildDate>
@@ -17,7 +17,11 @@
       <pubDate>Thu, 19 Nov 2015 00:00:00 +0000</pubDate>
       
       <guid>https://kondor6c.github.io/posts/x2go_or_freenx/</guid>
-      <description>x2go or freenx I have had the worst time with x2go both on Fedora and Ubuntu, I thought neatx from Google was the preferred method for doing remote sessions but I heard that had changed. x2go doesn&#39;t even offer a Windows client like NoMachine offers. I was trying to test libpng on a scaleway Fedora 22 ARM server (https://bodhi.fedoraproject.org/updates/FEDORA-2015-6c07ab1fa6). I guess I&#39;ll have to find another way of doing that.</description>
+      <description>&lt;div class=&#34;document&#34;&gt;
+
+
+&lt;p&gt;After working on a Bohdi ticket I express fondness for Neatx&lt;/p&gt;
+&lt;/div&gt;</description>
     </item>
     
   </channel>

@@ -1,15 +1,28 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Gnutls on blog</title>
+    <title>gnutls on Web Book</title>
     <link>https://kondor6c.github.io/tags/gnutls/</link>
-    <description>Recent content in Gnutls on blog</description>
+    <description>Recent content in gnutls on Web Book</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 19 Aug 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 03 Feb 2019 00:54:56 -0400</lastBuildDate>
     
 	<atom:link href="https://kondor6c.github.io/tags/gnutls/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Trust TLS</title>
+      <link>https://kondor6c.github.io/docs/trust_tls/</link>
+      <pubDate>Sun, 03 Feb 2019 00:54:56 -0400</pubDate>
+      
+      <guid>https://kondor6c.github.io/docs/trust_tls/</guid>
+      <description>&lt;div class=&#34;document&#34;&gt;
+
+
+&lt;p&gt;An expanding document that should fully describe many components to TLS, geared for quick application&lt;/p&gt;
+&lt;/div&gt;</description>
+    </item>
     
     <item>
       <title>GnuTLS and ed25519</title>

@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Certs on blog</title>
+    <title>certs on Web Book</title>
     <link>https://kondor6c.github.io/tags/certs/</link>
-    <description>Recent content in Certs on blog</description>
+    <description>Recent content in certs on Web Book</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 19 Aug 2018 00:00:00 +0000</lastBuildDate>
@@ -26,7 +26,11 @@
       <pubDate>Sat, 24 Dec 2016 00:00:00 +0000</pubDate>
       
       <guid>https://kondor6c.github.io/posts/openssl-video/</guid>
-      <description>New video I&#39;ve wanted to make videos for a while now, and I finally have. I rehearsed for a couple iterations now, I wrote the outline and all the commands out before hand; [[public:linux:common#openssl|here is where you can view the outline/commands]] . Everything went pretty smoothly, everybody I spoke to in my circle spoke positively about it, I wish I could get a couple more reactions about the technical content. I tried to upload the video to a public locations: vimeo &amp;lt;https://vimeo.</description>
+      <description>&lt;div class=&#34;document&#34;&gt;
+
+
+&lt;p&gt;After having to generate a SHA1 certifcate and other people on my team did not understand the cert process, I make a video on it&lt;/p&gt;
+&lt;/div&gt;</description>
     </item>
     
   </channel>
