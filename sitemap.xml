@@ -97,6 +97,11 @@
   </url>
   
   <url>
+    <loc>https://kondor6c.github.io/</loc>
+    <lastmod>2019-03-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://kondor6c.github.io/posts/tls_in_practice/</loc>
   </url>
   
@@ -238,12 +243,6 @@
   <url>
     <loc>https://kondor6c.github.io/tags/zfs/</loc>
     <lastmod>2018-08-02T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://kondor6c.github.io/</loc>
-    <lastmod>2019-03-17T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
