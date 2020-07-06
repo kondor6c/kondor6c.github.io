@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Trust TLS - Web Book</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+	<link rel="stylesheet" href="/css/style.css">
+	
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		<img src="https://www.kernel.org/theme/images/logos/tux.png" alt="Tux Linux Penguin" >
+
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Trust TLS</h1>
+			
+		</header><div class="content post__content clearfix">
+			<div class="document" id="trust-tls">
+<h1 class="title">Trust TLS</h1>
+
+<p>A full document meant to help others with PKI and TLS</p>
+<div class="section" id="trust">
+<h2>Trust!</h2>
+<p>What is trust? It really is the common name for the measure of authenticity, mainly testing the location you are trying to connect to. The standard by which something is verified to be genuine. The verification of the client is really more of authentication, user/client. The two are very similar, an authentic which is probably why they both share the same root name, authentikos greek meaning approximately original, primary one. In modern day computing, we do this by trusting a few locations (Root CA's) then they issue trust to Intermediates who can then extend that trust to other locations like *.lwn.net or a specific name mail.kernel.org. I will try to explain all of this and more. It should be through, and I hope I explain it well. The focus of this document has been geared towards copy and pastable commands, this is so that busy/jr enegineers/administrators can copy and paste and get a mildly working setup. In some places input or specifying a different option is required.</p>
+<div class="section" id="openssl">
+<h3>OpenSSL</h3>
+<p>optional variables, for cleanliness purposes
+Generally speaking this will be the style throughout the document
+Root-Intermediate-&gt; will be for server certificates
+Root-Intermediate-Intermediate-&gt; will be for a cool team, demonstrating that we can have multi-level intermediates. This path is similar to <a class="reference external" href="http://tools.ietf.org/html/rfc4135.html">RFC 4135</a> 2.1</p>
+<p>Root-IntermediateUsers is User authority
+The files will typically have this pattern
+Intermediate-${cipher}_,${user},${note}.${type}
+Root-${cipher}_${Server},${note}.${type}
+Here are the filenames I use, I'm pretty bad at naming things, but something is better than nothing.</p>
+<pre class="code bash literal-block">
+<span class="name builtin">export</span> <span class="name variable">CA_PATH</span><span class="operator">=</span><span class="keyword">$(</span><span class="name builtin">pwd</span><span class="keyword">)</span>/common_infra
+<span class="name builtin">export</span> <span class="name variable">CERT_PATH</span><span class="operator">=</span><span class="literal string interpol">${</span><span class="name variable">CA_PATH</span><span class="literal string interpol">}</span>/certs
+<span class="name builtin">export</span> <span class="name variable">KEY_PATH</span><span class="operator">=</span><span class="literal string interpol">${</span><span class="name variable">CA_PATH</span><span class="literal string interpol">}</span>/keys
+<span class="name builtin">export</span> <span class="name variable">CSR_PATH</span><span class="operator">=</span><span class="literal string interpol">${</span><span class="name variable">CA_PATH</span><span class="literal string interpol">}</span>/csr
+<span class="name builtin">export</span> <span class="name variable">SRL_PATH</span><span class="operator">=</span><span class="literal string interpol">${</span><span class="name variable">CA_PATH</span><span class="literal string interpol">}</span>/serial
+<span class="name builtin">export</span> <span class="name variable">REVOKE_PATH</span><span class="operator">=</span><span class="literal string interpol">${</span><span class="name variable">CA_PATH</span><span class="literal string interpol">}</span>/revoke
+mkdir -p <span class="literal string interpol">${</span><span class="name variable">CSR_PATH</span><span class="literal string interpol">}</span>/ <span class="literal string interpol">${</span><span class="name variable">KEY_PATH</span><span class="literal string interpol">}</span>/ <span class="literal string interpol">${</span><span class="name variable">CERT_PATH</span><span class="literal string interpol">}</span>/ <span class="literal string interpol">${</span><span class="name variable">REVOKE_PATH</span><span class="literal string interpol">}</span>/ <span class="literal string interpol">${</span><span class="name variable">SRL_PATH</span><span class="literal string interpol">}</span>/
+</pre>
+<div class="section" id="rootca-ecc">
+<h4>RootCA ECC</h4>
+<p>generate the key, then generate the request, otherwise known as the Certificate signing request. The req request takes the request and immediately signs it and generates the certificate. Root certicates are always self signed, these are the highest level of the trust tree. Feel free to give this certificate out. If you own this machine, distribute it, and trust it (especially in a lab/sandbox).</p>
+<pre class="code bash literal-block">
+openssl ecparam -genkey -name prime256v1 -out <span class="literal string interpol">${</span><span class="name variable">KEY_PATH</span><span class="literal string interpol">}</span>/RootCA_ECC.key
+openssl req  -new -x509 -sha256 -days <span class="literal number">2191</span> -key <span class="literal string interpol">${</span><span class="name variable">KEY_PATH</span><span class="literal string interpol">}</span>/RootCA_ECC.key -reqexts v3_req -extensions v3_ca -out <span class="literal string interpol">${</span><span class="name variable">CERT_PATH</span><span class="literal string interpol">}</span>/RootCA_ECC.crt
+</pre>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Optional, we can do these operations as different commands, if you are learning this might be a good route, just to see what the command above is doing.</p>
+</div>
+<pre class="code bash literal-block">
+openssl req -new -sha256 -nodes -key <span class="literal string interpol">${</span><span class="name variable">KEY_PATH</span><span class="literal string interpol">}</span>/RootCA_ECC.key -reqexts v3_req -out <span class="literal string interpol">${</span><span class="name variable">CSR_PATH</span><span class="literal string interpol">}</span>/RootCA_ECC.csr <span class="operator">&amp;&amp;</span> <span class="literal string escape">\
+</span>openssl x509 -req -sha256 -signkey <span class="literal string interpol">${</span><span class="name variable">KEY_PATH</span><span class="literal string interpol">}</span>/RootCA_ECC.key -in <span class="literal string interpol">${</span><span class="name variable">CSR_PATH</span><span class="literal string interpol">}</span>/RootCA_ECC.csr -extensions v3_ca -out <span class="literal string interpol">${</span><span class="name variable">CERT_PATH</span><span class="literal string interpol">}</span>/RootCA_ECC.crt
+</pre>
+<div class="section" id="optional-generates-the-revoke-list">
+<h5>Optional (generates the revoke list)</h5>
+<p>Here a certificate revoke list is being generated. A certificate revoke list a location where clients can check to see if the issuer has revoked the certificate they are about to consume. These are typically not used day-to-day, and OCSP (stapling) is favored. Since OCSP prevents SSL Stripping, which can be done by proxies. If you want something funny, look at the bug of <tt class="docutils literal">man <span class="pre">openssl-crl</span></tt></p>
+<pre class="code bash literal-block">
+openssl crl -inform PEM -in <span class="literal string interpol">${</span><span class="name variable">KEY_PATH</span><span class="literal string interpol">}</span>/RootCA_ECC.key -CAfile <span class="literal string interpol">${</span><span class="name variable">CERT_PATH</span><span class="literal string interpol">}</span>/RootCA_ECC.crt -outform DER -out <span class="literal string interpol">${</span><span class="name variable">REVOKE_PATH</span><span class="literal string interpol">}</span>/RootCA_ECC.crl
+</pre>
+</div>
+</div>
+<div class="section" id="intermediateca-ecc">
+<h4>IntermediateCA ECC</h4>
+<p>These step could be repeated for a client certificate authority; it might be good so that this CA handles only users and will be need to be explicitly added to which ever trust will be handling the users. Additionally this could be given to an intern or contractor, and if the CA key/secret is compromised, there is limited impact to other CA's.</p>
+<pre class="code bash literal-block">
+openssl ecparam -genkey -name prime256v1 -out <span class="literal string interpol">${</span><span class="name variable">KEY_PATH</span><span class="literal string interpol">}</span>/IntermediateCA_ECC.key
+openssl req -new -sha256 -nodes -key <span class="literal string interpol">${</span><span class="name variable">KEY_PATH</span><span class="literal string interpol">}</span>/IntermediateCA_ECC.key -out <span class="literal string interpol">${</span><span class="name variable">CSR_PATH</span><span class="literal string interpol">}</span>/IntermediateCA_ECC.csr <span class="comment single">#CSR's
+</span>openssl x509 -req -days <span class="literal number">1200</span> -sha256 -in <span class="literal string interpol">${</span><span class="name variable">CSR_PATH</span><span class="literal string interpol">}</span>/IntermediateCA_ECC.csr -CAkey <span class="literal string interpol">${</span><span class="name variable">KEY_PATH</span><span class="literal string interpol">}</span>/RootCA_ECC.key -CA <span class="literal string interpol">${</span><span class="name variable">CERT_PATH</span><span class="literal string interpol">}</span>/RootCA_ECC.crt -out <span class="literal string interpol">${</span><span class="name variable">CERT_PATH</span><span class="literal string interpol">}</span>/IntermediateCA_ECC.crt -CAcreateserial -CAserial <span class="literal string interpol">${</span><span class="name variable">SRL_PATH</span><span class="literal string interpol">}</span>/IntermediateCA_ECC.srl <span class="comment single">#optional: -set_serial 01</span>
+</pre>
+<div class="section" id="ca-answers">
+<h5>CA Answers</h5>
+<p>If you want to make an &quot;answers&quot; file, this will allow you to by pass many of OpenSSL's prompts. When dealing with a lot of certificates this is very useful. Here is one for a Certificate Authority. Since by now you've already worked through a prompt with the Root CA, you should pretty much understand what the fields are used for.</p>
+<div class="line-block">
+<div class="line">[req]</div>
+<div class="line">prompt = no</div>
+<div class="line">default_md = sha256</div>
+<div class="line">req_extensions = req_ext</div>
+<div class="line">distinguished_name = dn</div>
+<div class="line">[ dn ]</div>
+<div class="line">C=US</div>
+<div class="line">ST=North Carolina</div>
+<div class="line">O=LazyTree</div>
+<div class="line">localityName=</div>
+<div class="line">commonName=*.lazytree.us</div>
+<div class="line">organizationalUnitName=HomeLab</div>
+<div class="line"><a class="reference external" href="mailto:emailAddress=kondor6c&#64;lazytree.us">emailAddress=kondor6c&#64;lazytree.us</a></div>
+</div>
+<p>Here we'll generate a server certificate with the same encryption type. But we'll do something a little special here. We'll specify extensions to the X509 certificate types. These are added on top of the X509 certificates, the really improve things good deal and chances are you'll need them, almost 100% you'll need Subject Alternate Names, typically just called &quot;SANs&quot;. The following is pretty much copy pastable, if you are in a pinch grab and go, replace some of the unique fields like file names and Locality type repsonses.</p>
+<pre class="code bash literal-block">
+openssl ecparam -genkey -name prime256v1 -out wildcard_lazytree_ECC.pem
+openssl req -new -sha256 -key wildcard_lazytree_ECC.pem -out <span class="literal string interpol">${</span><span class="name variable">CSR_PATH</span><span class="literal string interpol">}</span>/wildcard_lazytree_ECC.csr -config  &lt;<span class="operator">(</span>
+cat <span class="literal string">&lt;&lt;-EOD
+[req]
+prompt = no
+default_md = sha256
+req_extensions = req_ext
+distinguished_name = dn
+[ dn ]
+C=US
+ST=North Carolina
+O=LazyTree
+localityName=Redacted
+OU=HomeLab
+emailAddress=kondor6c&#64;lazytree.us
+CN=null.lazytree.us
+[ req_ext ]
+subjectAltName = &#64;alt_names
+[ alt_names ]
+DNS.1 = expired.lazytree.us
+DNS.2 = testing.lazytree.us
+DNS.3 = lazytree.us
+EOD</span>
+openssl x509 -req -days <span class="literal number">800</span> -sha256 -in <span class="literal string interpol">${</span><span class="name variable">CSR_PATH</span><span class="literal string interpol">}</span>/IntermediateCA_ECC.csr -CAkey IntermediateCA_ECC.pem -CAserial RootCA_ECC.srl -out <span class="literal string interpol">${</span><span class="name variable">CERT_PATH</span><span class="literal string interpol">}</span>/wildcard_lazytree_ECC.crt
+</pre>
+</div>
+<div class="section" id="serial">
+<h5>Serial</h5>
+<p>The first time you use your CA to sign a certificate you can use the -CAcreateserial option. This option will create a file (ca.srl) containing a serial number. You are probably going to create more certificate, and the next time you will have to do that use the -CAserial option (and no more -CAcreateserial) followed with the name of the file containing your serial number. This file will be incremented each time you sign a new certificate. This serial number will be readable using a browser (once the certificate is imported to a pkcs12 format). And we can have an idea of the number of certificate created by a CA.</p>
+</div>
+</div>
+<div class="section" id="clients-trust">
+<h4>Clients trust</h4>
+<dl class="docutils">
+<dt>This will allow clients to use certificate in a two manner there are many exampes of big projects that have support of this (but not limited to):</dt>
+<dd><ul class="first last simple">
+<li>postgres</li>
+<li>dovecot</li>
+<li>mysql</li>
+<li>HAProxy</li>
+<li>Apache</li>
+<li>nginx</li>
+<li>curl</li>
+<li>kafka</li>
+</ul>
+</dd>
+</dl>
+<p>I hope the list jogs your mind on where you can take this, two way SSL or &quot;mTLS&quot; or Mutual Authentication is really just allowing the client (the one connecting to the server) to specify a certificate, this is done at the client portion of the TLS handshake, which we'll dig into soon. Let's go ahead and generate the client cert here. I mentioned at the beginning of this documentation that I would try to use a different Intermediate for usage as a client CA. This is because you'll typically need to distribute this CA to clients, and might need to give access to the intermediates to other teams, like a client satisfaction team or sales engineers to issue new client certs quickly. This is just an example, not a best practice.</p>
+<pre class="code bash literal-block">
+openssl ecparam -genkey -name prime256v1 -out <span class="literal string interpol">${</span><span class="name variable">client_key_out</span><span class="literal string interpol">}</span>
+openssl req -new -sha256 -key <span class="literal string interpol">${</span><span class="name variable">client_key_out</span><span class="literal string interpol">}</span> -out <span class="literal string interpol">${</span><span class="name variable">CSR_PATH</span><span class="literal string interpol">}</span>/client_lazytree_ECC.csr
+openssl x509 -req -days <span class="literal number">300</span> -sha256 -in <span class="literal string interpol">${</span><span class="name variable">CSR_PATH</span><span class="literal string interpol">}</span>/client_lazytree_ECC.csr -CA <span class="literal string interpol">${</span><span class="name variable">CERT_PATH</span><span class="literal string interpol">}</span>/  IntermediateClientCA_ECC.crt -CAkey IntermediateClientCA_ECC.pem -out <span class="literal string interpol">${</span><span class="name variable">CERT_PATH</span><span class="literal string interpol">}</span>/client_lazytree_ECC.crt
+</pre>
+<div class="section" id="chains-or-bundles">
+<h5>Chains or Bundles</h5>
+<dl class="docutils">
+<dt>Chains can be used, or they don't have to be. The usage lies in the fact that if an intermediate is not trusted, but the root certificate is, or another intermediate in the chain is trusted. The name bundles are used because there are bundles of certificates (Root and Intermediates), it is <em>highly recommended</em> that the fully chain, be sent (hey you reading this, send dat chain!). You can find options that are used for CA Chains in the server secition below. The order is defined in <cite>RFC-5246 &lt;https://tools.ietf.org/html/rfc5246#section-7.4.2&gt;</cite> The order is exactly as follows:</dt>
+<dd><ol class="first last arabic simple">
+<li>Server Certificate</li>
+<li>Intermediate</li>
+<li>&lt;optional&gt; another Intermediate that has signed number two</li>
+<li>Root Certificate</li>
+</ol>
+</dd>
+</dl>
+<pre class="literal-block">
+cat IntermediateCA.crt RootCA.crt &gt; Cert-Chain.pem
+cat IntermediateCA_ECC.crt RootCA_ECC.crt &gt; Cert-Chain_ECC.pem
+</pre>
+</div>
+</div>
+<div class="section" id="verification-of-certificates">
+<h4>Verification of Certificates</h4>
+<p>It is always good to verify your work, even better to have a buddy check your work too, you never know what you might learn from somebody else's perspective.</p>
+<div class="section" id="examine-a-certificate">
+<h5>Examine a certificate</h5>
+<p>Check your work</p>
+<pre class="literal-block">
+openssl x509 -in ${CERT_PATH}/certificate.crt -text -noout
+</pre>
+<div class="section" id="examine-a-key-rsa">
+<h6>Examine a key (RSA)</h6>
+<p>You can also look at the key you produced</p>
+<pre class="literal-block">
+openssl rsa -in privateKey.key -check
+</pre>
+</div>
+<div class="section" id="examine-a-certificate-signing-request-csr">
+<h6>Examine a Certificate Signing Request (CSR)</h6>
+<p>To view a previously generated certificate signing request you can run the following.</p>
+<pre class="literal-block">
+openssl req -text -noout -verify -in CSR.csr
+</pre>
+</div>
+</div>
+<div class="section" id="revoke-a-cert">
+<h5>Revoke a Cert</h5>
+<p>As mentioned, revokation lists and the revoking process isn't done too much. But it could really help out, consider an example, 24 hours before a certificate is about to expire if an Internal CA were to revoke the soon to expire certificate, you will have an opportunity to know for sure which applciations depend on the certifcate. This could be very useful for large organizations. Just a tip!</p>
+<pre class="literal-block">
+openssl ca -config ca.conf -revoke ia.crt -keyfile ca.key -cert ${CERT_PATH}/ca.crt -crl_reason superseded
+</pre>
+</div>
+</div>
+</div>
+<div class="section" id="configuring-ssl-on-operating-systems">
+<h3>Configuring SSL on Operating Systems</h3>
+<p>Here is a list of operating systems and how to configure SSL on them, I hope this helps, if you know of somelet me know (open a pull request).</p>
+<div class="section" id="windows">
+<h4>Windows</h4>
+<p>First we need to prep, the the best of my knowledge windows doesn't handle pem formats, which is pretty frustrating. So we need to export it to a PKCS12 format.</p>
+<pre class="code bash literal-block">
+openssl pkcs12 -export -in wildcard_lazytree_ECC.crt -inkey wildcard_lazytree_ECC.pem -out wildcard_lazytree_ECC.pfx -certfile Cert-Chain_ECC.pem
+openssl pkcs12 -export -in wildcard_lazytree.crt -inkey wildcard_lazytree.pem -out wildcard_lazytree.pfx -certfile  Cert-Chain.pem
+openssl pkcs12 -export -nokeys -in RootCA.crt -out RootCA.pfx
+openssl pkcs12 -export -nokeys -in RootCA_ECC.crt -out RootCA_ECC.pfx
+</pre>
+<p>Now we can take that file and add it to Windows</p>
+<pre class="code console literal-block">
+<span class="generic output">certutil.exe -addstore &quot;RootCA_SHA1&quot; RootCA.pfx
+certutil.exe -addstore &quot;RootCA_ECC&quot; RootCA_ECC.pfx
+certutil.exe -importPFX wildcard_lazytree_ECC.pfx
+certutil.exe -importPFX wildcard_lazytree.pfx</span>
+</pre>
+</div>
+<div class="section" id="rhel-like-linux">
+<h4>RHEL-like Linux</h4>
+<p>You can easily add certificates to Redhat like distributions like Fedora, Centos, Amazon Linux, Scientific Linux or Oracle Linux. Consider distributing this as an RPM.</p>
+<pre class="code bash literal-block">
+rsync -va <span class="literal string escape">\*</span>crt /etc/pki/ca-trust/source/anchors/
+update-ca-trust force-enable
+</pre>
+</div>
+<div class="section" id="debian-like-linux-and-gentoo">
+<h4>Debian-like Linux AND Gentoo</h4>
+<p><cite>Gentoo &lt;https://wiki.gentoo.org/wiki/Certificates&gt;</cite> <a class="reference external" href="https://www.archlinux.org/news/ca-certificates-update/">https://www.archlinux.org/news/ca-certificates-update/</a></p>
+<pre class="code bash literal-block">
+rsync -va <span class="literal string escape">\*</span>crt /usr/local/share/ca-certificates/
+update-ca-certificates
+</pre>
+</div>
+<div class="section" id="android">
+<h4>Android</h4>
+<p>Settings &gt; Security &amp; Lock Screen &gt; Credential storage (under &quot;advanced&quot;) &gt; Install from storage</p>
+</div>
+</div>
+<div class="section" id="applications">
+<h3>Applications</h3>
+<div class="section" id="java">
+<h4>Java</h4>
+<p>Java holds the keys and certificates in a special file, called a keystore. It used to be a proprietary format JKS, but the newer, preferred format is p12 (PKCS12). You can access it with keytool, which should be in the same path as <tt class="docutils literal">java</tt> ($JAVA_HOME/bin/).</p>
+<pre class="literal-block">
+keytool -v -list -keystore /etc/pki/ca-trust/extracted/java/cacert || keytool -v -list -keystore /etc/pki/java/cacerts #changeit is Java's default
+keytool -import -trustcacerts -alias rootCA_ECC -file  RootCA_ECC.crt
+keytool -import -trustcacerts -alias IntermediateCA_ECC -file  IntermediateCA_ECC.crt
+keytool -import -trustcacerts -alias rootCA_weak -file  RootCA.crt
+keytool -import -trustcacerts -alias IntermediateCA_weak -file  IntermediateCA.crt
+</pre>
+</div>
+<div class="section" id="chrome">
+<h4>Chrome</h4>
+<p><a class="reference external" href="https://stackoverflow.com/questions/7580508/getting-chrome-to-accept-self-signed-localhost-certificate">https://stackoverflow.com/questions/7580508/getting-chrome-to-accept-self-signed-localhost-certificate</a>
+You can avoid the message for trusted sites by installing the certificate.
+This can be done by clicking on the warning icon in the address bar, then click
+&quot;Not secure&quot; -&gt; Certificate Invalid -&gt; Details Tab -&gt; Export... Save the certificate.</p>
+<p>Use Chrome's Preferences -&gt; Under The Hood -&gt; Manage Certificates -&gt; Import.
+On the &quot;Certificate Store&quot; screen of the import, choose &quot;Place all certificates in the following store&quot; and browse for &quot;Trusted Root Certification Authorities.&quot; Restart Chrome.
+Chrome Settings &gt; Show advanced settings &gt; HTTPS/SSL &gt; Manage Certificates &gt; Authorities</p>
+</div>
+<div class="section" id="nginx">
+<h4>Nginx</h4>
+<p><a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-on-centos-7">https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-on-centos-7</a></p>
+<div class="line-block">
+<div class="line">server {</div>
+<div class="line-block">
+<div class="line">listen 80;</div>
+<div class="line">server_name &quot;example.lazytree.us&quot;;</div>
+<div class="line">return 301 <a class="reference external" href="https://$host$request_uri">https://$host$request_uri</a>;</div>
+</div>
+<div class="line">}</div>
+<div class="line">server {</div>
+<div class="line-block">
+<div class="line">server_name &quot;10.1.1.1&quot;</div>
+<div class="line">listen 443 http2 ssl;</div>
+<div class="line">listen [::]:443 http2 ssl;</div>
+<div class="line">ssl_certificate /etc/ssl/certificates/example.lazytree.us/app_role.crt;</div>
+<div class="line">ssl_certificate_key /etc/ssl/keys/example.lazytree.us/app_role.key;</div>
+<div class="line">ssl_dhparam /etc/ssl/keys/example.lazytree.us/dhparam.pem;</div>
+</div>
+<div class="line">}</div>
+</div>
+</div>
+<div class="section" id="apache">
+<h4>Apache</h4>
+<p><a class="reference external" href="https://wiki.apache.org/httpd/RedirectSSL">https://wiki.apache.org/httpd/RedirectSSL</a></p>
+<div class="line-block">
+<div class="line">Listen 443 ssl</div>
+<div class="line">&lt;VirtualHost _default_:443&gt;</div>
+<div class="line-block">
+<div class="line">ServerName lazytree.us</div>
+<div class="line">SSLEngine on</div>
+<div class="line">SSLProtocol all -SSLv2 -SSLv3</div>
+<div class="line">SSLCertificateFile /etc/pki/tls/certs/</div>
+<div class="line">SSLCertificateKeyFile /etc/pki/tls/private/</div>
+<div class="line">SSLCertificateChainFile /etc/pki/tls/certs/chain.crt</div>
+<div class="line">SSLCACertificateFile /etc/httpd/conf.d/tls/client_IntermediateCA.crt</div>
+<div class="line">SSLOpenSSLConfCmd DHParameters &quot;/etc/pki/ssl/dhparams.pem&quot;</div>
+<div class="line">RewriteEngine On</div>
+<div class="line">RewriteCond %{HTTPS} off</div>
+<div class="line">RewriteRule ^/?(.*) <a class="reference external" href="https:/">https:/</a>/%{SERVER_NAME}/$1 [R,L]</div>
+</div>
+<div class="line">&lt;/VirtualHost&gt;</div>
+</div>
+<p># It would be nice to get blake2s256 supported in more places
+#GPG fingerprint = 7545BFF3710684D2E6BCFE98C5D5F4BED24A4A02
+#GPG fingerprint = 438263E03BF0BDC64F9A6415AA63E0576CC60292</p>
+</div>
+</div>
+<div class="section" id="gnu-tls">
+<h3>GNU TLS</h3>
+<p>I have recently been liking GnuTLS since it has rather descriptive options, they are easy to read and self describing of the process. The issue is that it isn't always installed.</p>
+<pre class="code console literal-block">
+<span class="generic output">certtool --generate-privkey --bits 4096 --outfile RootCA_G-RSA.pem
+certtool --generate-request --load-privkey RootCA_G-RSA.pem --hash=SHA256 --template gnutls-ssl-answers.txt --outfile RootCA_G-RSA.csr
+certtool --generate-certificate --load-privkey RootCA_G-ECC.pem --outfile RootCA_G-ECC.crt --load-ca-certificate ca-cert.pem --load-ca-privkey ca-key.pem</span>
+</pre>
+<div class="section" id="gnu-tls-ecc">
+<h4>GNU TLS ECC</h4>
+<p>Coming in version 3.6!! Ed25519 keys
+<tt class="docutils literal">certtool <span class="pre">--generate-privkey</span> <span class="pre">--key-type</span> ed25519 <span class="pre">--outfile</span> <span class="pre">RootCA_G-ECC.pem</span></tt>
+otherwise you might need to go with secp 256</p>
+<pre class="code bash literal-block">
+certtool --generate-privkey --ecc --curve secp256r1 --outfile RootCA_G-ECC.pem
+certtool --generate-request --load-privkey RootCA_G-ECC.pem --hash<span class="operator">=</span>SHA256 --outfile RootCA_G-ECC.csr
+certtool --generate-certificate --load-privkey RootCA_G-ECC.pem --outfile RootCA_G-ECC.crt --load-ca-certificate ca-cert.pem --load-ca-privkey ca-key.pem
+</pre>
+</div>
+</div>
+<div class="section" id="quick-reference-lists">
+<h3>Quick Reference Lists</h3>
+<p>You could call these &quot;cheat sheets&quot; but these are more translation matrixes, like a rosetta stone of options. I often get frustrated with how many different options I'm called to remember (not entirely told, but just feel as though, professionally, I should). It can be difficult not specializing in a specific peice of software, since you have a ever expanding target of defaults, types of actions, configurations locations, and command line arguements; but I digress. I hope to make more of these, checkout my dotfiles where I use the top 26 lines as a quick reference. Some the options I know, others I have a hard time remembering, while others I learned while making it. <a class="reference external" href="https://github.com/kondor6c/dotfiles">https://github.com/kondor6c/dotfiles</a></p>
+</div>
+<div class="section" id="verification">
+<h3>verification</h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="38%" />
+<col width="32%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">OpenSSL</th>
+<th class="head">GnuTLS</th>
+<th class="head">function</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>x509 -verify</td>
+<td>--verify</td>
+<td>verify x509 cert</td>
+</tr>
+<tr><td>x509 -CAfile</td>
+<td>--load-ca-certificate</td>
+<td>verify chain CA file</td>
+</tr>
+<tr><td>x509 -text -noout -in</td>
+<td>--certificate-info --infile</td>
+<td>verify an x509 cert</td>
+</tr>
+<tr><td>req -noout -text -in</td>
+<td>--crq-info --infile</td>
+<td>examine a CSR</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="x509-generation">
+<h3>x509 generation</h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="33%" />
+<col width="36%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">OpenSSL</th>
+<th class="head">GnuTLS</th>
+<th class="head">function</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>x509 -text -noout -in</td>
+<td>--verify --infile</td>
+<td>verify x509 certicate</td>
+</tr>
+<tr><td>x509 -CAfile</td>
+<td>--load-ca-certificate</td>
+<td>verify chain againt file</td>
+</tr>
+<tr><td>x509 -CAkey</td>
+<td>--load-ca-privkey</td>
+<td>load CA key to sign</td>
+</tr>
+<tr><td>x509 -req</td>
+<td>--load-request</td>
+<td>load CSR to sign for cert</td>
+</tr>
+<tr><td>x509 -CA</td>
+<td>--load-ca-certificate</td>
+<td>Load CA cert to sign</td>
+</tr>
+<tr><td>x509 -config</td>
+<td>--template</td>
+<td>preconfigured answers</td>
+</tr>
+<tr><td>x509 -sha256</td>
+<td>--hash=SHA256</td>
+<td>certificate hash (sha256)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="keys-rsa">
+<h3>keys (RSA)</h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="39%" />
+<col width="32%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">OpenSSL</th>
+<th class="head">GnuTLS</th>
+<th class="head">function</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>genrsa -out</td>
+<td>--generate-privkey --outfile</td>
+<td>Write rsa Key to file</td>
+</tr>
+<tr><td>rsa -noout -text -in</td>
+<td>-k --infile</td>
+<td>examine RSA Key</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="diffie-helman">
+<h3>Diffie Helman</h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="41%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">OpenSSL</th>
+<th class="head">GnuTLS</th>
+<th class="head">function</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>dhparam 2048 -out</td>
+<td>--generate-dh-params</td>
+<td>generate parameters</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="ref">
+<h3>ref</h3>
+<p>links and stuff
+<a class="reference external" href="https://jamielinux.com/docs/openssl-certificate-authority/create-the-root-pair.html">https://jamielinux.com/docs/openssl-certificate-authority/create-the-root-pair.html</a></p>
+</div>
+<div class="section" id="rfc-list">
+<h3>RFC list</h3>
+<p>Forward Secrecyree_SSH_CA-ed -h -t ed25519 -a 100
+ssh-keygen -f LazyTree_SSH_CA-ecdsa -h -t ecdsa -b 521
+ssh-keygen -f LazyTree_SSH_CA-rsa -h -t rsa -b 4096</p>
+<div class="section" id="traditional-host-keys">
+<h4>Traditional Host Keys</h4>
+<p>ssh-keygen -f LazyTree_SSH-rsa -t rsa -b 4096
+ssh-keygen -f LazyTree_SSH-ed -t ed25519 -a 100
+ssh-keygen -f LazyTree_SSH-ecdsa -t ecdsa -b 521</p>
+</div>
+<div class="section" id="dh-params">
+<h4>DH Params</h4>
+<p>Diffie Helman is pretty cool</p>
+<pre class="literal-block">
+openssl dhparam -out dhparam.pem 4096
+</pre>
+</div>
+</div>
+<div class="section" id="openssh-ca">
+<h3>OpenSSH CA</h3>
+<p><a class="reference external" href="https://blog.habets.se/2011/07/OpenSSH-certificates.html">https://blog.habets.se/2011/07/OpenSSH-certificates.html</a></p>
+</div>
+<div class="section" id="host-ca-s">
+<h3>Host CA's</h3>
+<p>ssh-keygen -f LazyTree_SSH_CA-ed -h -t ed25519 -a 100
+ssh-keygen -f LazyTree_SSH_CA-ecdsa -h -t ecdsa -b 521
+ssh-keygen -f LazyTree_SSH_CA-rsa -h -t rsa -b 4096</p>
+<p>Traditional Host Keys</p>
+<p>ssh-keygen -f LazyTree_SSH-rsa -t rsa -b 4096
+ssh-keygen -f LazyTree_SSH-ed -t ed25519 -a 100
+ssh-keygen -f LazyTree_SSH-ecdsa -t ecdsa -b 521</p>
+</div>
+</div>
+</div>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/comprhensive/" rel="tag">comprhensive</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/tls/" rel="tag">TLS</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/pki/" rel="tag">PKI</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/openssl/" rel="tag">openssl</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/gnutls/" rel="tag">gnutls</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+
+
+
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2020 Web Book.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+</body>
+</html>
